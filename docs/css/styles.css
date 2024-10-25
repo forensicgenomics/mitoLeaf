@@ -118,7 +118,7 @@ h2 {
 .subtle-card {
     border-radius: 10px;
     border: none;
-    width: 80%; /* to make it smaller than column */
+    max-width: 100%;
 }
 .subtle-card .card-title {
     font-size: 1rem;
