@@ -70,13 +70,18 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
             <!-- radial tree -->
             <div id="radial-tree">
                 <!-- Radial Tree content will be displayed here -->
-                <div id="controls" class="mb-3" style="position: absolute; right: 2%; bottom: 2%">
+                <div id="controls-desktop" class="mb-3 d-none d-lg-block" style="position: absolute; right: 2%; bottom: 2%">
                     <button id="download-button" class="btn btn-success btn-sm">Download SVG</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+        <!-- Download Button for Mobile View -->
+    <div id="controls-mobile" class="d-lg-none text-center mt-3">
+        <button id="download-button-mobile" class="btn btn-success btn-sm">Download SVG</button>
+    </div>
 
     <!-- Content Below the Tree -->
     <div class="card mt-4">
@@ -97,6 +102,13 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
             document.getElementById('markdown-content').innerHTML = marked.parse(text);
         })
     .catch(error => console.error('Error loading markdown:', error));
+</script>
+
+<!-- mobile download button handler -->
+<script>
+    document.getElementById('download-button-mobile').addEventListener('click', function() {
+        document.getElementById('download-button').click();
+    });
 </script>
 
 <!-- Footer -->
