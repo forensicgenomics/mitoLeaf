@@ -31,10 +31,15 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
         <a href="documentation.html" title="More information" class="info-icon">ⓘ</a>
     </div>
 
+   <div class="d-lg-none d-inline-flex" id="haplo-buttons-mobile" style="margin-bottom: 2%">
+        <button id="reset-button-mobile" class="btn btn-secondary btn-sm" style="white-space: nowrap">Reset Search</button>
+        <button id="download-button-mobile" class="btn btn-success btn-sm" style="white-space: nowrap; margin-left: 2%">Download CSV</button>
+    </div>
+
     <!-- Id search -->
-    <div class="d-flex mb-3 align-items-center" style="width: 100%;">
+    <div class="d-flex mb-3 align-items-center">
         <div class="input-group align-items-center me-3 input-group-sm">
-            <input type="text" id="node-search-input" class="form-control" placeholder="Search by ID">
+            <input type="text" id="node-search-input" class="form-control" placeholder="Search by ID" style="min-width: 40%">
             <button id="search-button" class="btn btn-primary btn-sm rounded-end">Search</button>
 
             <div class="form-check form-switch ms-3 d-flex align-items-center">
@@ -42,13 +47,15 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
                 <label for="case-toggle" class="form-check-label me-2 mb-0">Case Sensitive</label>
             </div>
         </div>
-        <button id="reset-button" class="btn btn-secondary btn-sm" style="white-space: nowrap; margin-left: 5%">Reset Search</button>
-        <button id="download-button" class="btn btn-success btn-sm" style="white-space: nowrap; margin-left: 2%">Download CSV</button>
+        <div class="d-lg-inline-flex d-none" id="haplo-buttons" style="align-items: center">
+            <button id="reset-button" class="btn btn-secondary btn-sm" style="white-space: nowrap; margin-left: 5%">Reset Search</button>
+            <button id="download-button" class="btn btn-success btn-sm" style="white-space: nowrap; margin-left: 2%">Download CSV</button>
+        </div>
     </div>
 
     <!-- HG search -->
     <div class="input-group mb-3 input-group-sm">
-        <input type="text" id="nodeHG-search-input" class="form-control" placeholder="Search by HG Signature">
+        <input type="text" id="nodeHG-search-input" class="form-control" placeholder="Search by HG Signature" style="min-width: 40%">
         <button id="searchHG-button" class="btn btn-primary rounded-end">Search</button>
 
         <!-- Toggle Switch -->
@@ -88,6 +95,15 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
 <!-- Footer -->
 <div id="footer-container"></div>
 
+<!-- mobile button handler -->
+<script>
+    document.getElementById('download-button-mobile').addEventListener('click', function() {
+        document.getElementById('download-button').click();
+    });
+    document.getElementById('reset-button-mobile').addEventListener('click', function() {
+        document.getElementById('reset-button').click();
+    });
+</script>
 
 <script src="js/lib_files/bootstrap.bundle.min.js"></script>
 <script src="js/loadTemplates.js"></script>

@@ -189,3 +189,13 @@ h2 {
     z-index: 99;
     display: none; /* Initially hidden */
 }
+
+
+/* Default style for larger screens */
+.search-container {
+    flex-wrap: nowrap;
+}
+
+.button-container {
+    margin-left: 5%;
+}
