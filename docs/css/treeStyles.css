@@ -33,6 +33,21 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
 }
 
 
+/* the following is to overdraw the text beneath the header on the radial tree homepage in desktop
+but not in mobile mode */
+.homepage-text {
+    width: 100%;
+    overflow: hidden;
+}
+@media (min-width: 992px) {
+    .homepage-text {
+        width: 170%;
+        position: relative;
+        z-index: 2;
+    }
+}
+
+
 /* collapsible tree section */
 #collapsible-tree {
     overflow-x: auto; /* enables horizontal scrolling */
