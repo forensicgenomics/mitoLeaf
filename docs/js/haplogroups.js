@@ -167,19 +167,41 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
+
     // fetch data and initial render
     Promise.all([
         d3.json('data/tree.json'),
         d3.json('data/hgmotifs.json')
     ]).then(function([treeData, motifsData]) {
-        const root = d3.hierarchy(treeData);
-        nodesData = root.descendants();
+        nodesData = [];
+
+        // has to be done manually rather than with d3s hierarchy to preserve order
+        // traverse the treeData and wrap data in 'data' field
+        function traverseInOrder(node) {
+            const wrappedNode = {
+                data: {
+                    name: node.name,
+                    HG: node.HG,
+                    ...node  // all other properties
+                }
+            };
+
+            nodesData.push(wrappedNode);
+
+            if (node.children) {
+                node.children.forEach(traverseInOrder);
+            }
+        }
+
+        traverseInOrder(treeData);
+
         hgMotifsData = motifsData;
 
         resetAndRenderAllNodes();
     }).catch(function(error) {
         console.error('Error loading or processing the JSON data:', error);
     });
+
 
     // event listeners for search inputs
     if (idSearchButton && hgSearchButton) {
@@ -220,6 +242,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // also handles counter and show more button
     function resetAndRenderAllNodes() {
         filteredNodesData = nodesData;
+
         renderTable();
 
         const searchResultsCounter = document.getElementById('search-results-counter');
