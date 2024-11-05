@@ -101,6 +101,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     return node.data.name.toLowerCase().includes(searchTermID.toLowerCase());
                 }
             });
+
+            // sort results by best fit, calculating similarity score
+            filteredNodesData = filteredNodesData.map(node => {
+                const similarityScore = getSimilarityScore(node.data.name, searchTermID);
+                return { node, similarityScore };
+            });
+            filteredNodesData.sort((a, b) => a.similarityScore - b.similarityScore);
+            filteredNodesData = filteredNodesData.map(item => item.node);
         }
 
         // filter by HG
