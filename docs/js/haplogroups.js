@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchModeToggle = document.getElementById('search-mode-toggle');
     const showMoreButton = document.getElementById('show-more-button');
     const resetButton = document.getElementById('reset-button');
+    const tableHeader = document.getElementById('hg-header');
 
     let nodesData = [];
     // array to hold filtered search results
@@ -46,10 +47,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         pageData.forEach(node => {
             const row = document.createElement('tr');
+            // show full HG-Sig when has mutation mode is active, normal HG-Sig otherwise
             row.innerHTML = `
                 <td>${node.data.name}</td>
-                <td>${formatHGSignature(node.data.HG)}</td>
-            `;
+                <td>${searchModeToggle.checked ? formatHGSignature(hgMotifsData[node.data.name]) : formatHGSignature(node.data.HG)}</td>            `;
 
             // onclick to go to node info page
             row.addEventListener('click', () => {
@@ -168,13 +169,23 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        searchResultsCounter.style.display = 'block';
-        searchResultsText.textContent = `${filteredNodesData.length} result(s) found`;
+        // only show search results, if the search fields are not empty
+        if (searchTermID || searchTermHG) {
+            searchResultsCounter.style.display = 'block';
+            searchResultsText.textContent = `${filteredNodesData.length} result(s) found`;
+        }
 
+        updateTableHeader();
         renderTable();
     }
 
-
+    function updateTableHeader() {
+        if (searchModeToggle.checked) {
+            tableHeader.textContent = 'Full HG-Signature';
+        } else {
+            tableHeader.textContent = 'HG-Signature';
+        }
+    }
 
     // fetch data and initial render
     Promise.all([
@@ -239,6 +250,13 @@ document.addEventListener('DOMContentLoaded', function () {
             resetAndRenderAllNodes();
         });
     }
+
+    // event listener of mutation mode search toggle to change table header
+    searchModeToggle.addEventListener('change', function () {
+        updateTableHeader();
+        combinedFilterNodes();
+    });
+
 
     // handle node info page navigation
     function showNodeInfo(node) {
