@@ -52,6 +52,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 <td>${node.data.name}</td>
                 <td>${searchModeToggle.checked ? formatHGSignature(hgMotifsData[node.data.name]) : formatHGSignature(node.data.HG)}</td>            `;
 
+            // pointer change and tooltip
+            row.style.cursor = 'pointer';
+            row.setAttribute('title', `Click to view details for ${node.data.name}`);
+
             // onclick to go to node info page
             row.addEventListener('click', () => {
                 showNodeInfo(node);
