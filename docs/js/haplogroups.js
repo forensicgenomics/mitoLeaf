@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchModeToggle = document.getElementById('search-mode-toggle');
     const showMoreButton = document.getElementById('show-more-button');
     const resetButton = document.getElementById('reset-button');
+    const tableHeader = document.getElementById('hg-header');
 
     let nodesData = [];
     // array to hold filtered search results
@@ -46,10 +47,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         pageData.forEach(node => {
             const row = document.createElement('tr');
+            // show full HG-Sig when has mutation mode is active, normal HG-Sig otherwise
             row.innerHTML = `
                 <td>${node.data.name}</td>
-                <td>${formatHGSignature(node.data.HG)}</td>
-            `;
+                <td>${searchModeToggle.checked ? formatHGSignature(hgMotifsData[node.data.name]) : formatHGSignature(node.data.HG)}</td>            `;
+
+            // pointer change and tooltip
+            row.style.cursor = 'pointer';
+            row.setAttribute('title', `Click to view details for ${node.data.name}`);
 
             // onclick to go to node info page
             row.addEventListener('click', () => {
@@ -101,6 +106,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     return node.data.name.toLowerCase().includes(searchTermID.toLowerCase());
                 }
             });
+
+            // sort results by best fit, calculating similarity score
+            filteredNodesData = filteredNodesData.map(node => {
+                const similarityScore = getSimilarityScore(node.data.name, searchTermID);
+                return { node, similarityScore };
+            });
+            filteredNodesData.sort((a, b) => a.similarityScore - b.similarityScore);
+            filteredNodesData = filteredNodesData.map(item => item.node);
         }
 
         // filter by HG
@@ -160,26 +173,58 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        searchResultsCounter.style.display = 'block';
-        searchResultsText.textContent = `${filteredNodesData.length} result(s) found`;
+        // only show search results, if the search fields are not empty
+        if (searchTermID || searchTermHG) {
+            searchResultsCounter.style.display = 'block';
+            searchResultsText.textContent = `${filteredNodesData.length} result(s) found`;
+        }
 
+        updateTableHeader();
         renderTable();
     }
 
+    function updateTableHeader() {
+        if (searchModeToggle.checked) {
+            tableHeader.textContent = 'Full HG-Signature';
+        } else {
+            tableHeader.textContent = 'HG-Signature';
+        }
+    }
 
     // fetch data and initial render
     Promise.all([
         d3.json('data/tree.json'),
         d3.json('data/hgmotifs.json')
     ]).then(function([treeData, motifsData]) {
-        const root = d3.hierarchy(treeData);
-        nodesData = root.descendants();
+        nodesData = [];
+
+        // has to be done manually rather than with d3s hierarchy to preserve order
+        // traverse the treeData and wrap data in 'data' field
+        function traverseInOrder(node) {
+            const wrappedNode = {
+                data: {
+                    name: node.name,
+                    HG: node.HG,
+                    ...node  // all other properties
+                }
+            };
+
+            nodesData.push(wrappedNode);
+
+            if (node.children) {
+                node.children.forEach(traverseInOrder);
+            }
+        }
+
+        traverseInOrder(treeData);
+
         hgMotifsData = motifsData;
 
         resetAndRenderAllNodes();
     }).catch(function(error) {
         console.error('Error loading or processing the JSON data:', error);
     });
+
 
     // event listeners for search inputs
     if (idSearchButton && hgSearchButton) {
@@ -210,6 +255,13 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // event listener of mutation mode search toggle to change table header
+    searchModeToggle.addEventListener('change', function () {
+        updateTableHeader();
+        combinedFilterNodes();
+    });
+
+
     // handle node info page navigation
     function showNodeInfo(node) {
         console.log('Navigating to node info page for:', node);
@@ -220,6 +272,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // also handles counter and show more button
     function resetAndRenderAllNodes() {
         filteredNodesData = nodesData;
+
         renderTable();
 
         const searchResultsCounter = document.getElementById('search-results-counter');

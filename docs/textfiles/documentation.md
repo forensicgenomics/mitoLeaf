@@ -67,7 +67,7 @@ Initially, the tree is expanded to reveal all designated ‘Superhaplogroups’.
   - **Node Info:** Clicking on a node will redirect you to the haplogroup info page of that node.
 - **Reset Tree button:** Reset the tree to its initial rendering. Equivalent to reloading the page.
 - **Expand Fully button:** Expands all nodes to show the entire tree. Caution: this may take a while.
-- **ID search:** Use the search bar to search for Haplogroups by their name. Only currently expanded Nodes will be searched. The search is case sesitive.  
+- **Name search:** Use the search bar to search for Haplogroups by their name. Only currently expanded Nodes will be searched. The search is case sesitive.  
 All matches will be highlighted, and the tree will be centered to show the best match. Use the Prev/Next buttons to navigate through the remaining matches and center them.  
 The number of matches will also be displayed next to the search bar.
 - **Download svg:** Click the button to download the current tree visualization as a .svg. Customize what is shown beforehand and then download your custom tree visualization.
@@ -76,11 +76,11 @@ The number of matches will also be displayed next to the search bar.
 
 ## Haplogroup Search
 
-This table displays all Haplogroups with their ID(name) and their HG-Signature.   
+This table displays all Haplogroups with their Name and their HG-Signature.   
 Search domains can be combined.  
 Reset by deleting from the search fields, reloading the page or with the reset button.
 
-- **Search by ID:** Searching will show all full and partial ID matches to the entered keyword, ordered by relevance.
+- **Search by Name:** Searching will show all full and partial Name matches to the entered keyword, ordered by relevance.
   - **Case Sensitive toggle:** The search is case-sensitive by default, but can be deselected.
 - **Search by HG Signature:** Use the toggle to switch between exact signature match and mutation inheritance modes.  
   You can search for a position by omitting the base/mutation (i.e., '123') or a position & base/mutation pair (i.e. '123A' or '123-', etc.).
@@ -88,7 +88,7 @@ Reset by deleting from the search fields, reloading the page or with the reset b
   You can search multiple positions/mutations at once by separating them with a space or a comma (i.e., '123A 246G'). The search will then attempt to match all entered mutations in the selected mode.
   - **Exact Signature:** Matches any haplogroups that carry all entered positions or mutations in their HG-Signature (the mutation occurred on their level).
   - **Has Mutation:** Matches any haplogroups that carry all entered positions or mutations in their Full HG-Signature (meaning they have these mutations). For example, if HG 'A' has the mutation '123A', its descendants will also be shown when searching for '123' or '123A', unless they have a backmutation or a different mutation at that position.
-- **Combine Searches:** Search domains are combined. I.e., search shows only results that match the 'ID' search field entry as well as those of the 'HG Signature' search field or any others present and not empty.
+- **Combine Searches:** Search domains are combined. I.e., search shows only results that match the 'Name' search field entry as well as those of the 'HG Signature' search field or any others present and not empty.
 - **Reset Search:** Resets all search domains and shows all Haplogroups again. Equivalent to reloading the page.
 - **Download CSV:** Downloads the current filtered table as a .csv.
 

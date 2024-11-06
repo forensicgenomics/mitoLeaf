@@ -159,8 +159,16 @@ h2 {
     margin-left: 15px;
 }
 .info-icon:hover {
-    color: #0056b3;
+    color: darkgreen;
 }
+
+.docu-ref {
+    color: #198754;
+}
+.docu-ref:hover {
+    color: darkgreen;
+}
+
 
 
 /* button present on explore and haplogroups page to go back up top */
