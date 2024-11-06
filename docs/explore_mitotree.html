@@ -31,16 +31,24 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
         <a href="documentation.html" title="More information" class="info-icon">ⓘ</a>
     </div>
 
-    <!-- Tree controls row -->
-    <div id="tree-controls" class="mb-3">
-        <button id="reset-tree-button" class="btn btn-info btn-sm">Reset Tree</button>
-        <button id="expand-tree-button" class="btn btn-info btn-sm">Expand Fully</button>
-        <button id="download-button" class="btn btn-success btn-sm">Download SVG</button>
+<!-- Tree controls row with collapsible toggle button -->
+<div id="tree-controls-container">
+    <button id="toggle-controls-button" class="btn btn-outline-secondary btn-sm mb-2 d-none" type="button">
+        Tree Controls
+    </button>
+
+    <div id="tree-controls" class="collapse show">
+        <!-- Top row for main buttons -->
+        <div class="d-flex flex-wrap justify-content-start mb-2">
+            <button id="reset-tree-button" class="btn btn-info btn-sm me-2">Reset Tree</button>
+            <button id="expand-tree-button" class="btn btn-info btn-sm me-2">Expand Fully</button>
+            <button id="download-button" class="btn btn-success btn-sm">Download</button>
+        </div>
+
+        <!-- Toggle Switch for On-Click Effect -->
         <div class="row">
             <div class="col-xs-12">
-                <!-- 3 way Toggle Switch -->
-                <!-- Original code by Benjamin Sterling, copied from  https://codepen.io/ben_sterling/pen/oxVmjG -->
-                <div class="toggle-container">
+                <div class="toggle-container mb-2">
                     <div class="info-text">On-Click Effect:</div>
                     <div class="switch">
                         <input id="switch-y" name="tripple" type="radio" value="Y" class="switch-input"/>
@@ -54,17 +62,21 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
                 </div>
             </div>
         </div>
-            <!-- Search controls row -->
-        <div id="search-controls" class="d-flex align-items-center mb-3">
-            <div class="input-group me-3 input-group-sm">
-                <input type="text" id="search-input" class="form-control d-inline-block" placeholder="Search Node by Name..." style="width: auto;">
+
+        <!-- Search controls row -->
+        <div id="search-controls" class="d-flex align-items-center mb-2">
+            <div class="input-group me-3 input-group-sm" style="flex: 1;">
+                <input type="text" id="search-input" class="form-control d-inline-block" placeholder="Search Node by Name...">
                 <button id="search-button" class="btn btn-primary">Search</button>
             </div>
         </div>
-        <span id="search-results" class="me-3"></span>
-        <button id="prev-button" class="btn btn-secondary btn-sm">Prev</button>
-        <button id="next-button" class="btn btn-secondary btn-sm">Next</button>
+        <div>
+            <span id="search-results" class="me-3"></span>
+            <button id="prev-button" class="btn btn-secondary btn-sm me-2">Prev</button>
+            <button id="next-button" class="btn btn-secondary btn-sm">Next</button>
+        </div>
     </div>
+</div>
 
 
 
@@ -79,33 +91,13 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 <!-- Footer -->
 <div id="footer-container"></div>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const treeControls = document.getElementById('tree-controls');
 
-    // Function to handle switching between absolute and sticky positioning
-    function adjustTreeControlsPosition() {
-        if (window.scrollY < 10) {
-            treeControls.classList.add('initial');
-            treeControls.classList.remove('sticky');
-        } else {
-            treeControls.classList.remove('initial');
-            treeControls.classList.add('sticky');
-        }
-    }
-
-    // Run on page load
-    adjustTreeControlsPosition();
-
-    // Add scroll listener to adjust positioning based on page scroll
-    window.addEventListener('scroll', adjustTreeControlsPosition);
-});
-</script>
 <script src="js/lib_files/bootstrap.bundle.min.js"></script>
 <script src="js/loadTemplates.js"></script>
 <script src="js/lib_files/d3.v7.min.js"></script>
-<script src="js/helpers.js"></script>
+<script src="js/helpers/helpers.js"></script>
 <script src="js/mitoTree.js"></script>
 <script src="js/trees/collapsibleTree.js"></script>
+<script src="js/helpers/treeControlsHelpers.js"></script>
 </body>
 </html>

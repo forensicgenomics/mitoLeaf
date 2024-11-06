@@ -33,7 +33,7 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
     <!-- TODO this -30px is dumb -->
     <div class="row" style="margin-left: -30px">
         <!-- Left Column for Subtle Cards -->
-        <div class="col-lg-3" style="width: 28%">
+        <div class="col-lg-3" style="max-width: 750px">
             <!-- Header and Controls -->
             <div class="header-container" style="display: inline-flex; align-items: center">
                 <h1>Overview</h1>
@@ -72,13 +72,18 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
             <!-- radial tree -->
             <div id="radial-tree">
                 <!-- Radial Tree content will be displayed here -->
-                <div id="controls" class="mb-3" style="position: absolute; right: 2%; bottom: 2%">
+                <div id="controls-desktop" class="mb-3 d-none d-lg-block" style="position: absolute; right: 2%; bottom: 2%">
                     <button id="download-button" class="btn btn-success btn-sm">Download SVG</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+        <!-- Download Button for Mobile View -->
+    <div id="controls-mobile" class="d-lg-none">
+        <button id="download-button-mobile" class="btn btn-success btn-sm">Download</button>
+    </div>
 
     <!-- Content Below the Tree -->
     <div class="card mt-4">
@@ -101,12 +106,19 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
     .catch(error => console.error('Error loading markdown:', error));
 </script>
 
+<!-- mobile download button handler -->
+<script>
+    document.getElementById('download-button-mobile').addEventListener('click', function() {
+        document.getElementById('download-button').click();
+    });
+</script>
+
 <!-- Footer -->
 <div id="footer-container"></div>
 
 <script src="js/lib_files/bootstrap.bundle.min.js"></script>
 <script src="js/lib_files/d3.v7.min.js"></script>
-<script src="js/helpers.js"></script>
+<script src="js/helpers/helpers.js"></script>
 <script src="js/mitoTree.js"></script>
 <script src="js/trees/radialTree.js"></script>
 <script src="js/loadTemplates.js"></script>

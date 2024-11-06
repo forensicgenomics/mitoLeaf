@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
                 <div id="profiles-section" class="card mb-3 d-none">
                     <div class="card-header"><strong>Representative Genomes and Metadata</strong></div>
-                    <div class="card-body">
+                    <div class="card-body table-responsive">
                         <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>

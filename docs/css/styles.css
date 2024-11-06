@@ -118,7 +118,7 @@ h2 {
 .subtle-card {
     border-radius: 10px;
     border: none;
-    width: 80%; /* to make it smaller than column */
+    max-width: 100%;
 }
 .subtle-card .card-title {
     font-size: 1rem;
@@ -140,24 +140,6 @@ h2 {
 }
 .card-text a:hover {
     text-decoration: underline;
-}
-
-
-/* responsive adjustments */
-@media (max-width: 768px) {
-    .navbar {
-        margin-bottom: 15px;
-    }
-    .footer {
-        font-size: 0.8em;
-    }
-    .switch {
-        width: 200px;
-    }
-    .switch-label, .switch-selector {
-        font-size: 10px;
-        width: 67px;
-    }
 }
 
 /* round only the right corners of the search button for the haplogroups page */
@@ -196,4 +178,14 @@ h2 {
     right: 40px;
     z-index: 99;
     display: none; /* Initially hidden */
+}
+
+
+/* Default style for larger screens */
+.search-container {
+    flex-wrap: nowrap;
+}
+
+.button-container {
+    margin-left: 5%;
 }
