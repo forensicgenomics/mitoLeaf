@@ -14,6 +14,7 @@ This file contains helper functions for the tree controls on the linear explorab
 It hides/shows tree controls based on screen size.
  */
 
+const smallScreenBoundary = 992;
 
 document.addEventListener('DOMContentLoaded', function () {
     const toggleControlsButton = document.getElementById('toggle-controls-button');
@@ -31,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // check screen size and set visibility of tree controls button
     function checkScreenSize() {
-        const isSmallScreen = window.innerWidth < 768;
+        const isSmallScreen = window.innerWidth < smallScreenBoundary;
 
         if (isSmallScreen) {
             toggleControlsButton.classList.remove('d-none');
