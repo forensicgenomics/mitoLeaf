@@ -241,7 +241,7 @@ function update(source) {
         .on('click', click)
         // tooltip hover event
         .on('mouseover', function (event, d) {
-            let text = `<em>ID:</em> ${d.data.name} <br> <em>HG:</em> ${d.data.HG}` || "NA";
+            let text = `<b>${d.data.name}:</b> ${d.data.HG}` || "NA";
             tooltip.transition()
                 .duration(200)
                 .style('opacity', 1);
