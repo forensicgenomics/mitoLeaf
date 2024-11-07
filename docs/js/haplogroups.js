@@ -49,9 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const row = document.createElement('tr');
             // show full HG-Sig when has mutation mode is active, normal HG-Sig otherwise
             row.innerHTML = `
-                <td style="white-space: nowrap; color: blue; text-decoration: underline;">
-    ${node.data.name}
-</td>
+                <td style="white-space: nowrap; color: blue; text-decoration: underline;">${node.data.name}</td>
                 <td>${searchModeToggle.checked ? formatHGSignature(hgMotifsData[node.data.name]) : formatHGSignature(node.data.HG)}</td>            `;
 
             // pointer change and tooltip
