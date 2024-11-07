@@ -45,12 +45,21 @@ document.addEventListener('DOMContentLoaded', function () {
         const endIndex = currentCount + resultsPerPage;
         const pageData = filteredNodesData.slice(startIndex, endIndex);
 
+        // need search terms here in order to highlight
+        const HGsearchTerms = getHGSearchTerms();
+
         pageData.forEach(node => {
             const row = document.createElement('tr');
             // show full HG-Sig when has mutation mode is active, normal HG-Sig otherwise
+            const hgSignature = searchModeToggle.checked ? hgMotifsData[node.data.name] : node.data.HG
+
+            // highlighting and cursive backmutations
+            let formattedHGSignature = formatHGSignature(hgSignature, HGsearchTerms);
+
             row.innerHTML = `
                 <td style="white-space: nowrap; color: blue; text-decoration: underline;">${node.data.name}</td>
-                <td>${searchModeToggle.checked ? formatHGSignature(hgMotifsData[node.data.name]) : formatHGSignature(node.data.HG)}</td>            `;
+                <td>${formattedHGSignature}</td>
+            `;
 
             // pointer change and tooltip
             row.style.cursor = 'pointer';
@@ -118,37 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // filter by HG
         if (searchTermHG) {
-            const searchTerms = searchTermHG.split(/[\s,]+/).filter(term => term.length > 0)
-                .map(term => {
-                    if (term === '.') {
-                        return '\\.';
-                    } else if (term.includes('.')) {
-                        return term.replace(/\./g, '\\.');
-                    }
-                    return term;
-                });
-
-            // helper function to use for both hg search modes
-            // has to distinguish between just '.' , '.[number][base]', just [base] and [base][number][base]
-            function rexSearch(term, searchItem) {
-                if (term === "\\.") {
-                    // search for insertion '.'
-                    return /\d+\.\d+/i.test(searchItem);
-                }
-                else if (/^\\.\d+[-a-z]?$/i.test(term)) {
-                    // search for specific insertion like '.1'
-                    return new RegExp(`\\d+${term}`, 'i').test(searchItem);
-                }
-                else if (/^[-a-z]$/i.test(term)) {
-                    // search for base-only mutations
-                    return new RegExp(`\\d+[.\\d]*${term.toLowerCase()}`, 'i').test(searchItem);
-                }
-                else {
-                    // position or position + base / base + position search
-                    // in theory this allows for base + position + base which should not exist
-                    return new RegExp(`(^|\\s)[-a-z]?(${term.toLowerCase()})[-a-z]?(\\s|$)`, 'i').test(searchItem);
-                }
-            }
+            const HGsearchTerms = getHGSearchTerms();
 
             // searching based on what is selected on the mode toggle
             if (mutationMode) {
@@ -156,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 filteredNodesData = filteredNodesData.filter(node => {
                     const fullHGSignature = hgMotifsData[node.data.name];
                     if (fullHGSignature) {
-                        return searchTerms.every(term => rexSearch(term, fullHGSignature));
+                        return HGsearchTerms.every(term => rexSearch(term, fullHGSignature));
                     }
                     return false;
                 });
@@ -166,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (node.data.HG) {
                         const hgLowerCase = node.data.HG.toLowerCase();
 
-                        return searchTerms.every(term => rexSearch(term, hgLowerCase));
+                        return HGsearchTerms.every(term => rexSearch(term, hgLowerCase));
                     }
                     return false;
                 });
@@ -183,6 +162,23 @@ document.addEventListener('DOMContentLoaded', function () {
         renderTable();
     }
 
+
+    // returns HG search terms from input split and wildcard removal
+    function getHGSearchTerms() {
+        const searchTermHG = searchInputHG.value.trim().toUpperCase();
+        return searchTermHG.split(/[\s,]+/).filter(term => term.length > 0)
+            .map(term => {
+                if (term === '.') {
+                    return '\\.';
+                } else if (term.includes('.')) {
+                    return term.replace(/\./g, '\\.');
+                }
+                return term;
+            });
+    }
+
+
+    // changes table header of hg column dependent on toggle
     function updateTableHeader() {
         if (searchModeToggle.checked) {
             tableHeader.textContent = 'Full HG-Signature';
@@ -190,6 +186,7 @@ document.addEventListener('DOMContentLoaded', function () {
             tableHeader.textContent = 'HG-Signature';
         }
     }
+
 
     // fetch data and initial render
     Promise.all([
@@ -251,6 +248,7 @@ document.addEventListener('DOMContentLoaded', function () {
         resetButton.addEventListener('click', function () {
             searchInputID.value = '';
             searchInputHG.value = '';
+            searchModeToggle.checked = false;
             resetAndRenderAllNodes();
         });
     }

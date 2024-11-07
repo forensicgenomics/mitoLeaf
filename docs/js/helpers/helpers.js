@@ -29,10 +29,38 @@ function getSimilarityScore(nodeName, searchTerm) {
     return positionIndex + lengthDifference;
 }
 
+/*
+TODO these next two functions are sort of misplaced here but the ladder is used by linear tree as well as haplogroups
+TODO placemant of funs across js files is generally a bit of a mess atm.
+TODO also cleanly import functions across scripts
+*/
+
+// helper function to use for both hg search modes in haplogroups page search
+// has to distinguish between just '.' , '.[number][base]', just [base] and [base][number][base]
+function rexSearch(term, searchItem) {
+    if (term === "\\.") {
+        // search for insertion '.'
+        return /\d+\.\d+/i.test(searchItem);
+    }
+    else if (/^\\.\d+[-a-z]?$/i.test(term)) {
+        // search for specific insertion like '.1'
+        return new RegExp(`\\d+${term}`, 'i').test(searchItem);
+    }
+    else if (/^[-a-z]$/i.test(term)) {
+        // search for base-only mutations
+        return new RegExp(`\\d+[.\\d]*${term.toLowerCase()}`, 'i').test(searchItem);
+    }
+    else {
+        // position or position + base / base + position search
+        // in theory this allows for base + position + base which should not exist
+        return new RegExp(`(^|\\s)[-a-z]?(${term.toLowerCase()})[-a-z]?(\\s|$)`, 'i').test(searchItem);
+    }
+}
+
 
 // used to highlight backmutations on the node info page
 // makes backmutation hg signature snippet italic
-function formatHGSignature(hgSignature) {
+function formatHGSignature(hgSignature, HGsearchTerms = []) {
     if (!hgSignature) return 'N/A';
     // split the HG signature into individual mutations, assuming space separation
     const mutations = hgSignature.split(/\s+/);
@@ -44,17 +72,42 @@ function formatHGSignature(hgSignature) {
     const backMutationRegex = /^[-a-z]\d+(\.\d+)?$/i;
 
     const formattedMutations = mutations.map(mutation => {
+        let formattedMutation = mutation;
+        let isBackmutation = false;
+        let isMatched = false;
+
         if (backMutationRegex.test(mutation)) {
-            return `<em>${mutation}</em>`;
+            isBackmutation = true;
         } else if (normalMutationRegex.test(mutation)) {
-            return mutation;
-        } else {
-            return mutation;
+            isBackmutation = false;
         }
+
+        // check mutation against the search terms
+        if (HGsearchTerms.length > 0) {
+            for (let term of HGsearchTerms) {
+                if (rexSearch(term, mutation.toLowerCase())) {
+                    isMatched = true;
+                    break;
+                }
+            }
+        }
+
+        // make backmutations italizised
+        if (isBackmutation) {
+            formattedMutation = `<em>${formattedMutation}</em>`;
+        }
+
+        // apply highlighting if matched
+        if (isMatched) {
+            formattedMutation = `<span class="highlight">${formattedMutation}</span>`;
+        }
+
+        return formattedMutation;
     });
 
     return formattedMutations.join(' ');
 }
+
 
 document.addEventListener('DOMContentLoaded', function () {
     const toTopButton = document.getElementById('toTopButton');
