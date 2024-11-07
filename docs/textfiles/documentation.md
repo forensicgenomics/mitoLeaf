@@ -101,7 +101,7 @@ The color bar at the top represents its respective color code, indicating lineag
 Recurrent mutations are noted in cursive and with the base leading and are only present in the 'HG-Signature' field, not the 'full HG-Signature'.
 
 - **HG-Signature:** Indicates the Haplogroup's HG-Signature.
-- **Representative Genomes and Metadata:**
+- **Representative Mitogenomes and Metadata:**
 The data shown here are retrieved from NCBI GenBank. In case of missing or "NA", there was no data available at the time of retrieval.
   - **Accession Number:** Lists GenBank accession numbers that are representatives of this haplogroup.
   - **Country:** Information stored under the NCBI FEATURE '/origin'
