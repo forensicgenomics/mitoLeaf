@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const urlParams = new URLSearchParams(window.location.search);
     const nodeId = urlParams.get('nodeId');
     const viewSubtreeButton = document.getElementById('view-subtree-button');
+    const showInTreeButton = document.getElementById('show-in-tree-button');
 
     if (!nodeId) {
         document.getElementById('node-details').textContent = 'Node ID not found in the URL.';
@@ -114,7 +115,15 @@ document.addEventListener('DOMContentLoaded', function () {
         if (viewSubtreeButton) {
             viewSubtreeButton.addEventListener('click', function () {
                 console.log('Navigating to subtree of node:', nodeId);
-                window.location.href = `explore_mitotree.html?nodeId=${encodeURIComponent(nodeId)}`;
+                window.location.href = `explore_mitotree.html?nodeId=${encodeURIComponent(nodeId)}&nodeAsRoot=true`;
+            });
+        }
+
+        // highlight in tree button handler to redirect to linear tree page
+        if (showInTreeButton) {
+            showInTreeButton.addEventListener('click', function () {
+                console.log('Highlighting in full tree node:', nodeId);
+                window.location.href = `explore_mitotree.html?nodeId=${encodeURIComponent(nodeId)}&nodeAsRoot=false`;
             });
         }
 

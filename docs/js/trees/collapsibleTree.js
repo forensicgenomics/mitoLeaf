@@ -45,7 +45,7 @@ const margin = {top: 40, right: 90, bottom: 30, left: 90};
 const container = d3.select("#collapsible-tree");
 
 // man fun to initialize the tree
-function createCollapsibleTree(dataUrl, rootNodeId = null) {
+function createCollapsibleTree(dataUrl, passedNodeId = null, passedNodeAsRoot = null) {
     d3.select("#collapsible-tree").select("svg").remove();
 
     svg = container.append("svg")
@@ -58,9 +58,9 @@ function createCollapsibleTree(dataUrl, rootNodeId = null) {
     d3.json(dataUrl).then(function (treeData) {
 
         let rootNode;
-        if (rootNodeId) {
+        if (passedNodeId && passedNodeAsRoot) {
             // if a specific node ID is provided, filter the tree to find that node and its descendants
-            rootNode = filterSubtree(treeData, rootNodeId);
+            rootNode = filterSubtree(treeData, passedNodeId);
         } else {
             // otherwise, use the full tree
             rootNode = d3.hierarchy(treeData, d => d.children);
@@ -75,12 +75,52 @@ function createCollapsibleTree(dataUrl, rootNodeId = null) {
             root.children.forEach(collapse);
         }
 
+        // handles the 'highlight node in tree' feature
+        if (passedNodeId && !passedNodeAsRoot) {
+            const targetNode = findNodeById(root, passedNodeId);
+            if (targetNode) {
+                expandPathToNode(targetNode);
+                targetNode.matched = true; // mark the node to be highlighted
+            }
+        }
+
         update(root);
         resizeContainer(root);
     }).catch(function (error) {
         console.error('Error loading or processing the JSON data:', error);
     });
 
+}
+
+function findNodeById(node, id) {
+    if (node.data.name === id) {
+        return node;
+    }
+    let result = null;
+    let children = [];
+    if (node.children) {
+        children = node.children;
+    }
+    if (node._children) {
+        children = children.concat(node._children);
+    }
+    for (let i = 0; i < children.length; i++) {
+        result = findNodeById(children[i], id);
+        if (result) {
+            return result;
+        }
+    }
+    return null;
+}
+
+function expandPathToNode(node) {
+    if (node.parent) {
+        if (node.parent._children) {
+            node.parent.children = node.parent._children;
+            node.parent._children = null;
+        }
+        expandPathToNode(node.parent);
+    }
 }
 
 // collapses a node based on if it has superhaplo descendants
@@ -272,9 +312,18 @@ function update(source) {
         .attr("x", -8)
         .attr("cursor", "pointer")
         // TODO yeah so this fixed value here is not great
-        .text(d => truncateText(d.data.name, overallWidth / 1.3))
+        .text(d => truncateText(d.data.name, overallWidth / 1.25))
         .attr("text-anchor", "end")
-        .style("font", "11px sans-serif");
+        .style("font", "11px sans-serif")
+        .attr('class', function(d) {
+        if (d.focused) {
+            return 'focused';
+        } else if (d.matched) {
+            return 'matched';
+        } else {
+            return null;
+        }
+    });
 
     // merge old and new nodes
     const nodeUpdate = nodeEnter.merge(node);
@@ -287,6 +336,19 @@ function update(source) {
         .style("fill", function (d) {
             return d._children ? "lightsteelblue" : "#fff";
         });
+
+    // update the node labels to highlight
+    nodeUpdate.select('text')
+        .attr('class', function(d) {
+            if (d.focused) {
+                return 'focused';
+            } else if (d.matched) {
+                return 'matched';
+            } else {
+                return null;
+            }
+        });
+
 
     // remove exiting nodes
     node.exit().transition()
@@ -376,7 +438,7 @@ function update(source) {
     }
 
     // rehighlight nodes from search after updating
-    highlightNodes();
+    //TODO highlightNodes();
 } // end of update function
 
 // marks all descendants of a given node to be expanded recursively
@@ -419,31 +481,25 @@ function expandFully(node=root) {
 // highlight matches of search
 // removes highlight class from old nodes' text
 // and adds the class to all matches' text element
-function highlightNodes() {
-    d3.selectAll('.node text')
-        .classed('highlight-text', false);
-
-    d3.selectAll('.node.search-result text')
-        .classed('highlight-text', true);
-}
+// function highlightNodes() {
+//     d3.selectAll('.node text')
+//         .classed('highlight-text', false);
+//
+//     d3.selectAll('.node.search-result text')
+//         .classed('highlight-text', true);
+// }
 
 // highlights the focused node (best match)
 // removes focused class from old match
 // adds the class to the current best match node text
-function highlightFocusedNode(node) {
-    d3.selectAll('.node text')
-        .classed('focused-node', false);
+// function highlightFocusedNode(node) {
+//     d3.selectAll('.node text')
+//         .classed('focused-node', false);
+//
+//     d3.select(node).select('text')
+//         .classed('focused-node', true);
+// }
 
-    d3.select(node).select('text')
-        .classed('focused-node', true);
-}
-
-// reset search results and remove all highlights
-function resetSearchResults() {
-    d3.selectAll('.node').classed('search-result', false);
-    d3.selectAll('.node text').classed('highlight-text', false);
-    d3.selectAll('.node text').classed('focused-node', false);
-}
 
 // creates a subtree given a node id
 // used to draw specific subtrees calles from node info pages

@@ -46,10 +46,23 @@ document.addEventListener('DOMContentLoaded', function () {
     const nodeId = urlParams.get('nodeId');
 
     // init collapsible tree
+    const nodeAsRoot = urlParams.get('nodeAsRoot') === 'true';
     if (collapsibleTreeContainer) {
-        // pass the nodeId to the initializer
-        initCollapsibleTree(nodeId);
-        collapsibleTreeInitialized = true;
+        initCollapsibleTree(nodeId, nodeAsRoot);
+
+        if (nodeId && !nodeAsRoot) {
+            const pollingInterval = setInterval(function () {
+                const highlightedNodes = d3.select('#collapsible-tree').selectAll('g.node').filter(function (d) {
+                    return d.matched === true;
+                });
+
+                if (!highlightedNodes.empty()) {
+                    const highlightNode = highlightedNodes.node();
+                    scrollToNode(highlightNode);
+                    clearInterval(pollingInterval); // Stop polling
+                }
+            }, 200);
+        }
     }
 
     // dragging of tree handled here
@@ -109,9 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('search-results').textContent = `${resultsNumber} match(es) found`;
                 currentMatchIndex = matchedNodes.indexOf(bestMatchNode);
                 if (resultsNumber > 0) {
-                    highlightNodes();
                     scrollToNode(bestMatchNode);
-                    highlightFocusedNode(bestMatchNode);
                     showNavigationButtons(); // show "Previous" and "Next" buttons
                 } else {
                     hideNavigationButtons();
@@ -124,25 +135,37 @@ document.addEventListener('DOMContentLoaded', function () {
     const prevButton = document.getElementById('prev-button');
     const nextButton = document.getElementById('next-button');
 
+    function changeFocus(next = true) {
+        if (matchedNodes.length > 0) {
+
+                // clear previous
+                d3.selectAll('g.node').each(function (d) {
+                    d.focused = false;
+                });
+
+                const offset = next ? 1 : -1;
+                currentMatchIndex = (currentMatchIndex + offset + matchedNodes.length) % matchedNodes.length;
+                const prevNode = matchedNodes[currentMatchIndex];
+
+                // mark new node to be focused
+                d3.select(prevNode).datum().focused = true;
+
+                update(root);
+                resizeContainer(root);
+
+                scrollToNode(prevNode);
+        }
+    }
+
     if (prevButton) {
         prevButton.addEventListener('click', function () {
-            if (matchedNodes.length > 0) {
-                currentMatchIndex = (currentMatchIndex - 1 + matchedNodes.length) % matchedNodes.length;
-                const prevNode = matchedNodes[currentMatchIndex];
-                scrollToNode(prevNode);
-                highlightFocusedNode(prevNode);
-            }
+            changeFocus(false);
         });
     }
 
     if (nextButton) {
         nextButton.addEventListener('click', function () {
-            if (matchedNodes.length > 0) {
-                currentMatchIndex = (currentMatchIndex + 1) % matchedNodes.length;
-                const nextNode = matchedNodes[currentMatchIndex];
-                scrollToNode(nextNode);
-                highlightFocusedNode(nextNode);
-            }
+            changeFocus(true);
         });
     }
 
@@ -155,11 +178,14 @@ document.addEventListener('DOMContentLoaded', function () {
         matchedNodes = [];
 
         d3.selectAll('g.node').each(function (d) {
-            const node = d3.select(this);
+            d.matched = false;
+            d.bestMatch = false;
+        });
+
+        d3.selectAll('g.node').each(function (d) {
             const nodeName = d.data.name;
-            console.log(d.data.name)
             if (nodeName.includes(searchTerm)) {
-                node.classed('search-result', true); // add match class for matched nodes
+                d.matched = true; // mark to be highlighted
                 matchedNodes.push(this); // all matched nodes stored here
                 resultsNumber++;
 
@@ -169,10 +195,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     bestScore = score;
                     bestMatchNode = this;
                 }
-            } else {
-                node.classed('search-result', false);
             }
         });
+
+        // mark best match node to be highlighted
+        if (bestMatchNode) {
+            d3.select(bestMatchNode).datum().focused = true;
+        }
 
         // sort matched nodes by their x position (vertical order)
         matchedNodes.sort((a, b) => {
@@ -180,6 +209,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const nodeB = d3.select(b).datum();
             return nodeA.x - nodeB.x;
         });
+
+        update(root);
+        resizeContainer(root);
 
         return { bestMatchNode, resultsNumber };
     }
@@ -236,6 +268,21 @@ document.addEventListener('DOMContentLoaded', function () {
         resetSearchResults(); // function from collapsibleTree.js
         matchedNodes = [];
         currentMatchIndex = 0;
+        hideNavigationButtons();
+    }
+
+    // reset search results and remove all highlights
+    function resetSearchResults() {
+        d3.selectAll('g.node').each(function(d) {
+            d.matched = false;
+            d.focused = false;
+        });
+
+        // Re-render the tree to update highlights
+        update(root);
+        resizeContainer(root);
+
+        // Hide navigation buttons
         hideNavigationButtons();
     }
 
@@ -313,10 +360,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // initialize the collapsible tree by calling function from collapsibleTree.js
     // if given a nodeId, inits with that node as root used for subtrees
-    function initCollapsibleTree(nodeId = null) {
+    function initCollapsibleTree(nodeId = null, nodeAsRoot = false) {
         try {
             if (nodeId) {
-                createCollapsibleTree("data/tree.json", nodeId);
+                createCollapsibleTree("data/tree.json", nodeId, nodeAsRoot);
             } else {
                 createCollapsibleTree("data/tree.json");
             }

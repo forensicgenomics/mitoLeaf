@@ -170,7 +170,7 @@ but not in mobile mode */
     display: none; /* hide initially */
 }
 /* highlighted text for search results */
-.highlight-text {
+.matched {
     fill: black;
     font-weight: bold;
     paint-order: stroke;
@@ -178,8 +178,10 @@ but not in mobile mode */
     stroke-width: 3px;
 }
 /* best match / current result highlighted node */
-.focused-node {
+.focused {
+    fill: black;
+    font-weight: bold;
+    paint-order: stroke;
     stroke: red; /* highlight color */
     stroke-width: 3px;
-    fill: black;
 }
