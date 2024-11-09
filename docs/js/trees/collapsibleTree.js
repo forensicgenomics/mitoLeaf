@@ -35,7 +35,7 @@ let root, svg,
     width = 1000,
     height = 1000,
     i = 0,
-    duration = 500;
+    defDuration = 500;
 
 // these are used as 'the size a node should have'
 const overallWidth = 80;
@@ -84,7 +84,7 @@ function createCollapsibleTree(dataUrl, passedNodeId = null, passedNodeAsRoot = 
             }
         }
 
-        update(root);
+        update(root, duration = 0);
         resizeContainer(root);
     }).catch(function (error) {
         console.error('Error loading or processing the JSON data:', error);
@@ -211,7 +211,7 @@ function calculatePolygonPoints(d) {
 // background polygons
 // node - circles, labels
 // links & tooltip
-function update(source) {
+function update(source, duration = defDuration) {
     const treeData = d3.tree()
         .separation((a, b) => a.parent === b.parent ? 1 : 2)
         // usage of 'nodeSize' over 'size' seems better
