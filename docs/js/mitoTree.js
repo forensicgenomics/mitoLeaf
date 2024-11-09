@@ -292,16 +292,26 @@ document.addEventListener('DOMContentLoaded', function () {
         resetTreeButton.addEventListener('click', function () {
             resetSearch();
 
-            const urlParams = new URLSearchParams(window.location.search);
-            const nodeId = urlParams.get('nodeId');
+            // TODO which behaviour is desired?
+            // reset to reset to specified subtree/highlighted node tree
+            // or reset to completely base tree as if loading explore page without URL parameters
+            // Another alternative to handle this could be to just load that page, not sure which is better
+
+
+            // const urlParams = new URLSearchParams(window.location.search);
+            // const nodeId = urlParams.get('nodeId');
+            //
+            // if (collapsibleTreeContainer) {
+            //     // handle subtree or full tree
+            //     if (nodeId) {
+            //         createCollapsibleTree("data/tree.json", nodeId);
+            //     } else {
+            //         createCollapsibleTree("data/tree.json");
+            //     }
+            // }
 
             if (collapsibleTreeContainer) {
-                // hadle subtree or full tree
-                if (nodeId) {
-                    createCollapsibleTree("data/tree.json", nodeId);
-                } else {
-                    createCollapsibleTree("data/tree.json");
-                }
+                createCollapsibleTree("data/tree.json")
             }
         });
     }
