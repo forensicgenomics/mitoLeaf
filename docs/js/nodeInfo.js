@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // accession profiles table
         displayTable(node, profilesData, 'profiles-section', 'profile-list', 'show-more-profiles', 'profiles', 3, generateProfileRow);
         // children table
-        displayTable(node, node.children || [], 'descendants-section', 'children-list', 'show-more-descendants', 'descendants', 3, generateChildRow);
+        displayTable(node, node.children || [], 'descendants-section', 'children-list', 'show-more-descendants', 'descendants', 3, generateHGRow);
 
         // subtree button handler to redirect to linear tree page
         if (viewSubtreeButton) {
@@ -203,21 +203,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return row;
     }
 
-    // generates a table row for a given descendant
-    // returns html element
-    function generateChildRow(child) {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${child.data.name}</td>
-            <td>${formatHGSignature(child.data.HG) || 'N/A'}</td>
-        `;
-
-        // on click event to navigate to the node info page for this child
-        row.addEventListener('click', function () {
-            window.location.href = `nodeInfo.html?nodeId=${encodeURIComponent(child.data.name)}`;
-        });
-        return row;
-    }
 
     // create lineage tree from given ancestors
     function displayAncestors(ancestors) {

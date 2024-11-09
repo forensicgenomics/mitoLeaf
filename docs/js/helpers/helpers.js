@@ -170,3 +170,30 @@ function getFullHG(node) {
     // join the sorted mutations into a single string
     return sortedMutations.join(' ');
 }
+
+
+// returns a row wih tooltip, cursor change and click handler
+// of a table like in haplogroups and on the node info pages
+// moved here to keep those tables consistent
+function generateHGRow(node, hgSig = null) {
+    const row = document.createElement('tr');
+
+    if (!hgSig) {
+        hgSig = formatHGSignature(node.data.HG)
+    }
+
+    row.innerHTML = `
+        <td style="white-space: nowrap; color: blue; text-decoration: underline;">${node.data.name}</td>
+        <td>${hgSig || 'N/A'}</td>
+    `;
+
+    // pointer change and tooltip
+    row.style.cursor = 'pointer';
+    row.setAttribute('title', `Click to view details for ${node.data.name}`);
+
+    // on click event to navigate to the node info page for this child
+    row.addEventListener('click', function () {
+        window.location.href = `nodeInfo.html?nodeId=${encodeURIComponent(node.data.name)}`;
+    });
+    return row;
+}

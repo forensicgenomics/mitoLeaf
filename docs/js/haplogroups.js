@@ -49,26 +49,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const HGsearchTerms = getHGSearchTerms();
 
         pageData.forEach(node => {
-            const row = document.createElement('tr');
             // show full HG-Sig when has mutation mode is active, normal HG-Sig otherwise
             const hgSignature = searchModeToggle.checked ? hgMotifsData[node.data.name] : node.data.HG
 
             // highlighting and cursive backmutations
             let formattedHGSignature = formatHGSignature(hgSignature, HGsearchTerms);
 
-            row.innerHTML = `
-                <td style="white-space: nowrap; color: blue; text-decoration: underline;">${node.data.name}</td>
-                <td>${formattedHGSignature}</td>
-            `;
-
-            // pointer change and tooltip
-            row.style.cursor = 'pointer';
-            row.setAttribute('title', `Click to view details for ${node.data.name}`);
-
-            // onclick to go to node info page
-            row.addEventListener('click', () => {
-                showNodeInfo(node);
-            });
+            const row = generateHGRow(node, formattedHGSignature)
 
             nodesTableBody.appendChild(row);
         });
