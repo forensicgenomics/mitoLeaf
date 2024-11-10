@@ -20,10 +20,11 @@ creation as well as interactive behavior is handled here
 document.addEventListener('DOMContentLoaded', function () {
     const urlParams = new URLSearchParams(window.location.search);
     const nodeId = urlParams.get('nodeId');
+        const nodeAsRoot = urlParams.get('nodeAsRoot') === 'true';
 
     if (nodeId) {
         // load the collapsible tree with the specific subtree
-        createCollapsibleTree("data/tree.json", nodeId);
+        createCollapsibleTree("data/tree.json", nodeId, nodeAsRoot);
     } else {
         // load the full collapsible tree if no nodeId is specified
         createCollapsibleTree("data/tree.json");
@@ -59,6 +60,7 @@ function createCollapsibleTree(dataUrl, passedNodeId = null, passedNodeAsRoot = 
 
         let rootNode;
         if (passedNodeId && passedNodeAsRoot) {
+            console.log("in here");
             // if a specific node ID is provided, filter the tree to find that node and its descendants
             rootNode = filterSubtree(treeData, passedNodeId);
         } else {
@@ -85,7 +87,6 @@ function createCollapsibleTree(dataUrl, passedNodeId = null, passedNodeAsRoot = 
         }
 
         update(root, duration = 0);
-        resizeContainer(root);
     }).catch(function (error) {
         console.error('Error loading or processing the JSON data:', error);
     });
@@ -211,7 +212,7 @@ function calculatePolygonPoints(d) {
 // background polygons
 // node - circles, labels
 // links & tooltip
-function update(source, duration = defDuration) {
+function update(source, duration = defDuration, callback = null) {
     const treeData = d3.tree()
         .separation((a, b) => a.parent === b.parent ? 1 : 2)
         // usage of 'nodeSize' over 'size' seems better
@@ -228,6 +229,9 @@ function update(source, duration = defDuration) {
         // d.y = d.depth * overallWidth; // make sure node width are constant length (not needed when nodeSize)
         d.x += xOffset;// move the tree down, because setting nodeSize, draws root at [0,0]
     });
+
+
+    let t = d3.transition().duration(duration);
 
     // ************ Polygons ****************
 
@@ -252,7 +256,7 @@ function update(source, duration = defDuration) {
     const polyUpdate = polyEnter.merge(poly);
 
     // gradually increase opacity for entering/moving polygons
-    polyUpdate.transition()
+    polyUpdate.transition(t)
         .duration(duration)
         .style("fill-opacity", 0.4)
         .attr('points', function (d) {
@@ -327,7 +331,7 @@ function update(source, duration = defDuration) {
 
     // merge old and new nodes
     const nodeUpdate = nodeEnter.merge(node);
-    nodeUpdate.transition()
+    nodeUpdate.transition(t)
         .duration(duration)
         .attr("transform", function (d) {
             return "translate(" + d.y + "," + d.x + ")";
@@ -384,7 +388,7 @@ function update(source, duration = defDuration) {
 
     // merge old and new
     const linkUpdate = linkEnter.merge(link);
-    linkUpdate.transition()
+    linkUpdate.transition(t)
         .duration(duration)
         .attr('d', function (d) {
             return rightAnglePath(d, d.parent);
@@ -407,39 +411,55 @@ function update(source, duration = defDuration) {
         d.y0 = d.y;
     });
 
-    // click event handler for nodes
-    // reads toggle selection and performs selected action on click
-    function click(event, d) {
-        const expandOption = document.querySelector('input[name="tripple"]:checked').value;
+    resizeContainer(root);
 
-        if (expandOption === "N") {
-            window.location.href = `nodeInfo.html?nodeId=${encodeURIComponent(d.data.name)}`;
-        } else if (d.children) {
-            collapseNode(d);
-        } else if (expandOption === "Y") {
-            expandFully(d); // Expand all descendants
-        } else if (expandOption === "I") {
-                expandNode(d);
+    // execute callback function, only when all transitions are complete
+    if (duration === 0) {
+        if (callback) {
+            callback();
         }
-        // TODO probably make this async/await so the resizing isnt as jerky
-        update(d);
-        resizeContainer(root);
+    } else {
+        t.end().then(function() {
+            if (callback) {
+                callback();
+            }
+        }).catch(function(error) {
+            // Handle or log the error
+            console.error("Transition interrupted:", error);
+        });
     }
-
-    // given two nodes, returns d3 like paths string
-    // represents a non symmetric path with a right angle kink
-    function rightAnglePath(s, d) {
-        const horizontalOffset = -2 * overallWidth / 3;
-
-        return `M ${s.y} ${s.x}
-                H ${s.y + horizontalOffset}
-                V ${d.x}
-                H ${d.y}`;
-    }
-
-    // rehighlight nodes from search after updating
-    //TODO highlightNodes();
 } // end of update function
+
+
+// click event handler for nodes
+// reads toggle selection and performs selected action on click
+function click(event, d) {
+    const expandOption = document.querySelector('input[name="tripple"]:checked').value;
+
+    if (expandOption === "N") {
+        window.location.href = `nodeInfo.html?nodeId=${encodeURIComponent(d.data.name)}`;
+    } else if (d.children) {
+        collapseNode(d);
+    } else if (expandOption === "Y") {
+        expandFully(d); // Expand all descendants
+    } else if (expandOption === "I") {
+            expandNode(d);
+    }
+    // TODO probably make this async/await so the resizing isnt as jerky
+    update(d);
+}
+
+// given two nodes, returns d3 like paths string
+// represents a non symmetric path with a right angle kink
+function rightAnglePath(s, d) {
+    const horizontalOffset = -2 * overallWidth / 3;
+
+    return `M ${s.y} ${s.x}
+            H ${s.y + horizontalOffset}
+            V ${d.x}
+            H ${d.y}`;
+}
+
 
 // marks all descendants of a given node to be expanded recursively
 function expandAllDescendantsOfNode(d) {
@@ -475,35 +495,12 @@ function expandFully(node=root) {
         node.children.forEach(expandAllDescendantsOfNode);
     }
     update(node);
-    resizeContainer(root);
 }
-
-// highlight matches of search
-// removes highlight class from old nodes' text
-// and adds the class to all matches' text element
-// function highlightNodes() {
-//     d3.selectAll('.node text')
-//         .classed('highlight-text', false);
-//
-//     d3.selectAll('.node.search-result text')
-//         .classed('highlight-text', true);
-// }
-
-// highlights the focused node (best match)
-// removes focused class from old match
-// adds the class to the current best match node text
-// function highlightFocusedNode(node) {
-//     d3.selectAll('.node text')
-//         .classed('focused-node', false);
-//
-//     d3.select(node).select('text')
-//         .classed('focused-node', true);
-// }
 
 
 // creates a subtree given a node id
-// used to draw specific subtrees calles from node info pages
-// works by iterating recursively through the full tree until the nodeId noed is found
+// used to draw specific subtrees calls from node info pages
+// works by iterating recursively through the full tree until the nodeId node is found
 // returns ds.hierarchy created tree of that node as root
 function filterSubtree(treeData, rootNodeId) {
     function findNode(data, nodeId) {

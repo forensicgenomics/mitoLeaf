@@ -66,8 +66,12 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
         <!-- Search controls row -->
         <div id="search-controls" class="d-flex align-items-center mb-2">
             <div class="input-group me-3 input-group-sm" style="flex: 1;">
-                <input type="text" id="search-input" class="form-control d-inline-block" placeholder="Search Node by Name...">
-                <button id="search-button" class="btn btn-primary">Search</button>
+                <input type="text" id="search-input" class="form-control d-inline-block" placeholder="Search by Name...">
+                <button id="search-button" class="btn btn-primary me-2 rounded-end">Search</button>
+                <div class="form-check form-switch d-flex align-items-center">
+                    <input class="form-check-input me-1" type="checkbox" id="tree-search-mode-toggle">
+                    <label for="tree-search-mode-toggle" class="form-check-label me-2 mb-0" style="color: gray">in all</label>
+                </div>
             </div>
         </div>
         <div>

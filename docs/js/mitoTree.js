@@ -29,7 +29,6 @@ Following is handled:
 document.addEventListener('DOMContentLoaded', function () {
     const radialTreeContainer = document.getElementById('radial-tree');
     const collapsibleTreeContainer = document.getElementById('collapsible-tree');
-    let collapsibleTreeInitialized = false;
     const searchInput = document.getElementById('search-input');
     const searchButton = document.getElementById('search-button');
     let currentMatchIndex;
@@ -47,10 +46,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // init collapsible tree
     const nodeAsRoot = urlParams.get('nodeAsRoot') === 'true';
+    console.log(nodeAsRoot);
     if (collapsibleTreeContainer) {
         initCollapsibleTree(nodeId, nodeAsRoot);
 
         if (nodeId && !nodeAsRoot) {
+            // TODO remove polling for callback
             const pollingInterval = setInterval(function () {
                 const highlightedNodes = d3.select('#collapsible-tree').selectAll('g.node').filter(function (d) {
                     return d.matched === true;
@@ -114,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // event handler for search button
     if (searchButton) {
         searchButton.addEventListener('click', function () {
-            searchTerm = searchInput.value.trim();
+            let searchTerm = searchInput.value.trim();
             if (!searchTerm) {
                 resetSearch();
             } else {
@@ -123,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 currentMatchIndex = matchedNodes.indexOf(bestMatchNode);
                 if (resultsNumber > 0) {
                     scrollToNode(bestMatchNode);
-                    showNavigationButtons(); // show "Previous" and "Next" buttons
+                    showNavigationButtons(); // show "Prev" and "Next" buttons
                 } else {
                     hideNavigationButtons();
                 }
@@ -151,7 +152,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 d3.select(prevNode).datum().focused = true;
 
                 update(root);
-                resizeContainer(root);
 
                 scrollToNode(prevNode);
         }
@@ -174,47 +174,111 @@ document.addEventListener('DOMContentLoaded', function () {
         let bestMatchNode = null;
         let bestScore = Infinity;
         let resultsNumber = 0;
+        const searchInHidden = document.getElementById('tree-search-mode-toggle').checked;
 
         matchedNodes = [];
+        let matchedDataNodes = [];
 
+        // clear previous highlights
         d3.selectAll('g.node').each(function (d) {
             d.matched = false;
-            d.bestMatch = false;
+            d.focused = false;
         });
 
-        d3.selectAll('g.node').each(function (d) {
-            const nodeName = d.data.name;
+        function searchAllNodes(node) {
+            const nodeName = node.data.name;
             if (nodeName.includes(searchTerm)) {
-                d.matched = true; // mark to be highlighted
-                matchedNodes.push(this); // all matched nodes stored here
-                resultsNumber++;
+                node.matched = true; // Mark node as matched
+                matchedDataNodes.push(node); // Store the data node
 
-                // calculate similarity score to determine best match
+                // Expand path to this node
+                expandPathToNode(node);
+
+                // Calculate similarity score to determine best match
                 const score = nodeName.length - searchTerm.length;
                 if (score < bestScore) {
                     bestScore = score;
-                    bestMatchNode = this;
+                    bestMatchNode = node;
                 }
+            } else {
+                node.matched = false;
             }
-        });
 
-        // mark best match node to be highlighted
-        if (bestMatchNode) {
-            d3.select(bestMatchNode).datum().focused = true;
+            // Recursively search children and _children
+            let children = [];
+            if (node.children) {
+                children = node.children;
+            }
+            if (node._children) {
+                children = children.concat(node._children);
+            }
+            children.forEach(child => {
+                searchAllNodes(child);
+            });
         }
 
-        // sort matched nodes by their x position (vertical order)
+        if (searchInHidden) {
+            searchAllNodes(root);
+        } else {
+            // Search only visible nodes (DOM elements)
+            d3.selectAll('g.node').each(function (d) {
+                const nodeName = d.data.name;
+                if (nodeName.includes(searchTerm)) {
+                    d.matched = true; // Mark node as matched
+                    matchedDataNodes.push(d); // Store the data node
+
+                    // Calculate similarity score to determine best match
+                    const score = nodeName.length - searchTerm.length;
+                    if (score < bestScore) {
+                        bestScore = score;
+                        bestMatchNode = d;
+                    }
+                }
+            });
+        }
+
+        resultsNumber = matchedDataNodes.length;
+
+        // Mark best match node to be focused BEFORE updating the tree
+        if (bestMatchNode) {
+            bestMatchNode.focused = true;
+        }
+
+        update(root, 0, function () {
+            // Now map data nodes to DOM elements
+            matchedDataNodes.forEach(function (d) {
+                const nodeElement = d3.select('#collapsible-tree').selectAll('g.node').filter(function (datum) {
+                    return datum === d;
+                }).node();
+                if (nodeElement) {
+                    matchedNodes.push(nodeElement);
+                }
+            });
+        });
+
+        // Get the DOM element for the best match node
+        if (bestMatchNode) {
+            const bestMatchNodeElement = d3.select('#collapsible-tree').selectAll('g.node').filter(function (datum) {
+                return datum === bestMatchNode;
+            }).node();
+
+            if (bestMatchNodeElement) {
+                bestMatchNode = bestMatchNodeElement;
+            } else {
+                bestMatchNode = null;
+            }
+        }
+
+        // Sort matched nodes by their x position (vertical order)
         matchedNodes.sort((a, b) => {
             const nodeA = d3.select(a).datum();
             const nodeB = d3.select(b).datum();
             return nodeA.x - nodeB.x;
         });
 
-        update(root);
-        resizeContainer(root);
-
         return { bestMatchNode, resultsNumber };
     }
+
 
     // helpers to display search buttons
     function showNavigationButtons() {
@@ -258,6 +322,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // resets search input fields and highlights
     function resetSearch() {
         const searchResults = document.getElementById('search-results');
+        const searchToggle = document.getElementById('tree-search-mode-toggle');
+
+        searchToggle.checked = false;
+
         if (searchResults) {
             searchResults.textContent = '';
         }
@@ -265,7 +333,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (searchInput) {
             searchInput.value = '';
         }
-        resetSearchResults(); // function from collapsibleTree.js
+        resetSearchResults();
         matchedNodes = [];
         currentMatchIndex = 0;
         hideNavigationButtons();
@@ -278,11 +346,9 @@ document.addEventListener('DOMContentLoaded', function () {
             d.focused = false;
         });
 
-        // Re-render the tree to update highlights
+        // re-render the tree to update highlights
         update(root);
-        resizeContainer(root);
 
-        // Hide navigation buttons
         hideNavigationButtons();
     }
 
@@ -372,6 +438,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // if given a nodeId, inits with that node as root used for subtrees
     function initCollapsibleTree(nodeId = null, nodeAsRoot = false) {
         try {
+            console.log(nodeId);
             if (nodeId) {
                 createCollapsibleTree("data/tree.json", nodeId, nodeAsRoot);
             } else {
