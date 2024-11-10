@@ -60,7 +60,6 @@ function createCollapsibleTree(dataUrl, passedNodeId = null, passedNodeAsRoot = 
 
         let rootNode;
         if (passedNodeId && passedNodeAsRoot) {
-            console.log("in here");
             // if a specific node ID is provided, filter the tree to find that node and its descendants
             rootNode = filterSubtree(treeData, passedNodeId);
         } else {
@@ -295,7 +294,6 @@ function update(source, duration = defDuration, callback = null) {
                 .style('background-color', d.data.colorcode || "#ffffff");
         })
         .on('mouseout', function () {
-            console.log('Mouse out');
             tooltip.transition()
                 .duration(500)
                 .style('opacity', 0);
@@ -414,20 +412,12 @@ function update(source, duration = defDuration, callback = null) {
     resizeContainer(root);
 
     // execute callback function, only when all transitions are complete
-    if (duration === 0) {
+    // TODO throws an error when expanding full tree
+    t.end().then(function() {
         if (callback) {
             callback();
         }
-    } else {
-        t.end().then(function() {
-            if (callback) {
-                callback();
-            }
-        }).catch(function(error) {
-            // Handle or log the error
-            console.error("Transition interrupted:", error);
-        });
-    }
+    });
 } // end of update function
 
 

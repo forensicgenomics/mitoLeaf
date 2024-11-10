@@ -46,7 +46,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // init collapsible tree
     const nodeAsRoot = urlParams.get('nodeAsRoot') === 'true';
-    console.log(nodeAsRoot);
     if (collapsibleTreeContainer) {
         initCollapsibleTree(nodeId, nodeAsRoot);
 
@@ -438,7 +437,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // if given a nodeId, inits with that node as root used for subtrees
     function initCollapsibleTree(nodeId = null, nodeAsRoot = false) {
         try {
-            console.log(nodeId);
             if (nodeId) {
                 createCollapsibleTree("data/tree.json", nodeId, nodeAsRoot);
             } else {
