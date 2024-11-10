@@ -67,12 +67,12 @@ Initially, the tree is expanded to reveal all designated ‘Superhaplogroups’.
   - **Node Info:** Clicking on a node will redirect you to the haplogroup info page of that node.
 - **Reset Tree:** Reset the tree to its initial rendering. Equivalent to reloading the page.
 - **Expand Fully:** Expands all nodes to show the entire tree. Caution: this may take a while.
-- **Name search:** Use the search bar to search for Haplogroups by their name. The search is case sensitive. 
+- **Name search:** Use the search bar to search for Haplogroups by their name. The search is case sensitive.   
 All matches will be highlighted, and the tree will be centered to show the best match. Use the Prev/Next buttons to navigate through the remaining matches and center them.  
 The number of matches will also be displayed next to the search bar.
   - **In all:** Per default, only currently expanded Nodes will be searched.
-  Toggle this switch to search in all Nodes, not just the expanded ones. This will cause the Tree to be
-  re-rendered, in order to display all matched nodes. 
+  Toggle this switch to search in all Nodes, not just the expanded ones.  
+  This will cause the Tree to be re-rendered, in order to display all matched nodes. 
 - **Download svg:** Click the button to download the current tree visualization as a .svg. Customize what is shown beforehand and then download your custom tree visualization.
 
 <br>
