@@ -34,6 +34,7 @@
                             "name": "L5'7",
                             "HG": "3423C 12432T 16166G",
                             "colorcode": "#f44336",
+                            "is_superhaplo": true,
                             "children": [
                                 {
                                     "name": "L5",

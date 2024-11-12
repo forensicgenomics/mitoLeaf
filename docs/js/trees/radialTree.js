@@ -119,7 +119,7 @@ function createRadialTree(dataUrl) {
                     return "end"
                 } else {
                     // meh not sure this works well with new data
-                    if (d.data.name.length > 3) {
+                    if (d.data.name.length > 4) {
                         return "middle"
                     } else {
                         if (d.x < Math.PI) {
