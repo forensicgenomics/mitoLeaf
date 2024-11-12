@@ -159,7 +159,19 @@ document.addEventListener('DOMContentLoaded', function () {
         // filter input data based on type
         let filteredData = [];
         if (type === 'profiles' && node.data.profiles) {
-            filteredData = data.filter(profile => node.data.profiles.includes(profile.accession_number));
+            filteredData = data.filter(profile => {
+                const matches = node.data.profiles.filter(nodeProfileAcc => {
+                    // compare without trailing '+' but store value with + in data
+                    // so that the table row shows the +
+                    if (nodeProfileAcc.replace(/\+$/, '') === profile.accession_number) {
+                        profile.accession_number = nodeProfileAcc;
+                        return true;
+                    }
+                    return false;
+                });
+
+                return matches.length > 0; // Return true if there's a match
+            });
         } else if (type === 'descendants') {
             filteredData = data;
         }
