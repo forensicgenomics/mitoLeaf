@@ -278,7 +278,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .attr('y', d => d.y - 15)
             .attr('text-anchor', 'middle')
             .style('font', '12px sans-serif')
-            .text(d => truncateText(d.data.name, nodeSpacing));
+            .text(d => truncateText(d.data.name, nodeSpacing * 0.9));
     }
 
     // given two nodes, returns d3 like path sting as a simple straight path
