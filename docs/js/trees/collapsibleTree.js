@@ -310,6 +310,7 @@ function update(source, duration = defDuration, callback = null) {
 
     // node labels
     nodeEnter.append('text')
+        .attr('class', 'node-label')
         .attr("dy", ".35em")
         .attr("x", -8)
         .attr("cursor", "pointer")
@@ -318,14 +319,37 @@ function update(source, duration = defDuration, callback = null) {
         .attr("text-anchor", "end")
         .style("font", "11px sans-serif")
         .attr('class', function(d) {
-        if (d.focused) {
-            return 'focused';
-        } else if (d.matched) {
-            return 'matched';
-        } else {
-            return null;
-        }
-    });
+            if (d.focused) {
+                return 'node-label focused';
+            } else if (d.matched) {
+                return 'node-label matched';
+            } else {
+                return 'node-label';
+            }
+        });
+
+    nodeEnter.append('g')
+        .attr('class', 'node-symbol')
+        .attr('transform', `translate(0, 0)`);
+
+    // Add the plus/minus symbols using the external function
+    addPlusMinusSymbol(nodeEnter.select('g.node-symbol'), 4.5, '#505050', 1);
+
+    // nodeEnter.append('text')
+    //     .attr('class', 'node-symbol')
+    //     .attr('dy', d => d._children ? '0.32em' : '0.225em')
+    //     .attr('dx', d => d._children ? -3 : -1.75)
+    //     .style('font-size', '11px')
+    //     .style('fill', '#505050')
+    //     .style('pointer-events', 'none')
+    //     .text(d => d._children ? '+' : (d.children ? '-' : ''));
+
+
+    // nodeEnter.merge(node)
+    //     .select('text.node-symbol')
+    //     .attr('dy', d => d._children ? '0.32em' : '0.225em')
+    //     .attr('dx', d => d._children ? -3 : -1.75)
+    //     .text(d => d._children ? '+' : (d.children ? '-' : ''));
 
     // merge old and new nodes
     const nodeUpdate = nodeEnter.merge(node);
@@ -339,15 +363,17 @@ function update(source, duration = defDuration, callback = null) {
             return d._children ? "lightsteelblue" : "#fff";
         });
 
+    addPlusMinusSymbol(nodeUpdate.select('g.node-symbol'), 4.5, '#505050', 1);
+
     // update the node labels to highlight
-    nodeUpdate.select('text')
+    nodeUpdate.select('text.node-label')
         .attr('class', function(d) {
             if (d.focused) {
-                return 'focused';
+                return 'node-label focused';
             } else if (d.matched) {
-                return 'matched';
+                return 'node-label matched';
             } else {
-                return null;
+                return 'node-label';
             }
         });
 
@@ -449,6 +475,46 @@ function rightAnglePath(s, d) {
             V ${d.x}
             H ${d.y}`;
 }
+
+
+function addPlusMinusSymbol(selection, radius, strokeColor, strokeWidth) {
+    radius = radius / 2;
+    selection.each(function(d) {
+        const group = d3.select(this);
+
+        // Remove any existing symbols before adding new ones
+        group.selectAll('line').remove();
+
+        if (d._children) {
+            // Draw a plus symbol (collapsed)
+            group.append('line')
+                .attr('x1', -radius)
+                .attr('x2', radius)
+                .attr('y1', 0)
+                .attr('y2', 0)
+                .attr('stroke', strokeColor)
+                .attr('stroke-width', strokeWidth);
+
+            group.append('line')
+                .attr('x1', 0)
+                .attr('x2', 0)
+                .attr('y1', -radius)
+                .attr('y2', radius)
+                .attr('stroke', strokeColor)
+                .attr('stroke-width', strokeWidth);
+        } else if (d.children) {
+            // Draw a minus symbol (expanded)
+            group.append('line')
+                .attr('x1', -radius)
+                .attr('x2', radius)
+                .attr('y1', 0)
+                .attr('y2', 0)
+                .attr('stroke', strokeColor)
+                .attr('stroke-width', strokeWidth);
+        }
+    });
+}
+
 
 
 // marks all descendants of a given node to be expanded recursively
