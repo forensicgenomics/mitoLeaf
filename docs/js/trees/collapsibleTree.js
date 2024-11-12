@@ -328,11 +328,10 @@ function update(source, duration = defDuration, callback = null) {
             }
         });
 
+    // plus/minus symbol in the node circles
     nodeEnter.append('g')
         .attr('class', 'node-symbol')
         .attr('transform', `translate(0, 0)`);
-
-    // Add the plus/minus symbols using the external function
     addPlusMinusSymbol(nodeEnter.select('g.node-symbol'), 4.5, '#505050', 1);
 
     // nodeEnter.append('text')
@@ -362,7 +361,6 @@ function update(source, duration = defDuration, callback = null) {
         .style("fill", function (d) {
             return d._children ? "lightsteelblue" : "#fff";
         });
-
     addPlusMinusSymbol(nodeUpdate.select('g.node-symbol'), 4.5, '#505050', 1);
 
     // update the node labels to highlight
