@@ -46,7 +46,7 @@ const margin = {top: 40, right: 90, bottom: 30, left: 90};
 const container = d3.select("#collapsible-tree");
 
 // man fun to initialize the tree
-function createCollapsibleTree(dataUrl, passedNodeId = null, passedNodeAsRoot = null) {
+function createCollapsibleTree(dataUrl, passedNodeId = null, passedNodeAsRoot = null, callback = null) {
     d3.select("#collapsible-tree").select("svg").remove();
 
     svg = container.append("svg")
@@ -85,7 +85,11 @@ function createCollapsibleTree(dataUrl, passedNodeId = null, passedNodeAsRoot = 
             }
         }
 
-        update(root, duration = 0);
+        update(root, 0, function() {
+            if (callback) {
+                callback();
+            }
+        });
     }).catch(function (error) {
         console.error('Error loading or processing the JSON data:', error);
     });
@@ -421,7 +425,6 @@ function update(source, duration = defDuration, callback = null) {
 
     // execute callback function, only when all transitions are complete
     if (!t.empty() && callback) {
-        console.log("in here")
         t.end()
          .then(function() {
              callback();

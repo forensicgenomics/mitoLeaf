@@ -47,11 +47,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // init collapsible tree
     const nodeAsRoot = urlParams.get('nodeAsRoot') === 'true';
     if (collapsibleTreeContainer) {
-        initCollapsibleTree(nodeId, nodeAsRoot);
-
-        if (nodeId && !nodeAsRoot) {
-            // TODO remove polling for callback
-            const pollingInterval = setInterval(function () {
+        initCollapsibleTree(nodeId, nodeAsRoot, function() {
+            if (nodeId && !nodeAsRoot) {
                 const highlightedNodes = d3.select('#collapsible-tree').selectAll('g.node').filter(function (d) {
                     return d.matched === true;
                 });
@@ -59,10 +56,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (!highlightedNodes.empty()) {
                     const highlightNode = highlightedNodes.node();
                     scrollToNode(highlightNode);
-                    clearInterval(pollingInterval); // Stop polling
                 }
-            }, 200);
-        }
+            }
+        });
     }
 
     // dragging of tree handled here
@@ -440,13 +436,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // initialize the collapsible tree by calling function from collapsibleTree.js
     // if given a nodeId, inits with that node as root used for subtrees
-    function initCollapsibleTree(nodeId = null, nodeAsRoot = false) {
+    function initCollapsibleTree(nodeId = null, nodeAsRoot = false, callback = null) {
         try {
-            if (nodeId) {
-                createCollapsibleTree("data/tree.json", nodeId, nodeAsRoot);
-            } else {
-                createCollapsibleTree("data/tree.json");
-            }
+            createCollapsibleTree("data/tree.json", nodeId, nodeAsRoot, callback);
             console.log('Collapsible tree initialized successfully.');
         } catch (error) {
             console.error('Error initializing collapsible tree:', error);
