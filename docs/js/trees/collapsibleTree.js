@@ -436,21 +436,19 @@ function update(source, duration = defDuration, callback = null) {
     resizeContainer(root);
 
     // execute callback function, only when all transitions are complete
-    // TODO throws an error when expanding full tree
-    if (!t.empty()  && callback) {
-        t.end()
-         .then(callback())
-         .catch(function(error) {
-             console.error('Transition interrupted:', error);
-             callback();
-         });
-    } else {
-        // If the selection is empty, call the callback immediately
-        if (callback) {
+    if (callback) {
+        if (t.length > 0) {
+            t.end()
+             .then(callback())
+             .catch(function(error) {
+                 console.error('Transition interrupted:', error);
+                 callback();
+             });
+        } else {
+            // if no transition occurs, exec callback
             callback();
         }
     }
-
 } // end of update function
 
 
