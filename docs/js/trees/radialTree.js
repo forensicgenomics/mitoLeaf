@@ -23,14 +23,17 @@ function createRadialTree(dataUrl) {
     const height = 1000;
     const cx = width * 0.5;
     const cy = height * 0.56;
-    const radius = Math.min(width, height) / 2 - 30;
+    const radius = Math.min(width, height) / 2 - 20;
 
     d3.json(dataUrl).then(function(data) {
         const tree = d3.tree()
             .size([2 * Math.PI, radius])
             // separates nodes from each other
-            .separation((a, b) => (a.parent === b.parent ? 1 : 2) / a.depth);
-
+            .separation((a, b) => {
+                    // calc separation based on depth
+                    const depthFactor = 1 / (a.depth + 1);
+                    return (a.parent === b.parent ? 1 : 2) * depthFactor;
+                });
         const root = tree(d3.hierarchy(data)
             // following line would be ordering of the nodes
             // .sort((a, b) => d3.ascending(a.data.name, b.data.name))
@@ -116,7 +119,7 @@ function createRadialTree(dataUrl) {
                     return "end"
                 } else {
                     // meh not sure this works well with new data
-                    if (d.data.name.length > 3) {
+                    if (d.data.name.length > 4) {
                         return "middle"
                     } else {
                         if (d.x < Math.PI) {

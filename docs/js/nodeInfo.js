@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const urlParams = new URLSearchParams(window.location.search);
     const nodeId = urlParams.get('nodeId');
     const viewSubtreeButton = document.getElementById('view-subtree-button');
+    const showInTreeButton = document.getElementById('show-in-tree-button');
 
     if (!nodeId) {
         document.getElementById('node-details').textContent = 'Node ID not found in the URL.';
@@ -59,8 +60,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     <div class="card-body">${formatHGSignature(node.data.HG) || 'N/A'}</div>
                 </div>
                 <div id="profiles-section" class="card mb-3 d-none">
-                    <div class="card-header"><strong>Representative Genomes and Metadata</strong></div>
-                    <div class="card-body">
+                    <div class="card-header"><strong>Representative Mitogenomes and Metadata</strong></div>
+                    <div class="card-body table-responsive">
                         <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
@@ -87,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>Name</th>
                                     <th>HG - Signature</th>
                                 </tr>
                             </thead>
@@ -108,13 +109,21 @@ document.addEventListener('DOMContentLoaded', function () {
         // accession profiles table
         displayTable(node, profilesData, 'profiles-section', 'profile-list', 'show-more-profiles', 'profiles', 3, generateProfileRow);
         // children table
-        displayTable(node, node.children || [], 'descendants-section', 'children-list', 'show-more-descendants', 'descendants', 3, generateChildRow);
+        displayTable(node, node.children || [], 'descendants-section', 'children-list', 'show-more-descendants', 'descendants', 3, generateHGRow);
 
         // subtree button handler to redirect to linear tree page
         if (viewSubtreeButton) {
             viewSubtreeButton.addEventListener('click', function () {
                 console.log('Navigating to subtree of node:', nodeId);
-                window.location.href = `explore_mitotree.html?nodeId=${encodeURIComponent(nodeId)}`;
+                window.location.href = `explore_mitotree.html?nodeId=${encodeURIComponent(nodeId)}&nodeAsRoot=true`;
+            });
+        }
+
+        // highlight in tree button handler to redirect to linear tree page
+        if (showInTreeButton) {
+            showInTreeButton.addEventListener('click', function () {
+                console.log('Highlighting in full tree node:', nodeId);
+                window.location.href = `explore_mitotree.html?nodeId=${encodeURIComponent(nodeId)}&nodeAsRoot=false`;
             });
         }
 
@@ -150,7 +159,19 @@ document.addEventListener('DOMContentLoaded', function () {
         // filter input data based on type
         let filteredData = [];
         if (type === 'profiles' && node.data.profiles) {
-            filteredData = data.filter(profile => node.data.profiles.includes(profile.accession_number));
+            filteredData = data.filter(profile => {
+                const matches = node.data.profiles.filter(nodeProfileAcc => {
+                    // compare without trailing '+' but store value with + in data
+                    // so that the table row shows the +
+                    if (nodeProfileAcc.replace(/\+$/, '') === profile.accession_number) {
+                        profile.accession_number = nodeProfileAcc;
+                        return true;
+                    }
+                    return false;
+                });
+
+                return matches.length > 0; // Return true if there's a match
+            });
         } else if (type === 'descendants') {
             filteredData = data;
         }
@@ -194,21 +215,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return row;
     }
 
-    // generates a table row for a given descendant
-    // returns html element
-    function generateChildRow(child) {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${child.data.name}</td>
-            <td>${formatHGSignature(child.data.HG) || 'N/A'}</td>
-        `;
-
-        // on click event to navigate to the node info page for this child
-        row.addEventListener('click', function () {
-            window.location.href = `nodeInfo.html?nodeId=${encodeURIComponent(child.data.name)}`;
-        });
-        return row;
-    }
 
     // create lineage tree from given ancestors
     function displayAncestors(ancestors) {
@@ -272,7 +278,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .attr('y', d => d.y - 15)
             .attr('text-anchor', 'middle')
             .style('font', '12px sans-serif')
-            .text(d => truncateText(d.data.name, nodeSpacing));
+            .text(d => truncateText(d.data.name, nodeSpacing * 0.9));
     }
 
     // given two nodes, returns d3 like path sting as a simple straight path
