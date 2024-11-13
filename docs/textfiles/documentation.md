@@ -58,7 +58,7 @@ Parent nodes not required to depict the structure accurately are omitted complet
 
 Here, the full extent of mitoTree can be explored interactively.  
 Haplogroups with descendants are collapsible, meaning their descendants can be shown or hidden.  
-Initially, the tree is expanded to reveal all designated ‘Superhaplogroups’.
+Initially, the tree is expanded to reveal all designated ‘Phylo-Superhaplogroups’, which is analog to Phylotree.
 
 - **Expand/Collapse Nodes:** Click on a node or its label to expand or collapse its descendants.
 - **Node On-click Effect:** Select the desired On-click effect:
