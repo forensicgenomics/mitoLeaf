@@ -114,27 +114,32 @@ document.addEventListener('DOMContentLoaded', function () {
     // event handler for search button
     if (searchButton) {
         searchButton.addEventListener('click', function () {
+            const searchInHidden = document.getElementById('tree-search-mode-toggle').checked;
             let searchTerm = searchInput.value.trim();
             if (!searchTerm) {
                 resetSearch();
             } else {
-                const { bestMatchNode, resultsNumber } = searchNodes(searchTerm);
-                document.getElementById('search-results').textContent = `${resultsNumber} match(es) found`;
-                currentMatchIndex = matchedNodes.indexOf(bestMatchNode);
-                if (resultsNumber > 0) {
-                    scrollToNode(bestMatchNode);
-                    showNavigationButtons(); // show "Prev" and "Next" buttons
-                } else {
-                    hideNavigationButtons();
-                }
+                searchNodes(searchTerm, searchInHidden, function (bestMatchNode, resultsNumber) {
+                    document.getElementById('search-results').textContent = `${resultsNumber} match(es) found`;
+                    currentMatchIndex = matchedNodes.indexOf(bestMatchNode);
+                    if (resultsNumber > 0) {
+                        scrollToNode(bestMatchNode);
+                        showNavigationButtons(); // show "Prev" and "Next" buttons
+                    } else {
+                        hideNavigationButtons();
+                    }
+                });
             }
         });
     }
+
 
     // event listeners for "Previous" and "Next" buttons
     const prevButton = document.getElementById('prev-button');
     const nextButton = document.getElementById('next-button');
 
+    // used to change which node is focused
+    // i.e. when using prev and next buttons
     function changeFocus(next = true) {
         if (matchedNodes.length > 0) {
 
@@ -169,11 +174,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // searching nodes and returning the best match and results count given the search input string
-    function searchNodes(searchTerm) {
+    function searchNodes(searchTerm, searchInHidden = false, callback=null) {
         let bestMatchNode = null;
         let bestScore = Infinity;
         let resultsNumber = 0;
-        const searchInHidden = document.getElementById('tree-search-mode-toggle').checked;
 
         matchedNodes = [];
         let matchedDataNodes = [];
@@ -184,26 +188,31 @@ document.addEventListener('DOMContentLoaded', function () {
             d.focused = false;
         });
 
+        // helpers to keep code dry
+        // marks node to be highlighted and adds to matched array
+        function markMatch(node) {
+            node.matched = true; // mark node to be highlighted
+            matchedDataNodes.push(node); // gather in array
+        }
+        // calc similarity score to determine best match and set it as such
+        function updateBestMatch(node) {
+            const score = node.data.name.length - searchTerm.length;
+            if (score < bestScore) {
+                bestScore = score;
+                bestMatchNode = node;
+            }
+        }
+
+        // recursive fun to search in all nodes and expand paths of matches
         function searchAllNodes(node) {
-            const nodeName = node.data.name;
-            if (nodeName.includes(searchTerm)) {
-                node.matched = true; // Mark node as matched
-                matchedDataNodes.push(node); // Store the data node
+            if (node.data.name.includes(searchTerm)) {
+                markMatch(node);
+                updateBestMatch(node);
 
-                // Expand path to this node
+                // expand tree to show this node
                 expandPathToNode(node);
-
-                // Calculate similarity score to determine best match
-                const score = nodeName.length - searchTerm.length;
-                if (score < bestScore) {
-                    bestScore = score;
-                    bestMatchNode = node;
-                }
-            } else {
-                node.matched = false;
             }
 
-            // Recursively search children and _children
             let children = [];
             if (node.children) {
                 children = node.children;
@@ -220,63 +229,59 @@ document.addEventListener('DOMContentLoaded', function () {
             searchAllNodes(root);
         } else {
             // Search only visible nodes (DOM elements)
-            d3.selectAll('g.node').each(function (d) {
-                const nodeName = d.data.name;
-                if (nodeName.includes(searchTerm)) {
-                    d.matched = true; // Mark node as matched
-                    matchedDataNodes.push(d); // Store the data node
-
-                    // Calculate similarity score to determine best match
-                    const score = nodeName.length - searchTerm.length;
-                    if (score < bestScore) {
-                        bestScore = score;
-                        bestMatchNode = d;
-                    }
+            d3.selectAll('g.node').each(function (node) {
+                if (node.data.name.includes(searchTerm)) {
+                    markMatch(node);
+                    updateBestMatch(node);
                 }
             });
         }
 
         resultsNumber = matchedDataNodes.length;
 
-        // Mark best match node to be focused BEFORE updating the tree
+        // mark best match node to be focused
         if (bestMatchNode) {
             bestMatchNode.focused = true;
         }
 
-        update(root, 0, function () {
-            // Now map data nodes to DOM elements
+        update(root, 0, function() {
+            // map data nodes to DOM elements
             matchedDataNodes.forEach(function (d) {
-                const nodeElement = d3.select('#collapsible-tree').selectAll('g.node').filter(function (datum) {
+                const nodeElement = d3.select('#collapsible-tree').selectAll('g.node').filter(function(datum) {
                     return datum === d;
                 }).node();
                 if (nodeElement) {
                     matchedNodes.push(nodeElement);
                 }
             });
-        });
 
-        // Get the DOM element for the best match node
-        if (bestMatchNode) {
-            const bestMatchNodeElement = d3.select('#collapsible-tree').selectAll('g.node').filter(function (datum) {
-                return datum === bestMatchNode;
-            }).node();
+            // DOM element for the best match node
+            if (bestMatchNode) {
+                const bestMatchNodeElement = d3.select('#collapsible-tree').selectAll('g.node').filter(function(datum) {
+                    return datum === bestMatchNode;
+                }).node();
 
-            if (bestMatchNodeElement) {
-                bestMatchNode = bestMatchNodeElement;
-            } else {
-                bestMatchNode = null;
+                if (bestMatchNodeElement) {
+                    bestMatchNode = bestMatchNodeElement;
+                } else {
+                    bestMatchNode = null;
+                }
             }
-        }
 
-        // Sort matched nodes by their x position (vertical order)
-        matchedNodes.sort((a, b) => {
-            const nodeA = d3.select(a).datum();
-            const nodeB = d3.select(b).datum();
-            return nodeA.x - nodeB.x;
+            // sort matched nodes by their x position to make navigating more sensible
+            matchedNodes.sort((a, b) => {
+                const nodeA = d3.select(a).datum();
+                const nodeB = d3.select(b).datum();
+                return nodeA.x - nodeB.x;
+            });
+
+            // instead of returning, use the callback to ensure no async problems when scrolling to the focused node
+            if (callback) {
+                callback(bestMatchNode, resultsNumber);
+            }
         });
-
-        return { bestMatchNode, resultsNumber };
     }
+
 
 
     // helpers to display search buttons
