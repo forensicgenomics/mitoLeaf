@@ -437,11 +437,20 @@ function update(source, duration = defDuration, callback = null) {
 
     // execute callback function, only when all transitions are complete
     // TODO throws an error when expanding full tree
-    t.end().then(function() {
+    if (!t.empty()  && callback) {
+        t.end()
+         .then(callback())
+         .catch(function(error) {
+             console.error('Transition interrupted:', error);
+             callback();
+         });
+    } else {
+        // If the selection is empty, call the callback immediately
         if (callback) {
             callback();
         }
-    });
+    }
+
 } // end of update function
 
 
@@ -459,7 +468,6 @@ function click(event, d) {
     } else if (expandOption === "I") {
             expandNode(d);
     }
-    // TODO probably make this async/await so the resizing isnt as jerky
     update(d);
 }
 
