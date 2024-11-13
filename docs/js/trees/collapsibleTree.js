@@ -334,22 +334,6 @@ function update(source, duration = defDuration, callback = null) {
         .attr('transform', `translate(0, 0)`);
     addPlusMinusSymbol(nodeEnter.select('g.node-symbol'), 4.5, '#505050', 1);
 
-    // nodeEnter.append('text')
-    //     .attr('class', 'node-symbol')
-    //     .attr('dy', d => d._children ? '0.32em' : '0.225em')
-    //     .attr('dx', d => d._children ? -3 : -1.75)
-    //     .style('font-size', '11px')
-    //     .style('fill', '#505050')
-    //     .style('pointer-events', 'none')
-    //     .text(d => d._children ? '+' : (d.children ? '-' : ''));
-
-
-    // nodeEnter.merge(node)
-    //     .select('text.node-symbol')
-    //     .attr('dy', d => d._children ? '0.32em' : '0.225em')
-    //     .attr('dx', d => d._children ? -3 : -1.75)
-    //     .text(d => d._children ? '+' : (d.children ? '-' : ''));
-
     // merge old and new nodes
     const nodeUpdate = nodeEnter.merge(node);
     nodeUpdate.transition(t)
@@ -436,19 +420,23 @@ function update(source, duration = defDuration, callback = null) {
     resizeContainer(root);
 
     // execute callback function, only when all transitions are complete
-    if (callback) {
-        if (t.length > 0) {
-            t.end()
-             .then(callback())
-             .catch(function(error) {
-                 console.error('Transition interrupted:', error);
+    if (!t.empty() && callback) {
+        console.log("in here")
+        t.end()
+         .then(function() {
+             callback();
+         })
+         .catch(function(error) {
+             console.warn('Transition interrupted:', error);
                  callback();
-             });
-        } else {
-            // if no transition occurs, exec callback
+         });
+    } else {
+        // if no transition, exec callback
+        if (callback) {
             callback();
         }
     }
+
 } // end of update function
 
 
