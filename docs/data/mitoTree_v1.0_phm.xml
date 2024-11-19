@@ -7218,8 +7218,6 @@ haplogroup L5b2: replaced G7972G by @7972
                                 <Node Id="F1a1a" HG="8149G 16108T">
                                   <Node Id="F1a1a1" HG="11215T">
                                     <Node Id="F1a1a1a" HG="9926G 12372A 15236G 16278T 16368C"/>
-                                    <Node Id="F1a1a1b" HG="A73 A263 A1438 A2706 A4769 C7028 A8860 C14766 A15326"/>
-                                    <Node Id="F1a1a1c" HG="A73 A263 A1438 A2706 C3970 C4086 A4769 C7028 A8860 C14766 A15326"/>
                                   </Node>
                                   <Node Id="F1a1a2" HG="150T 3777C 12820A 14227T 15862C"/>
                                   <Node Id="F1a1a3" HG="8433C 11002G C16108"/>
