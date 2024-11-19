@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchModeToggle = document.getElementById('search-mode-toggle');
     const showMoreButton = document.getElementById('show-more-button');
     const resetButton = document.getElementById('reset-button');
+    const tableHeader = document.getElementById('hg-header');
 
     let nodesData = [];
     // array to hold filtered search results
@@ -44,17 +45,17 @@ document.addEventListener('DOMContentLoaded', function () {
         const endIndex = currentCount + resultsPerPage;
         const pageData = filteredNodesData.slice(startIndex, endIndex);
 
-        pageData.forEach(node => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${node.data.name}</td>
-                <td>${formatHGSignature(node.data.HG)}</td>
-            `;
+        // need search terms here in order to highlight
+        const HGsearchTerms = getHGSearchTerms();
 
-            // onclick to go to node info page
-            row.addEventListener('click', () => {
-                showNodeInfo(node);
-            });
+        pageData.forEach(node => {
+            // show full HG-Sig when has mutation mode is active, normal HG-Sig otherwise
+            const hgSignature = searchModeToggle.checked ? hgMotifsData[node.data.name] : node.data.HG
+
+            // highlighting and cursive backmutations
+            let formattedHGSignature = formatHGSignature(hgSignature, HGsearchTerms);
+
+            const row = generateHGRow(node, formattedHGSignature)
 
             nodesTableBody.appendChild(row);
         });
@@ -101,41 +102,19 @@ document.addEventListener('DOMContentLoaded', function () {
                     return node.data.name.toLowerCase().includes(searchTermID.toLowerCase());
                 }
             });
+
+            // sort results by best fit, calculating similarity score
+            filteredNodesData = filteredNodesData.map(node => {
+                const similarityScore = getSimilarityScore(node.data.name, searchTermID);
+                return { node, similarityScore };
+            });
+            filteredNodesData.sort((a, b) => a.similarityScore - b.similarityScore);
+            filteredNodesData = filteredNodesData.map(item => item.node);
         }
 
         // filter by HG
         if (searchTermHG) {
-            const searchTerms = searchTermHG.split(/[\s,]+/).filter(term => term.length > 0)
-                .map(term => {
-                    if (term === '.') {
-                        return '\\.';
-                    } else if (term.includes('.')) {
-                        return term.replace(/\./g, '\\.');
-                    }
-                    return term;
-                });
-
-            // helper function to use for both hg search modes
-            // has to distinguish between just '.' , '.[number][base]', just [base] and [base][number][base]
-            function rexSearch(term, searchItem) {
-                if (term === "\\.") {
-                    // search for insertion '.'
-                    return /\d+\.\d+/i.test(searchItem);
-                }
-                else if (/^\\.\d+[-a-z]?$/i.test(term)) {
-                    // search for specific insertion like '.1'
-                    return new RegExp(`\\d+${term}`, 'i').test(searchItem);
-                }
-                else if (/^[-a-z]$/i.test(term)) {
-                    // search for base-only mutations
-                    return new RegExp(`\\d+[.\\d]*${term.toLowerCase()}`, 'i').test(searchItem);
-                }
-                else {
-                    // position or position + base / base + position search
-                    // in theory this allows for base + position + base which should not exist
-                    return new RegExp(`(^|\\s)[-a-z]?(${term.toLowerCase()})[-a-z]?(\\s|$)`, 'i').test(searchItem);
-                }
-            }
+            const HGsearchTerms = getHGSearchTerms();
 
             // searching based on what is selected on the mode toggle
             if (mutationMode) {
@@ -143,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 filteredNodesData = filteredNodesData.filter(node => {
                     const fullHGSignature = hgMotifsData[node.data.name];
                     if (fullHGSignature) {
-                        return searchTerms.every(term => rexSearch(term, fullHGSignature));
+                        return HGsearchTerms.every(term => rexSearch(term, fullHGSignature));
                     }
                     return false;
                 });
@@ -153,17 +132,46 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (node.data.HG) {
                         const hgLowerCase = node.data.HG.toLowerCase();
 
-                        return searchTerms.every(term => rexSearch(term, hgLowerCase));
+                        return HGsearchTerms.every(term => rexSearch(term, hgLowerCase));
                     }
                     return false;
                 });
             }
         }
 
-        searchResultsCounter.style.display = 'block';
-        searchResultsText.textContent = `${filteredNodesData.length} result(s) found`;
+        // only show search results, if the search fields are not empty
+        if (searchTermID || searchTermHG) {
+            searchResultsCounter.style.display = 'block';
+            searchResultsText.textContent = `${filteredNodesData.length} result(s) found`;
+        }
 
+        updateTableHeader();
         renderTable();
+    }
+
+
+    // returns HG search terms from input split and wildcard removal
+    function getHGSearchTerms() {
+        const searchTermHG = searchInputHG.value.trim().toUpperCase();
+        return searchTermHG.split(/[\s,]+/).filter(term => term.length > 0)
+            .map(term => {
+                if (term === '.') {
+                    return '\\.';
+                } else if (term.includes('.')) {
+                    return term.replace(/\./g, '\\.');
+                }
+                return term;
+            });
+    }
+
+
+    // changes table header of hg column dependent on toggle
+    function updateTableHeader() {
+        if (searchModeToggle.checked) {
+            tableHeader.textContent = 'Full HG-Signature';
+        } else {
+            tableHeader.textContent = 'HG-Signature';
+        }
     }
 
 
@@ -172,14 +180,35 @@ document.addEventListener('DOMContentLoaded', function () {
         d3.json('data/tree.json'),
         d3.json('data/hgmotifs.json')
     ]).then(function([treeData, motifsData]) {
-        const root = d3.hierarchy(treeData);
-        nodesData = root.descendants();
+        nodesData = [];
+
+        // has to be done manually rather than with d3s hierarchy to preserve order
+        // traverse the treeData and wrap data in 'data' field
+        function traverseInOrder(node) {
+            const wrappedNode = {
+                data: {
+                    name: node.name,
+                    HG: node.HG,
+                    ...node  // all other properties
+                }
+            };
+
+            nodesData.push(wrappedNode);
+
+            if (node.children) {
+                node.children.forEach(traverseInOrder);
+            }
+        }
+
+        traverseInOrder(treeData);
+
         hgMotifsData = motifsData;
 
         resetAndRenderAllNodes();
     }).catch(function(error) {
         console.error('Error loading or processing the JSON data:', error);
     });
+
 
     // event listeners for search inputs
     if (idSearchButton && hgSearchButton) {
@@ -206,9 +235,17 @@ document.addEventListener('DOMContentLoaded', function () {
         resetButton.addEventListener('click', function () {
             searchInputID.value = '';
             searchInputHG.value = '';
+            searchModeToggle.checked = false;
             resetAndRenderAllNodes();
         });
     }
+
+    // event listener of mutation mode search toggle to change table header
+    searchModeToggle.addEventListener('change', function () {
+        updateTableHeader();
+        combinedFilterNodes();
+    });
+
 
     // handle node info page navigation
     function showNodeInfo(node) {
@@ -220,6 +257,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // also handles counter and show more button
     function resetAndRenderAllNodes() {
         filteredNodesData = nodesData;
+
         renderTable();
 
         const searchResultsCounter = document.getElementById('search-results-counter');

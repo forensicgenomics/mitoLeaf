@@ -20,16 +20,30 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #radial-tree {
     position: relative;
     text-align: center;
-    /*margin-top: -1em;*/
     height: 100%;
     width: 100%;
     max-height: 82vh;
-    max-width: 59vw;
+    max-width: 100%;
 }
 /* make the SVG scale to the container */
 #radial-tree > svg {
     width: 100%;
     height: 100%;
+}
+
+
+/* the following is to overdraw the text beneath the header on the radial tree homepage in desktop
+but not in mobile mode */
+.homepage-text {
+    width: 100%;
+    overflow: hidden;
+}
+@media (min-width: 992px) {
+    .homepage-text {
+        width: 170%;
+        position: relative;
+        z-index: 2;
+    }
 }
 
 
@@ -60,18 +74,18 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
     transition: opacity 0.2s ease-in-out;
 }
 
+/* change the cursor to grabbing when dragging */
+#collapsible-tree.dragging {
+    cursor: grabbing;
+}
+
 /* controls of the linear tree on Explore mitoTree */
-#tree-controls {
+#tree-controls-container {
     position: sticky; /* keep on the screen when scrolling */
     max-width: 310px;
     top: 1vh;
     left: 0;
     z-index: 100;
-}
-
-/* change the cursor to grabbing when dragging */
-#collapsible-tree.dragging {
-    cursor: grabbing;
 }
 
 /* 3 way toggle on linear tree */
@@ -80,7 +94,6 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
     position: relative;
     height: 30px;
     width: 100%;
-    margin: 10px 0;
     background: gray;
     border-radius: 30px;
     display: flex;
@@ -108,11 +121,11 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
     background-color:  #0dcaf0;;
 }
 .switch-input:checked + .switch-label-i ~ .switch-selector {
-    transform: translateX(110%);
+    transform: translateX(100%);
     background-color:  #0dcaf0;;
 }
 .switch-input:checked + .switch-label-n ~ .switch-selector {
-    transform: translateX(216%);
+    transform: translateX(201%);
     background-color:  #0dcaf0;;
 }
 /* switch selector (the moving part) */
@@ -121,7 +134,7 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
     z-index: 1;
     top: 0;
     left: 0;
-    width: 75px;
+    width: 33.33%;
     height: 30px;
     border-radius: 30px;
     background-color: #0dcaf0;
@@ -131,6 +144,7 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
 .toggle-container {
     display: flex;
     max-width: 310px;
+    width: 95%;
     align-items: center;
     gap: 0;
     margin-top: 0;
@@ -138,28 +152,24 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
 .info-text {
     font-size: 12px;
     color: #333;
-    margin-right: 10px;
 }
+
 
 /* searching on linear tree */
 /* search bar */
 #search-controls {
-    position: sticky; /* keep on screen when scrolling */
-    max-width: 310px;
     z-index: 100;
     gap: 10px;
     flex-wrap: nowrap;
 }
 #prev-button {
     display: none; /* hide initially */
-    margin-left: 5px;
 }
 #next-button {
     display: none; /* hide initially */
-    margin-left: 5px;
 }
 /* highlighted text for search results */
-.highlight-text {
+.matched {
     fill: black;
     font-weight: bold;
     paint-order: stroke;
@@ -167,8 +177,10 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
     stroke-width: 3px;
 }
 /* best match / current result highlighted node */
-.focused-node {
+.focused {
+    fill: black;
+    font-weight: bold;
+    paint-order: stroke;
     stroke: red; /* highlight color */
     stroke-width: 3px;
-    fill: black;
 }

@@ -58,37 +58,41 @@ Parent nodes not required to depict the structure accurately are omitted complet
 
 Here, the full extent of mitoTree can be explored interactively.  
 Haplogroups with descendants are collapsible, meaning their descendants can be shown or hidden.  
-Initially, the tree is expanded to reveal all designated ‘Superhaplogroups’.
+Initially, the tree is expanded to reveal all designated ‘Phylo-Superhaplogroups’, which is analog to Phylotree.
 
 - **Expand/Collapse Nodes:** Click on a node or its label to expand or collapse its descendants.
-- **Node On-click Effect toggle:** Select the desired On-click effect:
+- **Node On-click Effect:** Select the desired On-click effect:
   - **Expand Fully:** Clicking on a node will recursively expand/collapse all of its descendants.
   - **Expand:** The default effect of expanding only the direct descendants of a node.
   - **Node Info:** Clicking on a node will redirect you to the haplogroup info page of that node.
-- **Reset Tree button:** Reset the tree to its initial rendering. Equivalent to reloading the page.
-- **Expand Fully button:** Expands all nodes to show the entire tree. Caution: this may take a while.
-- **ID search:** Use the search bar to search for Haplogroups by their name. Only currently expanded Nodes will be searched. The search is case sesitive.  
+- **Reset Tree:** Reset the tree to its initial rendering. Equivalent to reloading the page.
+- **Expand Fully:** Expands all nodes to show the entire tree. Caution: this may take a while.
+- **Name search:** Use the search bar to search for Haplogroups by their name. The search is case sensitive.   
 All matches will be highlighted, and the tree will be centered to show the best match. Use the Prev/Next buttons to navigate through the remaining matches and center them.  
 The number of matches will also be displayed next to the search bar.
+  - **In all:** Per default, only currently expanded Nodes will be searched.
+  Toggle this switch to search in all Nodes, not just the expanded ones.  
+  This will cause the Tree to be re-rendered, in order to display all matched nodes. 
 - **Download svg:** Click the button to download the current tree visualization as a .svg. Customize what is shown beforehand and then download your custom tree visualization.
 
 <br>
 
 ## Haplogroup Search
 
-This table displays all Haplogroups with their ID(name) and their HG-Signature.   
+This table displays all Haplogroups with their Name and their HG-Signature.   
 Search domains can be combined.  
 Reset by deleting from the search fields, reloading the page or with the reset button.
 
-- **Search by ID:** Searching will show all full and partial ID matches to the entered keyword, ordered by relevance.
-  - **Case Sensitive toggle:** The search is case-sensitive by default, but can be deselected.
+- **Search by Name:** Searching will show all full and partial Name matches to the entered keyword, ordered by relevance.
+  - **Case Sensitive:** The search is case-sensitive by default, but can be deselected.
 - **Search by HG Signature:** Use the toggle to switch between exact signature match and mutation inheritance modes.  
   You can search for a position by omitting the base/mutation (i.e., '123') or a position & base/mutation pair (i.e. '123A' or '123-', etc.).
   You can also search fur just specific mutations with just the base/mutation/period for insertion (i.e. 'a' or '-' or '.1' or '.').
   You can search multiple positions/mutations at once by separating them with a space or a comma (i.e., '123A 246G'). The search will then attempt to match all entered mutations in the selected mode.
+  Matched Mutations are highlighted in yellow.
   - **Exact Signature:** Matches any haplogroups that carry all entered positions or mutations in their HG-Signature (the mutation occurred on their level).
   - **Has Mutation:** Matches any haplogroups that carry all entered positions or mutations in their Full HG-Signature (meaning they have these mutations). For example, if HG 'A' has the mutation '123A', its descendants will also be shown when searching for '123' or '123A', unless they have a backmutation or a different mutation at that position.
-- **Combine Searches:** Search domains are combined. I.e., search shows only results that match the 'ID' search field entry as well as those of the 'HG Signature' search field or any others present and not empty.
+- **Combine Searches:** Search domains are combined. I.e., search shows only results that match the 'Name' search field entry as well as those of the 'HG Signature' search field or any others present and not empty.
 - **Reset Search:** Resets all search domains and shows all Haplogroups again. Equivalent to reloading the page.
 - **Download CSV:** Downloads the current filtered table as a .csv.
 
@@ -101,7 +105,7 @@ The color bar at the top represents its respective color code, indicating lineag
 Recurrent mutations are noted in cursive and with the base leading and are only present in the 'HG-Signature' field, not the 'full HG-Signature'.
 
 - **HG-Signature:** Indicates the Haplogroup's HG-Signature.
-- **Representative Genomes and Metadata:**
+- **Representative Mitogenomes and Metadata:**
 The data shown here are retrieved from NCBI GenBank. In case of missing or "NA", there was no data available at the time of retrieval.
   - **Accession Number:** Lists GenBank accession numbers that are representatives of this haplogroup.
   - **Country:** Information stored under the NCBI FEATURE '/origin'
@@ -113,4 +117,7 @@ The data shown here are retrieved from NCBI GenBank. In case of missing or "NA",
   Click on a listed descendant to view it's respective Info page.
 - **Full HG-Signature:** Shows the complete signature of the Haplogroup, displaying all variants relative to the rCRS.
 The presence of the variants '315.1c 16181M 16182M 16183M 16519Y' in most haplogroups is outlined in [Dür et al. 2021](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8198973/)
+- **Show Subtree:** Renders an interactive tree where the current Haplogroup is the root node.
+- **Highlight in Tree:** Redirects to the Linear Tree page, where the tree is rendered to show this Haplogroup,
+highlighting and scrolling to it.
 
