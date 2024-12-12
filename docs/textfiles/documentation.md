@@ -18,8 +18,8 @@ This section provides detailed information and guidance on using mitoTree.
 
 **Nucleotide position numbers** are relative to the **rCRS** [GenBank: NC_012920](https://www.ncbi.nlm.nih.gov/nuccore/NC_012920)
 
-**Mutations** are given in the format **[position][evolved base]**. The words "Mutations" and "Variants" are used synonymously.  
-The [evolved base] can be one of the following symbols:
+**Mutations** are given in the format **[position][nucleotide base]**. The words "Mutations" and "Variants" are used synonymously.  
+The [nucleotide base] can be one of the following symbols:
 - A, C, G, T: representing the four DNA bases (Adenine, Cytosine, Guanine, and Thymine).
 - '-'(hyphen): This symbol signifies a deletion.
 - Mixed states, indicating uncertainty about the specific base, are denoted by ambiguous symbols. For details, refer to the extended IUPAC code explained in [Parson et al. 2014](https://www.sciencedirect.com/science/article/pii/S1872497314001586?via%3Dihub).
