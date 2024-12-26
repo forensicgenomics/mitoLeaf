@@ -25,19 +25,7 @@ from shutil import copyfile
 from utils.file_readers import csv_as_dict, read_txt
 from utils.xml_tree_parser import xml_tree_parsing, tree_to_json, create_bare_tree, create_newick_tree
 
-
-# raw files needed in inputfiles
-XML_FILE = "inputfiles/mitoTree_v1.0_phm.xml"
-HGMOTIFS_FILE = "inputfiles/mitoTree_v1.0_hgmotifs.csv"
-COLORCODE_FILE = "inputfiles/superhaplo_colorcodes.csv"
-SUPERHAPLO_FILE = "inputfiles/superhaplogroups.txt"
-PHYLO_SUPERHAPLO_FILE = "inputfiles/phylo_superhaplogroups.txt"
-SEQ_TECH = "inputfiles/metadata/61302_sequencing_technology.txt"
-COUNTRY = "inputfiles/metadata/country_61302_final.txt"
-MOTIF_REPRESENTATIVES = "inputfiles/metadata/mitoTree_61302_representatives.txt"
-
-# destination where to write files
-DATA_DEST = "docs/data/"
+from utils.path_defaults import *
 
 
 ### profile attributes table
