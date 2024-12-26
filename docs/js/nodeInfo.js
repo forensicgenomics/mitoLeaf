@@ -15,7 +15,7 @@ That includes displaying the node attributes,
 building the lineage tree,
 retrieving the full hg signature as well as the profiles for this hg.
 
-As it is dynamic, html element creation is handles here and not in the html file.
+As it is dynamic, html element creation is handled here and not in the html file.
 */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -66,7 +66,9 @@ document.addEventListener('DOMContentLoaded', function () {
                             <thead>
                                 <tr>
                                     <th>Accession Number</th>
-                                    <th>Country</th>
+                                    <th>Origin</th>
+                                    <th>Publication Title</th>
+                                    <th>First Author</th>
                                     <th>Technology</th>
                                     <th>Assembly</th>
                                 </tr>
@@ -170,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     return false;
                 });
 
-                return matches.length > 0; // Return true if there's a match
+                return matches.length > 0; // true if there's a match
             });
         } else if (type === 'descendants') {
             filteredData = data;
@@ -204,16 +206,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // generates a table row for a given profile
     // returns html element
-    function generateProfileRow(profile) {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${profile.accession_number}</td>
-            <td>${profile.country || 'N/A'}</td>
-            <td>${profile.technology || 'N/A'}</td>
-            <td>${profile.assembly || 'N/A'}</td>
-        `;
-        return row;
-    }
+function generateProfileRow(profile) {
+  const row = document.createElement('tr');
+
+  // hyperlink for accession_number if it exists
+  const accessionLink = profile.accession_number
+    ? `<a href="https://www.ncbi.nlm.nih.gov/nuccore/${profile.accession_number}" target="_blank">${profile.accession_number}</a>`
+    : 'N/A';
+
+  // hyperlink for pub_title if pubmed_id exists
+  const titleLink = (profile.pubmed_id && profile.pubmed_id !== '')
+    ? `<a href="https://pubmed.ncbi.nlm.nih.gov/${profile.pubmed_id}" target="_blank">${profile.pub_title || 'N/A'}</a>`
+    : (profile.pub_title || 'N/A');
+
+  row.innerHTML = `
+    <td>${accessionLink}</td>
+    <td>${profile.geo_origin || 'N/A'}</td>
+    <td>${titleLink}</td>
+    <td>${profile.first_aut || 'N/A'}</td>
+    <td>${profile.seq_tech || 'N/A'}</td>
+    <td>${profile.asm_method || 'N/A'}</td>
+  `;
+
+  return row;
+}
+
 
 
     // create lineage tree from given ancestors

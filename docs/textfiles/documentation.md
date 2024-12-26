@@ -107,8 +107,11 @@ Recurrent mutations are noted in cursive and with the base leading and are only 
 - **HG-Signature:** Indicates the Haplogroup's HG-Signature.
 - **Representative Mitogenomes and Metadata:**
 The data shown here are retrieved from NCBI GenBank. In case of missing or "NA", there was no data available at the time of retrieval.
+If those fields are present, clicking on the 'Accession Number' entry will redirect to the Genbank entry webpage and the 'Publication Title' entry will redirect to the PubMed page.
   - **Accession Number:** Lists GenBank accession numbers that are representatives of this haplogroup.
-  - **Country:** Information stored under the NCBI FEATURE '/origin'
+  - **Origin:** Genome origin information found under any of these NCBI Features: 'geo_loc_name', 'origin', 'origin_locality'.
+  - **Publication Title:** Title of the PubMed Publication, if the genome was submitted via publication.
+  - **First Author:** First listed Author as disblayed on the PubMed publication or on the NCBI Genome Page.
   - **Technology:** Information stored under the NCBI COMMENT 'Sequencing Technology'
   - **Assembly:** Information stored under the NCBI COMMENT 'Assembly Method'
 - **Lineage:** This linear tree displays the Haplogroup's ancestors from mt-MRCA to itself.  
