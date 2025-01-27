@@ -1,2 +1,2 @@
-# Requires Python 3.11 or higher
-pandas==1.5.3
+# Requires Python 3.8 or higher
+pandas

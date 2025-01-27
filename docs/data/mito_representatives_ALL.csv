@@ -1,7 +1,3 @@
-#
-# representative mitogenomes from: NCBI,EMPOP,1000Genomes, vettedfullgenomes literature (e.g. Howell__586)
-# file was created by "reps mitoTree75838_summary.txt pt19hgpt19_hgmotifs_150524_internal_pathogen-free_tab $lib"
-#
 motif,num_profiles,profiles
 mt-MRCA,0,
 L0,0,
