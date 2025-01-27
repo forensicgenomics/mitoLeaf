@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+
+         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Home Page -->
+  <url>
+    <loc>https://forensicgenomics.github.io/mitoTree-viewer/index.html</loc>
+    <priority>1.0</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <!-- Explore Page -->
+  <url>
+    <loc>https://forensicgenomics.github.io/mitoTree-viewer/explore_mitotree.html</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <!-- Haplogroups Page -->
+  <url>
+    <loc>https://forensicgenomics.github.io/mitoTree-viewer/haplogroups.html</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <!-- Documentation -->
+  <url>
+    <loc>https://forensicgenomics.github.io/mitoTree-viewer/documentation.html</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <!-- Downloads Page -->
+  <url>
+    <loc>https://forensicgenomics.github.io/mitoTree-viewer/downloads.html</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <!-- Node Info Pages -->
+  <url>
+    <loc>https://forensicgenomics.github.io/mitoTree-viewer/nodeInfo.html</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+</urlset>
