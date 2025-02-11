@@ -107,4 +107,4 @@ with open(os.path.join(DATA_DEST, "pruned_radialTree.nwk"), 'w') as nwk_file:
 
 
 # copy inputfiles unchanged that should be downloadable to the appropriate dir
-copyfile(XML_FILE, os.path.join(DATA_DEST, os.path.basename(XML_FILE)))
+copyfile(XML_FILE, os.path.join(DATA_DEST, "mitoTree_phm.xml"))
