@@ -294,8 +294,10 @@ function generateProfileRow(profile) {
             .attr('x', d => d.x)
             .attr('y', d => d.y - 15)
             .attr('text-anchor', 'middle')
-            .style('font', '12px sans-serif')
-            .text(d => truncateText(d.data.name, nodeSpacing * 0.9));
+            .text(function(d) {
+              const name = d.data.name;
+              return truncateText(this, name, nodeSpacing);
+            });
     }
 
     // given two nodes, returns d3 like path sting as a simple straight path

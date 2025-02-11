@@ -318,8 +318,10 @@ function update(source, duration = defDuration, callback = null) {
         .attr("dy", ".35em")
         .attr("x", -8)
         .attr("cursor", "pointer")
-        // TODO yeah so this fixed value here is not great
-        .text(d => truncateText(d.data.name, overallWidth / 1.25))
+        .text(function(d) {
+              const name = d.data.name;
+              return truncateText(this, name, overallWidth * 0.7);
+            })
         .attr("text-anchor", "end")
         .style("font", "11px sans-serif")
         .attr('class', function(d) {
