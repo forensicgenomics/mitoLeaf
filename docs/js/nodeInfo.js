@@ -216,7 +216,7 @@ function generateProfileRow(profile) {
 
   // hyperlink for accession_number if it exists
   const accessionLink = profile.accession
-    ? `<a href="https://www.ncbi.nlm.nih.gov/nuccore/${profile.accession}" target="_blank">${profile.accession}</a>`
+    ? (profile.source === "NCBI" ? `<a href="https://www.ncbi.nlm.nih.gov/nuccore/${profile.accession}" target="_blank">${profile.accession}</a>` : profile.accession)
     : 'N/A';
 
   // hyperlink for pub_title if pubmed_id exists
