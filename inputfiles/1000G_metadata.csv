@@ -1,0 +1,1268 @@
+accession,seq_tech,geo_origin
+NA19238,Illumina,"Ibadan, Nigeria"
+NA19239,Illumina,"Ibadan, Nigeria"
+NA18550,Illumina,"Beijing, China"
+NA18570,Illumina,"Beijing, China"
+NA18582,Illumina,"Beijing, China"
+NA18558,Illumina,"Beijing, China"
+NA18576,Illumina,NA
+NA18638,Illumina,"Beijing, China"
+NA18593,Illumina,"Beijing, China"
+NA18542,Illumina,"Beijing, China"
+NA18537,Illumina,"Beijing, China"
+NA18592,Illumina,"Beijing, China"
+NA18547,Illumina,"Beijing, China"
+NA18545,Illumina,"Beijing, China"
+NA18603,Illumina,"Beijing, China"
+NA18562,Illumina,"Beijing, China"
+NA18566,Illumina,"Beijing, China"
+NA18532,Illumina,"Beijing, China"
+NA18579,Illumina,"Beijing, China"
+NA18573,Illumina,"Beijing, China"
+NA18609,Illumina,"Beijing, China"
+NA18608,Illumina,"Beijing, China"
+NA18552,Illumina,"Beijing, China"
+NA18571,Illumina,"Beijing, China"
+NA18605,Illumina,"Beijing, China"
+NA12234,Illumina,"Utah, USA"
+NA18944,Illumina,"Tokyo, Japan"
+NA07000,Illumina,"Utah, USA"
+NA18973,Illumina,"Tokyo, Japan"
+NA07357,Illumina,"Utah, USA"
+NA12776,Illumina,"Utah, USA"
+NA18511,Illumina,"Ibadan, Nigeria"
+NA12414,Illumina,"Utah, USA"
+NA19005,Illumina,"Tokyo, Japan"
+NA18952,Illumina,"Tokyo, Japan"
+NA18980,Illumina,"Tokyo, Japan"
+NA12043,Illumina,"Utah, USA"
+NA18943,Illumina,"Tokyo, Japan"
+NA18947,Illumina,"Tokyo, Japan"
+NA12828,Illumina,"Utah, USA"
+NA18577,Illumina,"Beijing, China"
+NA18563,Illumina,"Beijing, China"
+NA18561,Illumina,"Beijing, China"
+NA18572,Illumina,"Beijing, China"
+NA18555,Illumina,"Beijing, China"
+NA18526,Illumina,"Beijing, China"
+NA19201,ABI_SOLID,"Ibadan, Nigeria"
+NA19171,ABI_SOLID,"Ibadan, Nigeria"
+NA18912,ABI_SOLID,"Ibadan, Nigeria"
+NA19137,ABI_SOLID,"Ibadan, Nigeria"
+NA19210,ABI_SOLID,"Ibadan, Nigeria"
+NA18504,ABI_SOLID,"Ibadan, Nigeria"
+NA18870,ABI_SOLID,"Ibadan, Nigeria"
+NA07051,Illumina,"Utah, USA"
+NA10847,Illumina,"Utah, USA"
+NA12249,Illumina,"Utah, USA"
+NA12716,Illumina,"Utah, USA"
+NA12717,Illumina,"Utah, USA"
+NA12750,Illumina,"Utah, USA"
+NA12751,Illumina,"Utah, USA"
+NA12761,Illumina,"Utah, USA"
+NA10851,Illumina,"Utah, USA"
+NA18916,Illumina,"Ibadan, Nigeria"
+NA18951,Illumina,"Tokyo, Japan"
+NA18965,Illumina,"Tokyo, Japan"
+NA18861,Illumina,"Ibadan, Nigeria"
+NA18505,Illumina,"Ibadan, Nigeria"
+NA12044,Illumina,"Utah, USA"
+NA18948,Illumina,"Tokyo, Japan"
+NA19225,Illumina,"Ibadan, Nigeria"
+NA18942,Illumina,"Tokyo, Japan"
+NA18858,Illumina,"Ibadan, Nigeria"
+NA18956,Illumina,"Tokyo, Japan"
+NA18502,Illumina,"Ibadan, Nigeria"
+NA12004,Illumina,"Utah, USA"
+NA12287,Illumina,"Utah, USA"
+NA19108,Illumina,"Ibadan, Nigeria"
+NA11881,Illumina,"Utah, USA"
+NA12749,Illumina,"Utah, USA"
+NA12144,Illumina,"Utah, USA"
+NA11993,Illumina,NA
+NA18508,Illumina,"Ibadan, Nigeria"
+NA19099,Illumina,"Ibadan, Nigeria"
+NA19257,Illumina,"Ibadan, Nigeria"
+NA18523,Illumina,"Ibadan, Nigeria"
+NA11894,Illumina,"Utah, USA"
+NA19190,Illumina,"Ibadan, Nigeria"
+NA11931,Illumina,"Utah, USA"
+NA12006,Illumina,"Utah, USA"
+NA18949,Illumina,"Tokyo, Japan"
+NA12156,Illumina,"Utah, USA"
+NA06985,Illumina,"Utah, USA"
+NA07037,Illumina,"Utah, USA"
+NA12763,Illumina,"Utah, USA"
+NA12878,Illumina,"Utah, USA"
+NA19138,Illumina,"Ibadan, Nigeria"
+NA18907,Illumina,"Ibadan, Nigeria"
+NA19129,Illumina,"Ibadan, Nigeria"
+NA19114,Illumina,"Ibadan, Nigeria"
+NA18517,Illumina,"Ibadan, Nigeria"
+NA19147,Illumina,"Ibadan, Nigeria"
+NA18909,Illumina,"Ibadan, Nigeria"
+NA19093,Illumina,"Ibadan, Nigeria"
+NA18501,Illumina,"Ibadan, Nigeria"
+NA11995,Illumina,"Utah, USA"
+NA12891,Illumina,NA
+NA12489,Illumina,"Utah, USA"
+NA18507,Illumina,"Ibadan, Nigeria"
+NA18940,Illumina,"Tokyo, Japan"
+NA20529,Illumina,"Toscani, Italy"
+NA20518,Illumina,"Toscani, Italy"
+NA20510,Illumina,"Toscani, Italy"
+NA20524,Illumina,"Toscani, Italy"
+NA20522,Illumina,"Toscani, Italy"
+NA20508,Illumina,"Toscani, Italy"
+NA20512,Illumina,"Toscani, Italy"
+NA20517,Illumina,"Toscani, Italy"
+NA20525,Illumina,"Toscani, Italy"
+NA20521,Illumina,"Toscani, Italy"
+NA20502,Illumina,"Toscani, Italy"
+NA20520,Illumina,"Toscani, Italy"
+NA20509,Illumina,"Toscani, Italy"
+NA20506,Illumina,"Toscani, Italy"
+NA20505,Illumina,"Toscani, Italy"
+NA20527,Illumina,"Toscani, Italy"
+NA20530,Illumina,"Toscani, Italy"
+NA20531,Illumina,"Toscani, Italy"
+NA20528,Illumina,"Toscani, Italy"
+NA20519,Illumina,"Toscani, Italy"
+NA20752,Illumina,"Toscani, Italy"
+NA20535,Illumina,"Toscani, Italy"
+NA20538,Illumina,"Toscani, Italy"
+NA20544,Illumina,"Toscani, Italy"
+NA20585,Illumina,"Toscani, Italy"
+NA20504,Illumina,"Toscani, Italy"
+NA20589,Illumina,"Toscani, Italy"
+NA20757,Illumina,"Toscani, Italy"
+NA11893,Illumina,"Utah, USA"
+NA12775,Illumina,"Utah, USA"
+NA12347,Illumina,"Utah, USA"
+NA12348,Illumina,"Utah, USA"
+NA20513,Illumina,"Toscani, Italy"
+NA12383,Illumina,"Utah, USA"
+NA20807,Illumina,"Toscani, Italy"
+NA20768,Illumina,"Toscani, Italy"
+NA20811,Illumina,"Toscani, Italy"
+NA20812,Illumina,"Toscani, Italy"
+NA20813,Illumina,"Toscani, Italy"
+NA20818,Illumina,"Toscani, Italy"
+NA20586,Illumina,"Toscani, Italy"
+NA20806,Illumina,"Toscani, Italy"
+NA20761,Illumina,"Toscani, Italy"
+NA20809,Illumina,"Toscani, Italy"
+NA20515,Illumina,"Toscani, Italy"
+NA20516,Illumina,"Toscani, Italy"
+NA07056,Illumina,"Utah, USA"
+NA12777,Illumina,"Utah, USA"
+NA12546,Illumina,"Utah, USA"
+NA12778,Illumina,"Utah, USA"
+NA12413,Illumina,"Utah, USA"
+NA11892,Illumina,"Utah, USA"
+NA20534,Illumina,"Toscani, Italy"
+NA20542,Illumina,"Toscani, Italy"
+NA20541,Illumina,"Toscani, Italy"
+NA20540,Illumina,"Toscani, Italy"
+NA20539,Illumina,"Toscani, Italy"
+NA20756,Illumina,"Toscani, Italy"
+NA20753,Illumina,"Toscani, Italy"
+NA20588,Illumina,"Toscani, Italy"
+NA20582,Illumina,"Toscani, Italy"
+NA20543,Illumina,"Toscani, Italy"
+NA20755,Illumina,"Toscani, Italy"
+NA20754,Illumina,"Toscani, Italy"
+NA20765,Illumina,"Toscani, Italy"
+NA20790,Illumina,"Toscani, Italy"
+NA20786,Illumina,"Toscani, Italy"
+NA20805,Illumina,"Toscani, Italy"
+NA20803,Illumina,"Toscani, Italy"
+NA20773,Illumina,"Toscani, Italy"
+NA20774,Illumina,"Toscani, Italy"
+NA20769,Illumina,"Toscani, Italy"
+NA20771,Illumina,"Toscani, Italy"
+NA20772,Illumina,"Toscani, Italy"
+NA20800,Illumina,"Toscani, Italy"
+NA20802,Illumina,"Toscani, Italy"
+NA20795,Illumina,"Toscani, Italy"
+NA20808,Illumina,"Toscani, Italy"
+NA20810,Illumina,"Toscani, Italy"
+NA19222,Illumina,"Ibadan, Nigeria"
+NA19189,Illumina,"Ibadan, Nigeria"
+NA20828,Illumina,"Toscani, Italy"
+NA20533,Illumina,"Toscani, Italy"
+NA20796,Illumina,"Toscani, Italy"
+NA20792,Illumina,"Toscani, Italy"
+NA19088,Illumina,"Tokyo, Japan"
+NA19087,Illumina,"Tokyo, Japan"
+NA20804,Illumina,"Toscani, Italy"
+NA20801,Illumina,"Toscani, Italy"
+NA20537,Illumina,NA
+NA20775,Illumina,"Toscani, Italy"
+NA20787,Illumina,"Toscani, Italy"
+NA20785,Illumina,"Toscani, Italy"
+NA20778,Illumina,"Toscani, Italy"
+NA20783,Illumina,"Toscani, Italy"
+NA20770,Illumina,"Toscani, Italy"
+NA20581,Illumina,"Toscani, Italy"
+NA20799,Illumina,"Toscani, Italy"
+NA20797,Illumina,"Toscani, Italy"
+NA20758,Illumina,"Toscani, Italy"
+NA20759,Illumina,"Toscani, Italy"
+NA20760,Illumina,"Toscani, Italy"
+NA20819,Illumina,"Toscani, Italy"
+NA20816,Illumina,NA
+NA20815,Illumina,"Toscani, Italy"
+NA20826,Illumina,"Toscani, Italy"
+NA19107,Illumina,"Ibadan, Nigeria"
+NA19256,Illumina,"Ibadan, Nigeria"
+NA11933,Illumina,"Utah, USA"
+NA12046,Illumina,"Utah, USA"
+NA12282,Illumina,"Utah, USA"
+NA12283,Illumina,"Utah, USA"
+NA12286,Illumina,"Utah, USA"
+NA12748,Illumina,"Utah, USA"
+NA12843,Illumina,"Utah, USA"
+NA12889,Illumina,"Utah, USA"
+NA12890,Illumina,"Utah, USA"
+NA20507,Illumina,"Toscani, Italy"
+NA20503,Illumina,"Toscani, Italy"
+NA20514,Illumina,"Toscani, Italy"
+NA12827,Illumina,"Utah, USA"
+NA12829,Illumina,"Utah, USA"
+NA12830,Illumina,"Utah, USA"
+NA12842,Illumina,"Utah, USA"
+NA11930,Illumina,"Utah, USA"
+NA11932,Illumina,"Utah, USA"
+NA18632,Illumina,"Beijing, China"
+NA18624,Illumina,"Beijing, China"
+NA18633,Illumina,"Beijing, China"
+NA18611,Illumina,"Beijing, China"
+NA18612,Illumina,"Beijing, China"
+NA18620,Illumina,"Beijing, China"
+NA18621,Illumina,"Beijing, China"
+NA18622,Illumina,"Beijing, China"
+NA18636,Illumina,"Beijing, China"
+NA18623,Illumina,"Beijing, China"
+NA19443,Illumina,"Webuye, Kenya"
+NA19462,Illumina,"Webuye, Kenya"
+NA19429,Illumina,"Webuye, Kenya"
+NA19438,Illumina,"Webuye, Kenya"
+NA19437,Illumina,"Webuye, Kenya"
+NA19313,Illumina,NA
+NA19440,Illumina,"Webuye, Kenya"
+NA19439,Illumina,"Webuye, Kenya"
+NA19436,Illumina,"Webuye, Kenya"
+NA19467,Illumina,"Webuye, Kenya"
+NA19311,Illumina,NA
+NA19451,Illumina,"Webuye, Kenya"
+NA19463,Illumina,"Webuye, Kenya"
+NA19457,Illumina,"Webuye, Kenya"
+NA19445,Illumina,"Webuye, Kenya"
+NA19435,Illumina,"Webuye, Kenya"
+NA19466,Illumina,"Webuye, Kenya"
+NA19452,Illumina,"Webuye, Kenya"
+NA19469,Illumina,NA
+NA19446,Illumina,"Webuye, Kenya"
+NA19448,Illumina,"Webuye, Kenya"
+NA19449,Illumina,"Webuye, Kenya"
+NA19455,Illumina,"Webuye, Kenya"
+NA19083,Illumina,"Tokyo, Japan"
+NA18977,Illumina,"Tokyo, Japan"
+NA18987,Illumina,"Tokyo, Japan"
+NA19010,Illumina,"Tokyo, Japan"
+NA19002,Illumina,"Tokyo, Japan"
+NA19084,Illumina,"Tokyo, Japan"
+NA19079,Illumina,"Tokyo, Japan"
+NA18991,Illumina,"Tokyo, Japan"
+NA19077,Illumina,"Tokyo, Japan"
+NA19078,Illumina,"Tokyo, Japan"
+NA18963,Illumina,"Tokyo, Japan"
+NA19076,Illumina,"Tokyo, Japan"
+NA19075,Illumina,"Tokyo, Japan"
+NA19074,Illumina,"Tokyo, Japan"
+NA19009,Illumina,"Tokyo, Japan"
+NA19085,Illumina,"Tokyo, Japan"
+NA18990,Illumina,"Tokyo, Japan"
+NA19072,Illumina,"Tokyo, Japan"
+NA18615,Illumina,"Beijing, China"
+NA18616,Illumina,"Beijing, China"
+NA18619,Illumina,"Beijing, China"
+NA18631,Illumina,"Beijing, China"
+NA18617,Illumina,"Beijing, China"
+NA18627,Illumina,"Beijing, China"
+NA18626,Illumina,"Beijing, China"
+NA18628,Illumina,"Beijing, China"
+NA18618,Illumina,"Beijing, China"
+NA18630,Illumina,"Beijing, China"
+NA18614,Illumina,"Beijing, China"
+NA12275,Illumina,"Utah, USA"
+NA19355,Illumina,"Webuye, Kenya"
+NA19359,Illumina,NA
+NA19360,Illumina,"Webuye, Kenya"
+NA19371,Illumina,NA
+NA19372,Illumina,"Webuye, Kenya"
+NA19375,Illumina,"Webuye, Kenya"
+NA19376,Illumina,"Webuye, Kenya"
+NA19377,Illumina,"Webuye, Kenya"
+NA19379,Illumina,"Webuye, Kenya"
+NA19381,Illumina,NA
+NA19382,Illumina,NA
+NA19383,Illumina,"Webuye, Kenya"
+NA19384,Illumina,"Webuye, Kenya"
+NA19385,Illumina,"Webuye, Kenya"
+NA19390,Illumina,"Webuye, Kenya"
+NA19391,Illumina,"Webuye, Kenya"
+NA19393,Illumina,"Webuye, Kenya"
+NA19394,Illumina,"Webuye, Kenya"
+NA19395,Illumina,"Webuye, Kenya"
+NA19397,Illumina,"Webuye, Kenya"
+NA19398,Illumina,NA
+NA19399,Illumina,"Webuye, Kenya"
+NA19401,Illumina,"Webuye, Kenya"
+NA19404,Illumina,"Webuye, Kenya"
+NA19428,Illumina,"Webuye, Kenya"
+NA20532,Illumina,"Toscani, Italy"
+NA20814,Illumina,"Toscani, Italy"
+NA20536,Illumina,"Toscani, Italy"
+HG00565,Illumina,China
+HG00560,Illumina,China
+HG00577,Illumina,NA
+HG00578,Illumina,NA
+HG00592,Illumina,China
+HG00593,Illumina,China
+HG00596,Illumina,China
+HG00404,Illumina,China
+HG00610,Illumina,China
+HG00611,Illumina,China
+HG00625,Illumina,China
+HG00635,Illumina,NA
+HG00634,Illumina,China
+HG00446,ABI_SOLID,China
+HG00406,ABI_SOLID,China
+HG00407,ABI_SOLID,China
+HG00445,ABI_SOLID,China
+HG00452,ABI_SOLID,China
+HG00457,ABI_SOLID,China
+NA20526,Illumina,NA
+NA19444,Illumina,NA
+NA19434,Illumina,"Webuye, Kenya"
+NA19456,Illumina,"Webuye, Kenya"
+NA18941,Illumina,"Tokyo, Japan"
+NA19082,Illumina,"Tokyo, Japan"
+HG00171,Illumina,Finland
+HG00174,Illumina,Finland
+HG00190,Illumina,Finland
+HG00188,Illumina,Finland
+HG00189,Illumina,Finland
+HG00176,Illumina,Finland
+HG00270,Illumina,NA
+HG00178,Illumina,Finland
+HG00181,Illumina,Finland
+HG00266,Illumina,Finland
+HG00267,Illumina,Finland
+HG00173,Illumina,Finland
+HG00177,Illumina,Finland
+HG00180,Illumina,Finland
+HG00183,Illumina,Finland
+HG00179,Illumina,Finland
+HG00377,Illumina,NA
+HG00380,Illumina,Finland
+HG00306,Illumina,Finland
+HG00311,Illumina,Finland
+HG00312,Illumina,NA
+HG00357,Illumina,Finland
+HG00361,Illumina,Finland
+HG00559,Illumina,China
+HG00566,Illumina,China
+HG00403,Illumina,China
+HG00626,Illumina,China
+HG00628,Illumina,China
+HG00629,Illumina,China
+HG00151,Illumina,"England / Scotland"
+HG00153,Illumina,NA
+HG00156,Illumina,NA
+HG00098,Illumina,NA
+HG00152,Illumina,NA
+HG00106,Illumina,"England / Scotland"
+HG00242,Illumina,"England / Scotland"
+HG00114,Illumina,"England / Scotland"
+HG00150,Illumina,"England / Scotland"
+HG00100,Illumina,"England / Scotland"
+HG00142,Illumina,"England / Scotland"
+HG00239,Illumina,"England / Scotland"
+HG00149,Illumina,"England / Scotland"
+HG00141,Illumina,"England / Scotland"
+HG00147,Illumina,NA
+HG00112,Illumina,"England / Scotland"
+HG00126,Illumina,"England / Scotland"
+HG00231,Illumina,"England / Scotland"
+HG00244,Illumina,"England / Scotland"
+HG00265,Illumina,"England / Scotland"
+HG00143,Illumina,"England / Scotland"
+HG00144,Illumina,NA
+HG00148,Illumina,"England / Scotland"
+HG00118,Illumina,"England / Scotland"
+HG00243,Illumina,"England / Scotland"
+HG00122,Illumina,"England / Scotland"
+HG00247,Illumina,NA
+NA18634,Illumina,"Beijing, China"
+NA18625,Illumina,"Beijing, China"
+HG00553,Illumina,Puerto Rico
+HG00637,Illumina,Puerto Rico
+HG00638,Illumina,Puerto Rico
+HG00554,Illumina,Puerto Rico
+HG00640,Illumina,Puerto Rico
+NA12273,Illumina,"Utah, USA"
+NA12272,Illumina,"Utah, USA"
+NA12718,Illumina,"Utah, USA"
+HG00367,Illumina,Finland
+HG00182,Illumina,Finland
+HG00185,Illumina,Finland
+HG00186,Illumina,Finland
+HG00187,Illumina,Finland
+HG00272,Illumina,Finland
+HG00369,Illumina,Finland
+HG00373,Illumina,Finland
+HG00269,Illumina,Finland
+HG00368,Illumina,Finland
+NA20798,Illumina,"Toscani, Italy"
+NA19461,Illumina,"Webuye, Kenya"
+NA19312,Illumina,"Webuye, Kenya"
+NA19453,Illumina,NA
+HG00366,Illumina,Finland
+HG00308,Illumina,Finland
+HG00372,Illumina,Finland
+NA20357,ABI_SOLID,"Southwest, US"
+NA20359,ABI_SOLID,"Southwest, US"
+NA18528,ABI_SOLID,"Beijing, China"
+NA18531,ABI_SOLID,"Beijing, China"
+NA19352,ABI_SOLID,NA
+NA19351,ABI_SOLID,"Webuye, Kenya"
+NA19175,ABI_SOLID,"Ibadan, Nigeria"
+NA19753,ABI_SOLID,NA
+NA19764,ABI_SOLID,"Los Angeles, California"
+NA19374,Illumina,"Webuye, Kenya"
+NA19380,Illumina,"Webuye, Kenya"
+NA19373,Illumina,NA
+NA19396,Illumina,NA
+NA19403,Illumina,"Webuye, Kenya"
+HG00418,Illumina,NA
+HG00419,Illumina,China
+HG00421,Illumina,China
+HG00422,Illumina,China
+HG00427,Illumina,NA
+HG00428,Illumina,China
+HG00436,Illumina,China
+HG00437,Illumina,China
+HG00442,Illumina,China
+HG00443,Illumina,China
+HG00448,Illumina,China
+HG00449,Illumina,China
+HG00472,Illumina,China
+HG00473,Illumina,China
+HG00475,Illumina,China
+HG00476,Illumina,China
+HG00478,Illumina,China
+HG00479,Illumina,China
+HG00512,Illumina,NA
+HG00513,Illumina,China
+HG00524,Illumina,China
+HG00525,Illumina,China
+HG00530,Illumina,China
+HG00531,Illumina,China
+HG00536,Illumina,China
+HG00537,Illumina,China
+HG00542,Illumina,China
+HG00543,Illumina,China
+HG00556,Illumina,China
+HG00557,Illumina,China
+HG00125,Illumina,"England / Scotland"
+HG00136,Illumina,"England / Scotland"
+HG00137,Illumina,"England / Scotland"
+HG00138,Illumina,"England / Scotland"
+HG00139,Illumina,"England / Scotland"
+HG00140,Illumina,"England / Scotland"
+HG00232,Illumina,"England / Scotland"
+HG00236,Illumina,"England / Scotland"
+HG00237,Illumina,"England / Scotland"
+HG00249,Illumina,NA
+HG00252,Illumina,"England / Scotland"
+HG00253,Illumina,"England / Scotland"
+HG00254,Illumina,"England / Scotland"
+HG00256,Illumina,"England / Scotland"
+HG00257,Illumina,"England / Scotland"
+HG00259,Illumina,"England / Scotland"
+HG00260,Illumina,"England / Scotland"
+HG00261,Illumina,"England / Scotland"
+HG00263,Illumina,"England / Scotland"
+HG00268,Illumina,Finland
+HG00271,Illumina,Finland
+HG00273,Illumina,Finland
+HG00309,Illumina,Finland
+HG00313,Illumina,Finland
+HG00315,Illumina,Finland
+HG00318,Illumina,Finland
+HG00319,Illumina,Finland
+HG00320,Illumina,Finland
+HG00321,Illumina,Finland
+HG00323,Illumina,Finland
+HG00327,Illumina,Finland
+HG00335,Illumina,Finland
+HG00336,Illumina,Finland
+HG00337,Illumina,Finland
+HG00338,Illumina,Finland
+HG00339,Illumina,Finland
+HG00342,Illumina,Finland
+HG00343,Illumina,Finland
+HG00344,Illumina,Finland
+HG00345,Illumina,Finland
+HG00346,Illumina,Finland
+HG00353,Illumina,Finland
+NA19081,Illumina,"Tokyo, Japan"
+NA19080,Illumina,"Tokyo, Japan"
+NA20766,Illumina,"Toscani, Italy"
+NA19468,Illumina,"Webuye, Kenya"
+NA19470,Illumina,NA
+NA19431,Illumina,"Webuye, Kenya"
+NA19430,Illumina,"Webuye, Kenya"
+HG01356,Illumina,"Medellin, Colombia"
+HG01357,Illumina,"Medellin, Colombia"
+HG01377,Illumina,"Medellin, Colombia"
+HG01378,Illumina,"Medellin, Colombia"
+HG01383,Illumina,"Medellin, Colombia"
+HG01384,Illumina,"Medellin, Colombia"
+HG00375,Illumina,Finland
+HG00154,Illumina,"England / Scotland"
+HG00246,Illumina,"England / Scotland"
+HG00250,Illumina,"England / Scotland"
+HG00251,Illumina,"England / Scotland"
+HG00274,Illumina,Finland
+HG00275,Illumina,Finland
+HG00276,Illumina,Finland
+HG00277,Illumina,Finland
+HG00278,Illumina,Finland
+HG00280,Illumina,Finland
+HG00281,Illumina,Finland
+HG00282,Illumina,Finland
+HG00284,Illumina,Finland
+HG00285,Illumina,Finland
+HG00310,Illumina,Finland
+HG00324,Illumina,Finland
+HG00325,Illumina,Finland
+HG00326,Illumina,Finland
+HG00329,Illumina,Finland
+HG00330,Illumina,Finland
+HG00331,Illumina,Finland
+HG01051,Illumina,Puerto Rico
+HG01052,Illumina,Puerto Rico
+HG01060,Illumina,Puerto Rico
+HG01061,Illumina,Puerto Rico
+HG01069,Illumina,Puerto Rico
+HG01070,Illumina,Puerto Rico
+HG01072,Illumina,Puerto Rico
+HG01073,Illumina,Puerto Rico
+HG01082,Illumina,Puerto Rico
+HG01083,Illumina,Puerto Rico
+HG01334,Illumina,"England / Scotland"
+HG00101,ABI_SOLID,"England / Scotland"
+HG00113,ABI_SOLID,"England / Scotland"
+HG00121,ABI_SOLID,"England / Scotland"
+HG00110,ABI_SOLID,"England / Scotland"
+HG00341,ABI_SOLID,Finland
+HG00383,ABI_SOLID,Finland
+HG00381,ABI_SOLID,Finland
+HG00376,ABI_SOLID,Finland
+HG01104,ABI_SOLID,Puerto Rico
+HG00332,ABI_SOLID,Finland
+HG00378,ABI_SOLID,Finland
+HG00382,ABI_SOLID,Finland
+HG01105,ABI_SOLID,Puerto Rico
+HG01085,ABI_SOLID,Puerto Rico
+HG00108,Illumina,"England / Scotland"
+HG00111,Illumina,"England / Scotland"
+HG00328,Illumina,Finland
+HG00334,Illumina,Finland
+HG01107,Illumina,Puerto Rico
+HG01108,Illumina,Puerto Rico
+HG01170,Illumina,Puerto Rico
+HG01171,Illumina,Puerto Rico
+HG01173,Illumina,Puerto Rico
+HG01174,Illumina,Puerto Rico
+HG01350,Illumina,"Medellin, Colombia"
+HG01351,Illumina,"Medellin, Colombia"
+HG01353,Illumina,"Medellin, Colombia"
+HG01354,Illumina,"Medellin, Colombia"
+HG01365,Illumina,"Medellin, Colombia"
+HG01366,Illumina,"Medellin, Colombia"
+HG01374,Illumina,"Medellin, Colombia"
+HG01375,Illumina,"Medellin, Colombia"
+HG01389,Illumina,"Medellin, Colombia"
+HG01390,Illumina,"Medellin, Colombia"
+HG00102,ABI_SOLID,"England / Scotland"
+HG00134,ABI_SOLID,NA
+HG00109,ABI_SOLID,"England / Scotland"
+HG00135,ABI_SOLID,NA
+HG00238,ABI_SOLID,"England / Scotland"
+HG00240,ABI_SOLID,"England / Scotland"
+HG00255,ABI_SOLID,"England / Scotland"
+HG00359,ABI_SOLID,NA
+HG01257,ABI_SOLID,"Medellin, Colombia"
+HG01259,ABI_SOLID,"Medellin, Colombia"
+HG00360,ABI_SOLID,Finland
+NA18606,Illumina,"Beijing, China"
+NA18635,Illumina,"Beijing, China"
+NA18637,Illumina,"Beijing, China"
+HG01133,Illumina,"Medellin, Colombia"
+HG01134,Illumina,"Medellin, Colombia"
+HG01136,Illumina,"Medellin, Colombia"
+HG01125,Illumina,"Medellin, Colombia"
+HG01137,Illumina,"Medellin, Colombia"
+HG01149,Illumina,"Medellin, Colombia"
+HG01124,Illumina,"Medellin, Colombia"
+HG01140,Illumina,"Medellin, Colombia"
+HG01148,Illumina,"Medellin, Colombia"
+HG00362,ABI_SOLID,Finland
+HG00364,ABI_SOLID,Finland
+HG00384,ABI_SOLID,Finland
+HG00145,Illumina,"England / Scotland"
+NA19089,Illumina,"Tokyo, Japan"
+NA19320,Illumina,"Webuye, Kenya"
+NA19475,Illumina,"Webuye, Kenya"
+NA18864,Illumina,"Ibadan, Nigeria"
+NA18865,Illumina,"Ibadan, Nigeria"
+NA18876,Illumina,"Ibadan, Nigeria"
+NA18877,Illumina,"Ibadan, Nigeria"
+NA18881,Illumina,"Ibadan, Nigeria"
+NA18915,Illumina,"Ibadan, Nigeria"
+NA19037,Illumina,"Webuye, Kenya"
+NA19042,Illumina,"Webuye, Kenya"
+NA20511,Illumina,"Toscani, Italy"
+NA20762,Illumina,"Toscani, Italy"
+NA20764,Illumina,"Toscani, Italy"
+NA12812,LS454,"Utah, USA"
+NA12814,LS454,"Utah, USA"
+NA12815,LS454,"Utah, USA"
+NA12872,LS454,"Utah, USA"
+NA12874,LS454,"Utah, USA"
+NA12873,LS454,"Utah, USA"
+NA06994,Illumina,"Utah, USA"
+NA18968,Illumina,"Tokyo, Japan"
+NA12813,Illumina,"Utah, USA"
+NA19200,Illumina,"Ibadan, Nigeria"
+NA18498,Illumina,"Ibadan, Nigeria"
+NA18522,Illumina,"Ibadan, Nigeria"
+NA18856,Illumina,"Ibadan, Nigeria"
+NA11920,Illumina,"Utah, USA"
+NA12155,Illumina,"Utah, USA"
+NA12003,Illumina,"Utah, USA"
+NA11992,Illumina,"Utah, USA"
+NA18489,Illumina,"Ibadan, Nigeria"
+NA19102,Illumina,"Ibadan, Nigeria"
+NA18519,Illumina,"Ibadan, Nigeria"
+NA18960,Illumina,"Tokyo, Japan"
+NA12045,Illumina,"Utah, USA"
+NA11830,Illumina,"Utah, USA"
+NA11994,Illumina,"Utah, USA"
+NA11918,Illumina,"Utah, USA"
+NA18961,Illumina,"Tokyo, Japan"
+NA07346,Illumina,NA
+NA11831,Illumina,"Utah, USA"
+NA06986,Illumina,"Utah, USA"
+NA11832,Illumina,"Utah, USA"
+NA11829,Illumina,"Utah, USA"
+NA18516,Illumina,"Ibadan, Nigeria"
+NA18953,Illumina,"Tokyo, Japan"
+NA18510,Illumina,"Ibadan, Nigeria"
+NA18853,Illumina,"Ibadan, Nigeria"
+NA18871,Illumina,"Ibadan, Nigeria"
+NA18486,Illumina,"Ibadan, Nigeria"
+NA18499,Illumina,"Ibadan, Nigeria"
+NA18967,Illumina,"Tokyo, Japan"
+NA18959,Illumina,"Tokyo, Japan"
+NA18964,Illumina,"Tokyo, Japan"
+NA19184,LS454,"Ibadan, Nigeria"
+NA18975,Illumina,"Tokyo, Japan"
+NA19119,Illumina,"Ibadan, Nigeria"
+NA18976,Illumina,"Tokyo, Japan"
+NA19204,Illumina,"Ibadan, Nigeria"
+NA18972,Illumina,"Tokyo, Japan"
+NA18974,Illumina,"Tokyo, Japan"
+NA19159,Illumina,"Ibadan, Nigeria"
+NA18969,LS454,"Tokyo, Japan"
+NA19160,Illumina,"Ibadan, Nigeria"
+NA19153,Illumina,"Ibadan, Nigeria"
+NA19207,Illumina,"Ibadan, Nigeria"
+NA19131,Illumina,"Ibadan, Nigeria"
+NA18971,Illumina,"Tokyo, Japan"
+NA19144,Illumina,"Ibadan, Nigeria"
+NA19209,Illumina,"Ibadan, Nigeria"
+NA19098,Illumina,"Ibadan, Nigeria"
+NA19152,Illumina,"Ibadan, Nigeria"
+NA18981,Illumina,"Tokyo, Japan"
+NA19116,Illumina,"Ibadan, Nigeria"
+NA18520,Illumina,"Ibadan, Nigeria"
+NA19172,Illumina,"Ibadan, Nigeria"
+NA07347,Illumina,"Utah, USA"
+NA11840,LS454,"Utah, USA"
+NA18979,LS454,"Tokyo, Japan"
+NA19181,LS454,NA
+NA18992,LS454,"Tokyo, Japan"
+NA18993,LS454,"Tokyo, Japan"
+NA18994,LS454,"Tokyo, Japan"
+NA18997,LS454,"Tokyo, Japan"
+NA18998,LS454,"Tokyo, Japan"
+NA19001,LS454,"Tokyo, Japan"
+NA06984,LS454,"Utah, USA"
+NA12154,Illumina,"Utah, USA"
+NA11919,Illumina,"Utah, USA"
+NA19065,Illumina,"Tokyo, Japan"
+NA12005,Illumina,"Utah, USA"
+NA17969,LS454,NA
+NA19350,LS454,"Webuye, Kenya"
+NA19328,LS454,"Webuye, Kenya"
+NA19027,LS454,"Webuye, Kenya"
+NA19028,LS454,"Webuye, Kenya"
+NA19334,LS454,"Webuye, Kenya"
+NA19146,LS454,"Ibadan, Nigeria"
+NA19149,LS454,"Ibadan, Nigeria"
+NA19317,LS454,"Webuye, Kenya"
+NA19331,LS454,"Webuye, Kenya"
+NA18957,LS454,"Tokyo, Japan"
+NA19150,LS454,NA
+NA19121,LS454,"Ibadan, Nigeria"
+NA19122,LS454,NA
+NA12760,ABI_SOLID,"Utah, USA"
+NA18970,LS454,"Tokyo, Japan"
+NA19141,LS454,"Ibadan, Nigeria"
+NA19143,LS454,"Ibadan, Nigeria"
+NA18939,LS454,"Tokyo, Japan"
+NA18955,LS454,NA
+NA18157,LS454,NA
+NA18160,LS454,NA
+NA18161,LS454,NA
+NA19324,LS454,"Webuye, Kenya"
+NA17971,LS454,NA
+NA19031,LS454,"Webuye, Kenya"
+NA17963,LS454,NA
+NA17965,LS454,NA
+NA17967,LS454,NA
+NA19346,LS454,"Webuye, Kenya"
+NA19347,LS454,"Webuye, Kenya"
+NA19035,LS454,"Webuye, Kenya"
+NA19041,LS454,"Webuye, Kenya"
+NA17980,LS454,NA
+NA17981,LS454,NA
+NA17982,LS454,NA
+NA17983,LS454,NA
+NA17988,LS454,NA
+NA18151,LS454,NA
+NA18152,LS454,NA
+NA18156,LS454,NA
+NA18155,LS454,NA
+NA18163,LS454,NA
+NA18166,LS454,NA
+NA17976,LS454,NA
+NA18124,LS454,NA
+NA18132,LS454,NA
+NA18134,LS454,NA
+NA18122,LS454,NA
+NA18127,LS454,NA
+NA18117,LS454,NA
+NA12762,ABI_SOLID,"Utah, USA"
+NA17962,LS454,NA
+NA18146,LS454,NA
+NA17977,LS454,NA
+NA19046,LS454,NA
+NA18115,LS454,NA
+NA18108,LS454,NA
+NA18130,LS454,NA
+NA18103,LS454,NA
+NA19473,LS454,"Webuye, Kenya"
+NA18149,LS454,NA
+NA18541,LS454,"Beijing, China"
+NA18644,LS454,"Beijing, China"
+NA18648,LS454,"Beijing, China"
+NA17979,LS454,NA
+NA18535,LS454,"Beijing, China"
+NA19068,Illumina,"Tokyo, Japan"
+NA18707,Illumina,NA
+NA18950,Illumina,"Tokyo, Japan"
+NA19000,Illumina,"Tokyo, Japan"
+NA19213,Illumina,"Ibadan, Nigeria"
+NA19058,Illumina,"Tokyo, Japan"
+NA19064,Illumina,"Tokyo, Japan"
+NA19067,Illumina,"Tokyo, Japan"
+NA18908,Illumina,"Ibadan, Nigeria"
+NA19247,Illumina,"Ibadan, Nigeria"
+NA19059,Illumina,"Tokyo, Japan"
+NA18488,Illumina,"Ibadan, Nigeria"
+NA18487,Illumina,NA
+NA18868,Illumina,"Ibadan, Nigeria"
+NA19092,Illumina,"Ibadan, Nigeria"
+NA18757,Illumina,"Beijing, China"
+NA18867,Illumina,"Ibadan, Nigeria"
+NA18745,Illumina,"Beijing, China"
+NA18669,Illumina,NA
+NA18702,Illumina,NA
+NA07048,Illumina,"Utah, USA"
+NA18164,Illumina,NA
+NA18740,Illumina,"Beijing, China"
+NA18647,Illumina,"Beijing, China"
+NA18747,Illumina,"Beijing, China"
+NA19062,Illumina,"Tokyo, Japan"
+NA19060,Illumina,"Tokyo, Japan"
+NA19236,Illumina,"Ibadan, Nigeria"
+NA19070,Illumina,"Tokyo, Japan"
+NA19130,Illumina,"Ibadan, Nigeria"
+NA19007,Illumina,"Tokyo, Japan"
+NA18999,Illumina,"Tokyo, Japan"
+NA18685,Illumina,NA
+NA18145,Illumina,NA
+NA18692,Illumina,NA
+NA18697,Illumina,NA
+NA18694,Illumina,NA
+NA18116,Illumina,NA
+NA18123,Illumina,NA
+NA18119,Illumina,NA
+NA18985,Illumina,"Tokyo, Japan"
+NA18986,Illumina,"Tokyo, Japan"
+NA19248,Illumina,"Ibadan, Nigeria"
+NA19235,Illumina,"Ibadan, Nigeria"
+NA19057,Illumina,"Tokyo, Japan"
+NA19063,Illumina,"Tokyo, Japan"
+NA18640,Illumina,"Beijing, China"
+NA18910,Illumina,"Ibadan, Nigeria"
+NA19003,Illumina,"Tokyo, Japan"
+NA19056,Illumina,"Tokyo, Japan"
+NA19055,Illumina,"Tokyo, Japan"
+NA18874,Illumina,"Ibadan, Nigeria"
+NA18708,Illumina,NA
+NA19012,Illumina,"Tokyo, Japan"
+NA18642,Illumina,"Beijing, China"
+NA18982,Illumina,"Tokyo, Japan"
+NA18675,Illumina,NA
+NA18113,Illumina,NA
+NA18704,Illumina,NA
+NA18689,Illumina,NA
+NA18699,Illumina,NA
+NA19551,Illumina,NA
+NA20780,Illumina,NA
+NA19563,Illumina,NA
+NA19573,Illumina,NA
+NA19565,Illumina,NA
+NA19564,Illumina,NA
+NA19552,Illumina,NA
+NA20587,Illumina,"Toscani, Italy"
+NA19553,Illumina,NA
+NA19574,Illumina,NA
+NA18691,Illumina,NA
+NA18696,Illumina,NA
+NA19572,Illumina,NA
+NA19568,Illumina,NA
+NA19548,Illumina,NA
+NA18674,Illumina,NA
+NA18983,Illumina,"Tokyo, Japan"
+NA18984,Illumina,"Tokyo, Japan"
+NA18645,Illumina,"Beijing, China"
+NA19066,Illumina,"Tokyo, Japan"
+NA19054,Illumina,"Tokyo, Japan"
+NA19560,Illumina,NA
+NA19561,Illumina,NA
+NA19558,Illumina,NA
+NA19556,Illumina,NA
+NA19546,Illumina,NA
+NA19570,Illumina,NA
+NA18989,Illumina,"Tokyo, Japan"
+NA18988,Illumina,"Tokyo, Japan"
+NA19182,LS454,NA
+NA19185,LS454,"Ibadan, Nigeria"
+NA19214,LS454,"Ibadan, Nigeria"
+NA18962,LS454,"Tokyo, Japan"
+NA06989,LS454,"Utah, USA"
+NA12058,LS454,"Utah, USA"
+NA12340,LS454,"Utah, USA"
+NA12341,LS454,"Utah, USA"
+NA12342,LS454,"Utah, USA"
+NA19118,LS454,"Ibadan, Nigeria"
+NA19020,LS454,"Webuye, Kenya"
+NA17987,LS454,NA
+NA18133,LS454,NA
+NA18106,LS454,NA
+NA19471,LS454,"Webuye, Kenya"
+NA18107,LS454,NA
+NA19472,LS454,"Webuye, Kenya"
+NA18763,LS454,NA
+NA18764,LS454,NA
+NA18767,LS454,NA
+NA18771,LS454,NA
+NA18580,LS454,NA
+NA18583,LS454,NA
+NA18649,LS454,NA
+NA18739,LS454,NA
+NA18741,LS454,NA
+NA18753,LS454,NA
+NA18755,LS454,NA
+NA18760,LS454,NA
+NA18743,LS454,NA
+NA18756,LS454,NA
+NA18758,LS454,NA
+NA19030,LS454,"Webuye, Kenya"
+NA17990,LS454,NA
+NA18141,LS454,NA
+NA19454,LS454,"Webuye, Kenya"
+NA19095,LS454,"Ibadan, Nigeria"
+NA19096,LS454,"Ibadan, Nigeria"
+NA19113,LS454,"Ibadan, Nigeria"
+NA18995,LS454,"Tokyo, Japan"
+NA19196,LS454,NA
+NA18770,LS454,NA
+NA19402,LS454,NA
+NA19163,LS454,NA
+NA19156,LS454,NA
+NA19229,LS454,NA
+NA18873,Illumina,"Ibadan, Nigeria"
+NA18749,Illumina,"Beijing, China"
+NA18138,LS454,NA
+NA18574,LS454,"Beijing, China"
+NA19432,LS454,NA
+NA19266,LS454,NA
+NA19253,LS454,NA
+NA19262,LS454,NA
+NA17986,LS454,NA
+NA19179,LS454,NA
+NA18105,LS454,NA
+NA18112,LS454,NA
+NA18525,LS454,"Beijing, China"
+NA18560,LS454,"Beijing, China"
+NA18569,LS454,NA
+NA18598,LS454,NA
+NA18742,LS454,NA
+NA18744,LS454,NA
+NA18779,LS454,NA
+NA18791,LS454,NA
+NA18629,LS454,"Beijing, China"
+NA18646,LS454,"Beijing, China"
+NA19039,LS454,NA
+NA19043,LS454,"Webuye, Kenya"
+NA19026,LS454,"Webuye, Kenya"
+NA19022,LS454,NA
+NA17989,LS454,NA
+NA19135,LS454,NA
+NA19157,LS454,NA
+NA19187,LS454,NA
+NA19392,LS454,NA
+NA18140,LS454,NA
+NA19133,LS454,NA
+NA18785,LS454,NA
+NA18109,LS454,NA
+NA19308,LS454,"Webuye, Kenya"
+NA18765,LS454,NA
+NA18773,LS454,NA
+NA12400,Illumina,"Utah, USA"
+NA18917,Illumina,"Ibadan, Nigeria"
+NA18923,Illumina,"Ibadan, Nigeria"
+NA18924,Illumina,"Ibadan, Nigeria"
+NA19198,Illumina,"Ibadan, Nigeria"
+NA18933,Illumina,"Ibadan, Nigeria"
+NA11843,Illumina,"Utah, USA"
+NA19004,Illumina,"Tokyo, Japan"
+NA18934,Illumina,"Ibadan, Nigeria"
+NA19223,Illumina,"Ibadan, Nigeria"
+NA19319,LS454,"Webuye, Kenya"
+NA19327,LS454,"Webuye, Kenya"
+NA19332,LS454,"Webuye, Kenya"
+NA19036,LS454,"Webuye, Kenya"
+NA19044,LS454,NA
+NA18111,LS454,NA
+NA18539,LS454,"Beijing, China"
+NA18761,LS454,NA
+NA18769,LS454,NA
+NA18591,LS454,"Beijing, China"
+NA18778,LS454,NA
+NA18538,LS454,"Beijing, China"
+NA18533,LS454,"Beijing, China"
+NA19474,LS454,"Webuye, Kenya"
+NA19045,LS454,NA
+NA18790,LS454,NA
+NA19250,LS454,NA
+NA19220,LS454,NA
+NA19168,LS454,NA
+NA19162,LS454,NA
+NA19117,LS454,"Ibadan, Nigeria"
+NA19318,LS454,"Webuye, Kenya"
+NA19321,LS454,"Webuye, Kenya"
+NA19307,LS454,"Webuye, Kenya"
+NA18110,LS454,NA
+NA18789,LS454,NA
+NA19023,LS454,"Webuye, Kenya"
+NA19195,LS454,NA
+NA18794,LS454,NA
+NA19259,LS454,NA
+NA19260,LS454,NA
+NA19378,LS454,"Webuye, Kenya"
+NA19310,LS454,"Webuye, Kenya"
+NA19197,Illumina,"Ibadan, Nigeria"
+NA19086,Illumina,"Tokyo, Japan"
+NA12399,Illumina,"Utah, USA"
+NA19166,LS454,NA
+NA19216,LS454,NA
+NA19217,LS454,NA
+NA19228,LS454,NA
+NA19124,LS454,NA
+NA18768,LS454,NA
+NA19309,LS454,"Webuye, Kenya"
+NA07345,LS454,NA
+NA19316,LS454,"Webuye, Kenya"
+NA19338,LS454,"Webuye, Kenya"
+NA19019,LS454,"Webuye, Kenya"
+NA19315,LS454,"Webuye, Kenya"
+NA18759,LS454,NA
+NA18781,LS454,NA
+NA19125,LS454,NA
+NA18921,LS454,NA
+NA19914,Illumina,"Southwest, US"
+NA19904,Illumina,"Southwest, US"
+NA19901,Illumina,"Southwest, US"
+NA19908,Illumina,"Southwest, US"
+NA19921,Illumina,"Southwest, US"
+NA19917,Illumina,"Southwest, US"
+NA19920,Illumina,"Southwest, US"
+NA19909,Illumina,"Southwest, US"
+NA19916,Illumina,"Southwest, US"
+NA19703,Illumina,"Southwest, US"
+NA19704,Illumina,"Southwest, US"
+NA19707,Illumina,"Southwest, US"
+NA19701,Illumina,"Southwest, US"
+NA19982,Illumina,"Southwest, US"
+NA19625,Illumina,"Southwest, US"
+NA19712,Illumina,"Southwest, US"
+NA18567,Illumina,"Beijing, China"
+NA18565,Illumina,"Beijing, China"
+NA18553,Illumina,"Beijing, China"
+NA19711,Illumina,"Southwest, US"
+NA19700,Illumina,"Southwest, US"
+NA19725,Illumina,"Los Angeles, California"
+NA19723,Illumina,"Los Angeles, California"
+NA19722,Illumina,"Los Angeles, California"
+NA19726,Illumina,"Los Angeles, California"
+NA18527,ABI_SOLID,NA
+NA19660,Illumina,NA
+NA19684,Illumina,"Los Angeles, California"
+NA19661,Illumina,"Los Angeles, California"
+NA19720,Illumina,"Los Angeles, California"
+NA19678,Illumina,"Los Angeles, California"
+NA19685,Illumina,NA
+HG00160,Illumina,"England / Scotland"
+HG00116,Illumina,"England / Scotland"
+HG00133,Illumina,"England / Scotland"
+HG00131,Illumina,"England / Scotland"
+HG00158,Illumina,"England / Scotland"
+HG00146,Illumina,"England / Scotland"
+HG00155,Illumina,"England / Scotland"
+NA18639,ABI_SOLID,"Beijing, China"
+NA20339,ABI_SOLID,"Southwest, US"
+NA20414,ABI_SOLID,NA
+NA19818,Illumina,"Southwest, US"
+NA19713,Illumina,"Southwest, US"
+NA19900,Illumina,"Southwest, US"
+NA19835,Illumina,"Southwest, US"
+NA19834,Illumina,"Southwest, US"
+NA19819,Illumina,"Southwest, US"
+NA19923,ABI_SOLID,"Southwest, US"
+NA19672,ABI_SOLID,NA
+NA19738,ABI_SOLID,NA
+NA20351,ABI_SOLID,"Southwest, US"
+NA20412,ABI_SOLID,"Southwest, US"
+NA19794,ABI_SOLID,"Los Angeles, California"
+NA19734,ABI_SOLID,"Los Angeles, California"
+NA19737,ABI_SOLID,NA
+NA19735,ABI_SOLID,"Los Angeles, California"
+NA19038,ABI_SOLID,"Webuye, Kenya"
+NA19795,ABI_SOLID,"Los Angeles, California"
+HG00104,ABI_SOLID,NA
+NA19740,ABI_SOLID,"Los Angeles, California"
+HG00099,ABI_SOLID,"England / Scotland"
+NA19984,ABI_SOLID,"Southwest, US"
+NA19752,ABI_SOLID,"Los Angeles, California"
+NA19741,ABI_SOLID,"Los Angeles, California"
+HG00097,ABI_SOLID,"England / Scotland"
+HG00234,ABI_SOLID,"England / Scotland"
+HG00128,ABI_SOLID,"England / Scotland"
+HG00130,ABI_SOLID,"England / Scotland"
+HG00129,ABI_SOLID,"England / Scotland"
+HG00351,ABI_SOLID,Finland
+NA19655,Illumina,"Los Angeles, California"
+NA19654,Illumina,"Los Angeles, California"
+HG00262,Illumina,"England / Scotland"
+HG00245,Illumina,"England / Scotland"
+HG00258,Illumina,"England / Scotland"
+HG00119,Illumina,"England / Scotland"
+HG00264,Illumina,"England / Scotland"
+HG00124,Illumina,NA
+HG00123,Illumina,"England / Scotland"
+HG00159,Illumina,"England / Scotland"
+HG00117,Illumina,"England / Scotland"
+HG00120,Illumina,"England / Scotland"
+NA19651,Illumina,"Los Angeles, California"
+NA19649,Illumina,"Los Angeles, California"
+NA19648,Illumina,"Los Angeles, California"
+NA19652,Illumina,"Los Angeles, California"
+HG00358,ABI_SOLID,Finland
+HG00356,ABI_SOLID,Finland
+HG00350,ABI_SOLID,Finland
+HG00355,ABI_SOLID,Finland
+HG00235,ABI_SOLID,"England / Scotland"
+HG00349,ABI_SOLID,Finland
+NA20363,ABI_SOLID,NA
+NA19675,Illumina,NA
+NA19676,Illumina,"Los Angeles, California"
+NA19679,Illumina,"Los Angeles, California"
+NA19716,Illumina,"Los Angeles, California"
+NA19717,Illumina,"Los Angeles, California"
+NA19719,Illumina,"Los Angeles, California"
+NA19681,Illumina,"Los Angeles, California"
+NA19682,Illumina,"Los Angeles, California"
+NA20346,Illumina,"Southwest, US"
+NA20341,Illumina,NA
+NA20291,Illumina,"Southwest, US"
+NA20294,Illumina,"Southwest, US"
+NA20317,Illumina,"Southwest, US"
+NA20126,Illumina,"Southwest, US"
+NA20278,Illumina,"Southwest, US"
+NA20314,Illumina,"Southwest, US"
+NA20344,Illumina,NA
+NA20281,Illumina,"Southwest, US"
+NA20287,Illumina,"Southwest, US"
+NA20356,Illumina,"Southwest, US"
+NA20296,Illumina,"Southwest, US"
+NA20332,Illumina,"Southwest, US"
+NA20276,Illumina,"Southwest, US"
+NA20282,Illumina,"Southwest, US"
+NA19985,Illumina,NA
+NA20336,Illumina,NA
+NA20322,Illumina,NA
+NA20289,Illumina,"Southwest, US"
+NA20299,Illumina,"Southwest, US"
+NA20334,Illumina,"Southwest, US"
+NA20127,Illumina,"Southwest, US"
+NA20342,Illumina,"Southwest, US"
+NA20340,Illumina,"Southwest, US"
+NA20348,Illumina,"Southwest, US"
+HG00096,Illumina,"England / Scotland"
+HG00127,Illumina,"England / Scotland"
+HG00103,Illumina,"England / Scotland"
+HG00233,Illumina,"England / Scotland"
+HG01098,Illumina,Puerto Rico
+HG01097,Illumina,Puerto Rico
+HG01253,Illumina,"Medellin, Colombia"
+HG01254,Illumina,"Medellin, Colombia"
+HG01251,Illumina,"Medellin, Colombia"
+HG01250,Illumina,"Medellin, Colombia"
+HG01112,Illumina,"Medellin, Colombia"
+HG01494,Illumina,"Medellin, Colombia"
+HG01497,Illumina,"Medellin, Colombia"
+HG01456,Illumina,"Medellin, Colombia"
+HG01550,Illumina,"Medellin, Colombia"
+HG01498,Illumina,"Medellin, Colombia"
+HG01360,Illumina,"Medellin, Colombia"
+HG01113,Illumina,"Medellin, Colombia"
+HG01551,Illumina,"Medellin, Colombia"
+HG01455,Illumina,"Medellin, Colombia"
+HG01518,Illumina,Spain
+HG01516,Illumina,Spain
+HG01515,Illumina,Spain
+HG01519,Illumina,Spain
+HG01521,Illumina,Spain
+NA19777,Illumina,"Los Angeles, California"
+NA19779,Illumina,"Los Angeles, California"
+NA19780,Illumina,"Los Angeles, California"
+NA19782,Illumina,"Los Angeles, California"
+NA19783,Illumina,"Los Angeles, California"
+NA19788,Illumina,"Los Angeles, California"
+NA19789,Illumina,"Los Angeles, California"
+NA19776,Illumina,"Los Angeles, California"
+NA19758,Illumina,"Los Angeles, California"
+NA19747,Illumina,"Los Angeles, California"
+NA19732,Illumina,"Los Angeles, California"
+NA19731,Illumina,"Los Angeles, California"
+NA19746,Illumina,"Los Angeles, California"
+NA19750,Illumina,"Los Angeles, California"
+NA19762,Illumina,"Los Angeles, California"
+NA19755,Illumina,"Los Angeles, California"
+NA19728,Illumina,"Los Angeles, California"
+NA19770,Illumina,"Los Angeles, California"
+NA19771,Illumina,"Los Angeles, California"
+NA19761,Illumina,"Los Angeles, California"
+NA19759,Illumina,"Los Angeles, California"
+NA19729,Illumina,"Los Angeles, California"
+NA19786,Illumina,"Los Angeles, California"
+NA19785,Illumina,"Los Angeles, California"
+NA19773,Illumina,"Los Angeles, California"
+NA19756,Illumina,"Los Angeles, California"
+NA19749,Illumina,"Los Angeles, California"
+NA19774,Illumina,"Los Angeles, California"
+HG01495,Illumina,"Medellin, Colombia"
+HG01522,Illumina,Spain
+HG01176,Illumina,Puerto Rico
+HG01075,Illumina,Puerto Rico
+HG01102,Illumina,Puerto Rico
+HG01187,Illumina,Puerto Rico
+HG01101,Illumina,Puerto Rico
+HG01167,Illumina,Puerto Rico
+HG01095,Illumina,Puerto Rico
+HG01183,Illumina,Puerto Rico
+HG01168,Illumina,Puerto Rico
+HG01277,ABI_SOLID,"Medellin, Colombia"
+HG01618,ABI_SOLID,Spain
+HG01271,ABI_SOLID,"Medellin, Colombia"
+HG01278,ABI_SOLID,NA
+HG01623,ABI_SOLID,Spain
+HG01275,ABI_SOLID,"Medellin, Colombia"
+HG01344,ABI_SOLID,"Medellin, Colombia"
+HG01272,ABI_SOLID,"Medellin, Colombia"
+HG01274,ABI_SOLID,NA
+HG01617,ABI_SOLID,Spain
+HG01345,ABI_SOLID,"Medellin, Colombia"
+HG01620,ABI_SOLID,Spain
+HG01190,Illumina,Puerto Rico
+HG01198,Illumina,Puerto Rico
+HG01188,Illumina,Puerto Rico
+HG01191,Illumina,Puerto Rico
+HG01197,Illumina,Puerto Rico
+HG01204,Illumina,Puerto Rico
+HG01465,Illumina,"Medellin, Colombia"
+HG01440,Illumina,"Medellin, Colombia"
+HG01491,Illumina,"Medellin, Colombia"
+HG01342,Illumina,"Medellin, Colombia"
+HG01359,Illumina,"Medellin, Colombia"
+HG01441,Illumina,"Medellin, Colombia"
+HG01437,Illumina,"Medellin, Colombia"
+HG01488,Illumina,"Medellin, Colombia"
+HG01492,Illumina,"Medellin, Colombia"
+HG01489,Illumina,"Medellin, Colombia"
+HG01462,Illumina,"Medellin, Colombia"
+HG01461,Illumina,"Medellin, Colombia"
+NA19663,Illumina,"Los Angeles, California"
+NA19657,Illumina,"Los Angeles, California"
+NA19664,Illumina,"Los Angeles, California"
+HG00732,Illumina,Puerto Rico
+HG00734,Illumina,Puerto Rico
+HG01048,Illumina,Puerto Rico
+HG01080,Illumina,Puerto Rico
+HG01047,Illumina,Puerto Rico
+HG01055,Illumina,Puerto Rico
+HG01066,Illumina,Puerto Rico
+HG00737,Illumina,Puerto Rico
+HG00641,Illumina,Puerto Rico
+HG00740,Illumina,Puerto Rico
+HG01079,Illumina,Puerto Rico
+HG00731,Illumina,Puerto Rico
+HG00736,Illumina,Puerto Rico
+HG01067,Illumina,Puerto Rico
+HG01619,ABI_SOLID,Spain
+NA19922,ABI_SOLID,"Southwest, US"
+NA20298,ABI_SOLID,"Southwest, US"
+HG01625,ABI_SOLID,Spain
+HG01624,ABI_SOLID,Spain
+HG01626,ABI_SOLID,Spain
