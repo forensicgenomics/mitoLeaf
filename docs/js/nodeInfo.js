@@ -34,8 +34,10 @@ document.addEventListener('DOMContentLoaded', function () {
     Promise.all([
         d3.json('data/hgmotifs.json'),
         d3.json('data/tree.json'),
-        d3.csv('data/profiles.csv') // Load profiles data
-    ]).then(([hgMotifsData, treeData, profilesData]) => {
+        d3.csv('data/profiles.csv')
+    ]).then(([hgMotifsData,
+                            treeData,
+                            profilesData]) => {
 
         // build tree
         const root = d3.hierarchy(treeData);
@@ -68,9 +70,11 @@ document.addEventListener('DOMContentLoaded', function () {
                                     <th>Accession Number</th>
                                     <th>Origin</th>
                                     <th>Publication Title</th>
+                                    <th>Publication Date</th>
                                     <th>First Author</th>
                                     <th>Technology</th>
                                     <th>Assembly</th>
+                                    <th>Source</th>
                                 </tr>
                             </thead>
                             <tbody id="profile-list"></tbody>
@@ -109,6 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // lineage tree
         displayAncestors(getAncestors(node));
         // accession profiles table
+        console.log(profilesData.length);
         displayTable(node, profilesData, 'profiles-section', 'profile-list', 'show-more-profiles', 'profiles', 3, generateProfileRow);
         // children table
         displayTable(node, node.children || [], 'descendants-section', 'children-list', 'show-more-descendants', 'descendants', 3, generateHGRow);
@@ -165,8 +170,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 const matches = node.data.profiles.filter(nodeProfileAcc => {
                     // compare without trailing '+' but store value with + in data
                     // so that the table row shows the +
-                    if (nodeProfileAcc.replace(/\+$/, '') === profile.accession_number) {
-                        profile.accession_number = nodeProfileAcc;
+                    if (nodeProfileAcc.replace(/\+$/, '') === profile.accession) {
+                        profile.accession = nodeProfileAcc;
                         return true;
                     }
                     return false;
@@ -210,8 +215,8 @@ function generateProfileRow(profile) {
   const row = document.createElement('tr');
 
   // hyperlink for accession_number if it exists
-  const accessionLink = profile.accession_number
-    ? `<a href="https://www.ncbi.nlm.nih.gov/nuccore/${profile.accession_number}" target="_blank">${profile.accession_number}</a>`
+  const accessionLink = profile.accession
+    ? `<a href="https://www.ncbi.nlm.nih.gov/nuccore/${profile.accession}" target="_blank">${profile.accession}</a>`
     : 'N/A';
 
   // hyperlink for pub_title if pubmed_id exists
@@ -223,9 +228,11 @@ function generateProfileRow(profile) {
     <td>${accessionLink}</td>
     <td>${profile.geo_origin || 'N/A'}</td>
     <td>${titleLink}</td>
+    <td>${profile.pub_date || 'N/A'}</td>
     <td>${profile.first_aut || 'N/A'}</td>
     <td>${profile.seq_tech || 'N/A'}</td>
     <td>${profile.asm_method || 'N/A'}</td>
+    <td>${profile.source || 'N/A'}</td>
   `;
 
   return row;
