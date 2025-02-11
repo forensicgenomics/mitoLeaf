@@ -7,19 +7,41 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 
+import os
+
 # default file paths used during the 'tree_dat_process' script.
 # paths denoted are relative to root.
 
 # raw files needed in inputfiles
-XML_FILE = "inputfiles/mitoTree_v1.0_phm.xml"
-HGMOTIFS_FILE = "inputfiles/mitoTree_v1.0_hgmotifs.csv"
-COLORCODE_FILE = "inputfiles/superhaplo_colorcodes.csv"
-SUPERHAPLO_FILE = "inputfiles/superhaplogroups.txt"
-PHYLO_SUPERHAPLO_FILE = "inputfiles/phylo_superhaplogroups.txt"
-SEQ_TECH = "inputfiles/metadata/61302_sequencing_technology.txt"
-COUNTRY = "inputfiles/metadata/country_61302_final.txt"
-MOTIF_REPRESENTATIVES = "inputfiles/metadata/mitoTree_61302_representatives.txt"
+INPUT_DIR = "inputfiles"
+
+XML_FILE = os.path.join(INPUT_DIR, "mitoTree_v1.2_phm.xml")
+HGMOTIFS_FILE = os.path.join(INPUT_DIR, "mitoTree_v1.0_hgmotifs.csv")
+
+COLORCODE_FILE = os.path.join(INPUT_DIR, "superhaplo_colorcodes.csv")
+SUPERHAPLO_FILE = os.path.join(INPUT_DIR, "superhaplogroups.txt")
+PHYLO_SUPERHAPLO_FILE = os.path.join(INPUT_DIR, "phylo_superhaplogroups.txt")
+
+
+
+# inputs
+ALL_REPS = os.path.join(INPUT_DIR, "mito_representatives_ALL.csv")
+
+EMPOP_META = os.path.join(INPUT_DIR, "empop_metadata.csv")
+K_META = os.path.join(INPUT_DIR, "1000G_metadata.csv")
+NCBI_META = os.path.join(INPUT_DIR, "metadata.csv")
+
+# output dir
+OUTPUT_DIR = os.path.join(INPUT_DIR, "formatted_files")
+
+# outputs
+FORMATTED_EMPOP = os.path.join(OUTPUT_DIR, "empop_representatives_formated.csv")
+FORMATTED_1K = os.path.join(OUTPUT_DIR, "k_genomes_representatives_formated.csv")
+FORMATTED_NCBI = os.path.join(OUTPUT_DIR, "ncbi_genomes_representatives_formated.csv")
+
+MOTIF_REPRESENTATIVES = os.path.join(OUTPUT_DIR, "representatives_combined.csv")
+METADATA_REPRESENTATIVES = os.path.join(OUTPUT_DIR, "metadata_combined.csv")
 
 # destination where to write files
 # this should be the data dir within the dir used to build the webpage
-DATA_DEST = "docs/data/"
+DATA_DEST = "docs/data"
