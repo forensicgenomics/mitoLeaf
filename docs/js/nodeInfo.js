@@ -215,9 +215,18 @@ function generateProfileRow(profile) {
   const row = document.createElement('tr');
 
   // hyperlink for accession_number if it exists
-  const accessionLink = profile.accession
-    ? (profile.source === "NCBI" ? `<a href="https://www.ncbi.nlm.nih.gov/nuccore/${profile.accession}" target="_blank">${profile.accession}</a>` : profile.accession)
-    : 'N/A';
+  let accessionLink;
+
+  switch (profile.source) {
+      case "NCBI":
+          accessionLink = `<a href="https://www.ncbi.nlm.nih.gov/nuccore/${profile.accession}" target="_blank">${profile.accession}</a>`;
+          break;
+      case "1K_GENOMES":
+          accessionLink = `<a href="https://www.internationalgenome.org/data-portal/sample/${profile.accession}" target="_blank">${profile.accession}</a>`;
+          break;
+      default:
+          accessionLink = profile.accession;
+  }
 
   // hyperlink for pub_title if pubmed_id exists
   const titleLink = (profile.pubmed_id && profile.pubmed_id !== '')
