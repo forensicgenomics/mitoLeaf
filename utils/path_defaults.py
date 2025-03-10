@@ -15,6 +15,8 @@ import os
 # raw files needed in inputfiles
 INPUT_DIR = "inputfiles"
 
+
+##### INPUTS ####
 XML_FILE = os.path.join(INPUT_DIR, "mitoTree_phm.xml")
 HGMOTIFS_FILE = os.path.join(INPUT_DIR, "mitoTree_hgmotifs.csv")
 
@@ -23,8 +25,7 @@ SUPERHAPLO_FILE = os.path.join(INPUT_DIR, "superhaplogroups.txt")
 PHYLO_SUPERHAPLO_FILE = os.path.join(INPUT_DIR, "phylo_superhaplogroups.txt")
 
 
-
-# inputs
+# reps and meta inputs
 ALL_REPS = os.path.join(INPUT_DIR, "mito_representatives.csv")
 
 EMPOP_REPS = os.path.join(INPUT_DIR, "empop_representatives.csv")
@@ -34,6 +35,9 @@ K_META = os.path.join(INPUT_DIR, "1000G_metadata.csv")
 
 NCBI_REPS = os.path.join(INPUT_DIR, "ncbi_representatives.csv")
 NCBI_META = os.path.join(INPUT_DIR, "ncbi_metadata.csv")
+
+
+#### OUTPUTS ####
 
 # output dir
 OUTPUT_DIR = os.path.join(INPUT_DIR, "formatted_files")
