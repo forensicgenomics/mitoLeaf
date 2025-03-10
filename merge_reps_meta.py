@@ -17,11 +17,13 @@
 
 from os import makedirs
 
+import csv
 import numpy as np
 import pandas as pd
 
 from utils.path_defaults import (ALL_REPS,
                            EMPOP_META,
+                           EMPOP_REPS,
                            K_META,
                            NCBI_META,
                            OUTPUT_DIR,
@@ -30,6 +32,37 @@ from utils.path_defaults import (ALL_REPS,
                            FORMATTED_NCBI,
                            MOTIF_REPRESENTATIVES,
                            METADATA_REPRESENTATIVES)
+
+
+# TODO if the empop reps is no longer misformatted, this fun is no longer needed
+def remove_commas_in_last_col(input_path, output_path):
+    """
+    Reads a CSV file whose first row is:
+       motif,num_profiles,profiles
+    but whose subsequent lines may look like:
+       L0a2a1,3,CMR_21_00000085,CMR_21_00000051,CMR_21_00000048
+       L1b,1,USA_21_00000054
+       etc.
+    We skip the header row and merge everything after num_profiles
+    into a single space-separated 'profiles' column.
+    """
+    with open(input_path, 'r', newline='', encoding='utf-8') as f:
+        all_rows = list(csv.reader(f))
+
+    header = all_rows[0]
+    data_rows = all_rows[1:]
+
+    cleaned_data = []
+    for row in data_rows:
+        motif = row[0]  # e.g. "L0a2a1"
+        num_profiles = row[1]  # e.g. "3"
+        # merge everything after column 1 (index 1) into a single space-separated string:
+        # row[2:] is ["CMR_21_00000085", "CMR_21_00000051", "CMR_21_00000048"], etc.
+        combined_profiles = ' '.join(row[2:])
+        cleaned_data.append([motif, num_profiles, combined_profiles])
+
+    df_clean = pd.DataFrame(cleaned_data, columns=['motif', 'num_profiles', 'profiles'])
+    df_clean.to_csv(output_path, index=False)
 
 
 def filter_profiles(profiles_str, valid_accessions):
@@ -147,6 +180,8 @@ def merge_representatives(df1, df2, df3, out_csv):
 def main():
 
     makedirs(OUTPUT_DIR, exist_ok=True)
+    # TODO this will not be needed, when empops reps no longer has commas in the last col
+    remove_commas_in_last_col(EMPOP_REPS, EMPOP_REPS)
 
     # read all representations
     # this is the output of the tree building process
@@ -155,9 +190,13 @@ def main():
     ############################################################
 
     # filter all profiles present in the metadata files for each source
-
+    # function allows for different than accession column using 'id_col'
+    # TODO rewrite the next line, when empop format changes
+    print("Processing EMPOP.")
     reps_empop, meta_df_empop = process_and_save_reps(EMPOP_META, reps_df_all, FORMATTED_EMPOP, id_col="sample_id")
+    print("Processing 1k Genomes.")
     reps_1k, meta_df_1k = process_and_save_reps(K_META, reps_df_all, FORMATTED_1K)
+    print("Processing NCBI.")
     reps_ncbi, meta_df_ncbi = process_and_save_reps(NCBI_META, reps_df_all, FORMATTED_NCBI)
 
     #############################################################
@@ -179,13 +218,12 @@ def main():
     meta_df_ncbi["source"] = "NCBI"
 
     combined_meta = pd.concat([meta_df_ncbi, meta_df_empop, meta_df_1k], axis=0, ignore_index=True)
-
     combined_meta.to_csv(METADATA_REPRESENTATIVES, index=False)
 
 
     #############################################################
 
-    print("Processing complete!\n")
+    print("Merging complete!\n")
 
 
 if __name__ == "__main__":

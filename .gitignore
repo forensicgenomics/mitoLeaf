@@ -5,3 +5,4 @@
 *.Rproj
 .idea
 .gitattributes
+legacy_input

@@ -44,9 +44,10 @@ merge_reps_meta()
 ### profile attributes table
 # reads metadata
 # writes result as 'profiles.csv'
-metadata = pd.read_csv(METADATA_REPRESENTATIVES)
-# TODO rename col names
+metadata = pd.read_csv(METADATA_REPRESENTATIVES, dtype=str)
 metadata.to_csv(os.path.join(DATA_DEST, "profiles.csv"), index=False)
+
+print("Created Profiles File.")
 ###
 
 
@@ -74,9 +75,13 @@ color_dict = csv_as_dict(COLORCODE_FILE, delimiter=",")
 superhaplo = read_txt(SUPERHAPLO_FILE)
 phylo_superhaplo = read_txt(PHYLO_SUPERHAPLO_FILE)
 
+print("Read Input Files.")
+
 # write full hg data table as 'hgmotifs.json'
 with open(os.path.join(DATA_DEST, "hgmotifs.json"), 'w') as json_file:
     json.dump(hg_motif_dict, json_file, indent=4)
+
+print("Created hgmotifs file.")
 
 # create linear tree with helper function to json file with all attributes
 # and write as 'tree.json'
@@ -89,6 +94,8 @@ with open(os.path.join(DATA_DEST, "tree.json"), 'w') as json_file:
 newick_tree = create_newick_tree(tree, root)
 with open(os.path.join(DATA_DEST, "fullTree.nwk"), 'w') as nwk_file:
     nwk_file.write(newick_tree)
+
+print("Processed Linear Tree.")
 
 
 ### radial stunted tree
@@ -103,8 +110,10 @@ newick_radial_tree = create_newick_tree(bare_tree, bare_tree.getroot())
 with open(os.path.join(DATA_DEST, "pruned_radialTree.nwk"), 'w') as nwk_file:
     nwk_file.write(newick_radial_tree)
 
+print("Processed Radial Tree.")
 ###
 
 
 # copy inputfiles unchanged that should be downloadable to the appropriate dir
 copyfile(XML_FILE, os.path.join(DATA_DEST, "mitoTree_phm.xml"))
+print("Copied xml file to docs directory.")
