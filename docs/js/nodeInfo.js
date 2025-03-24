@@ -15,7 +15,7 @@ That includes displaying the node attributes,
 building the lineage tree,
 retrieving the full hg signature as well as the profiles for this hg.
 
-As it is dynamic, html element creation is handles here and not in the html file.
+As it is dynamic, html element creation is handled here and not in the html file.
 */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -34,8 +34,10 @@ document.addEventListener('DOMContentLoaded', function () {
     Promise.all([
         d3.json('data/hgmotifs.json'),
         d3.json('data/tree.json'),
-        d3.csv('data/profiles.csv') // Load profiles data
-    ]).then(([hgMotifsData, treeData, profilesData]) => {
+        d3.csv('data/profiles.csv')
+    ]).then(([hgMotifsData,
+                            treeData,
+                            profilesData]) => {
 
         // build tree
         const root = d3.hierarchy(treeData);
@@ -66,9 +68,13 @@ document.addEventListener('DOMContentLoaded', function () {
                             <thead>
                                 <tr>
                                     <th>Accession Number</th>
-                                    <th>Country</th>
+                                    <th>Origin</th>
+                                    <th>Publication Title</th>
+                                    <th>Publication Date</th>
+                                    <th>First Author</th>
                                     <th>Technology</th>
                                     <th>Assembly</th>
+                                    <th>Source</th>
                                 </tr>
                             </thead>
                             <tbody id="profile-list"></tbody>
@@ -107,6 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // lineage tree
         displayAncestors(getAncestors(node));
         // accession profiles table
+        console.log(profilesData.length);
         displayTable(node, profilesData, 'profiles-section', 'profile-list', 'show-more-profiles', 'profiles', 3, generateProfileRow);
         // children table
         displayTable(node, node.children || [], 'descendants-section', 'children-list', 'show-more-descendants', 'descendants', 3, generateHGRow);
@@ -163,14 +170,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 const matches = node.data.profiles.filter(nodeProfileAcc => {
                     // compare without trailing '+' but store value with + in data
                     // so that the table row shows the +
-                    if (nodeProfileAcc.replace(/\+$/, '') === profile.accession_number) {
-                        profile.accession_number = nodeProfileAcc;
+                    if (nodeProfileAcc.replace(/\+$/, '') === profile.accession) {
+                        profile.accession = nodeProfileAcc;
                         return true;
                     }
                     return false;
                 });
 
-                return matches.length > 0; // Return true if there's a match
+                return matches.length > 0; // true if there's a match
             });
         } else if (type === 'descendants') {
             filteredData = data;
@@ -204,16 +211,42 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // generates a table row for a given profile
     // returns html element
-    function generateProfileRow(profile) {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${profile.accession_number}</td>
-            <td>${profile.country || 'N/A'}</td>
-            <td>${profile.technology || 'N/A'}</td>
-            <td>${profile.assembly || 'N/A'}</td>
-        `;
-        return row;
-    }
+function generateProfileRow(profile) {
+  const row = document.createElement('tr');
+
+  // hyperlink for accession_number if it exists
+  let accessionLink;
+
+  switch (profile.source) {
+      case "NCBI":
+          accessionLink = `<a href="https://www.ncbi.nlm.nih.gov/nuccore/${profile.accession}" target="_blank">${profile.accession}</a>`;
+          break;
+      case "1K_GENOMES":
+          accessionLink = `<a href="https://www.internationalgenome.org/data-portal/sample/${profile.accession}" target="_blank">${profile.accession}</a>`;
+          break;
+      default:
+          accessionLink = profile.accession;
+  }
+
+  // hyperlink for pub_title if pubmed_id exists
+  const titleLink = (profile.pubmed_id && profile.pubmed_id !== '')
+    ? `<a href="https://pubmed.ncbi.nlm.nih.gov/${profile.pubmed_id}" target="_blank">${profile.pub_title || 'N/A'}</a>`
+    : (profile.pub_title || 'N/A');
+
+  row.innerHTML = `
+    <td>${accessionLink}</td>
+    <td>${profile.geo_origin || 'N/A'}</td>
+    <td>${titleLink}</td>
+    <td>${profile.pub_date || 'N/A'}</td>
+    <td>${profile.first_aut || 'N/A'}</td>
+    <td>${profile.seq_tech || 'N/A'}</td>
+    <td>${profile.asm_method || 'N/A'}</td>
+    <td>${profile.source || 'N/A'}</td>
+  `;
+
+  return row;
+}
+
 
 
     // create lineage tree from given ancestors
@@ -277,8 +310,10 @@ document.addEventListener('DOMContentLoaded', function () {
             .attr('x', d => d.x)
             .attr('y', d => d.y - 15)
             .attr('text-anchor', 'middle')
-            .style('font', '12px sans-serif')
-            .text(d => truncateText(d.data.name, nodeSpacing * 0.9));
+            .text(function(d) {
+              const name = d.data.name;
+              return truncateText(this, name, nodeSpacing);
+            });
     }
 
     // given two nodes, returns d3 like path sting as a simple straight path

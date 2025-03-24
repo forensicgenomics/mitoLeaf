@@ -18,8 +18,8 @@ This section provides detailed information and guidance on using mitoTree.
 
 **Nucleotide position numbers** are relative to the **rCRS** [GenBank: NC_012920](https://www.ncbi.nlm.nih.gov/nuccore/NC_012920)
 
-**Mutations** are given in the format **[position][evolved base]**. The words "Mutations" and "Variants" are used synonymously.  
-The [evolved base] can be one of the following symbols:
+**Mutations** are given in the format **[position][nucleotide base]**. The words "Mutations" and "Variants" are used synonymously.  
+The [nucleotide base] can be one of the following symbols:
 - A, C, G, T: representing the four DNA bases (Adenine, Cytosine, Guanine, and Thymine).
 - '-'(hyphen): This symbol signifies a deletion.
 - Mixed states, indicating uncertainty about the specific base, are denoted by ambiguous symbols. For details, refer to the extended IUPAC code explained in [Parson et al. 2014](https://www.sciencedirect.com/science/article/pii/S1872497314001586?via%3Dihub).
@@ -107,8 +107,11 @@ Recurrent mutations are noted in cursive and with the base leading and are only 
 - **HG-Signature:** Indicates the Haplogroup's HG-Signature.
 - **Representative Mitogenomes and Metadata:**
 The data shown here are retrieved from NCBI GenBank. In case of missing or "NA", there was no data available at the time of retrieval.
+If those fields are present, clicking on the 'Accession Number' entry will redirect to the Genbank entry webpage and the 'Publication Title' entry will redirect to the PubMed page.
   - **Accession Number:** Lists GenBank accession numbers that are representatives of this haplogroup.
-  - **Country:** Information stored under the NCBI FEATURE '/origin'
+  - **Origin:** Genome origin information found under any of these NCBI Features: 'geo_loc_name', 'origin', 'origin_locality'.
+  - **Publication Title:** Title of the PubMed Publication, if the genome was submitted via publication.
+  - **First Author:** First listed Author as disblayed on the PubMed publication or on the NCBI Genome Page.
   - **Technology:** Information stored under the NCBI COMMENT 'Sequencing Technology'
   - **Assembly:** Information stored under the NCBI COMMENT 'Assembly Method'
 - **Lineage:** This linear tree displays the Haplogroup's ancestors from mt-MRCA to itself.  
