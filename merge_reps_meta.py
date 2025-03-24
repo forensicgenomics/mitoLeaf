@@ -167,7 +167,7 @@ def merge_representatives(df1, df2, df3, out_csv):
             val = row.get(col, np.nan)
             if pd.notna(val):
                 all_profiles.update(val.split())
-        return " ".join(all_profiles)
+        return " ".join(sorted(all_profiles))
 
     merged["profiles"] = merged.apply(combine_profiles, axis=1)
 
