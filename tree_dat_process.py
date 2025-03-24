@@ -20,10 +20,13 @@
 
 import json
 import os
+import warnings
+
 import pandas as pd
 from shutil import copyfile
 
 from utils.file_readers import csv_as_dict, read_txt
+from utils.hgmotif_creation import parse_haplo_motifs, check_same_haplos
 from utils.xml_tree_parser import xml_tree_parsing, tree_to_json, create_bare_tree, create_newick_tree
 from merge_reps_meta import main as merge_reps_meta
 
@@ -31,13 +34,17 @@ from utils.path_defaults import (METADATA_REPRESENTATIVES,
                                  MOTIF_REPRESENTATIVES,
                                  DATA_DEST,
                                  XML_FILE,
-                                 HGMOTIFS_FILE,
+                                 MOTIF_SIGNATURES,
                                  COLORCODE_FILE,
                                  SUPERHAPLO_FILE,
                                  PHYLO_SUPERHAPLO_FILE)
 
 
+# TODO check all relevant files exist
+
+
 ### combine representatives and metadata from different sources
+# TODO check all for congruency
 merge_reps_meta()
 
 
@@ -68,20 +75,16 @@ profiles_dict = mito_representatives_df.set_index('motif')['profiles'].apply(lam
 
 # parse tree from xml input file
 tree, root = xml_tree_parsing(XML_FILE)
+# parse haplos
+hgmotif_dict = parse_haplo_motifs(MOTIF_SIGNATURES)
 
 # read tree attributes files
-hg_motif_dict = csv_as_dict(HGMOTIFS_FILE)
 color_dict = csv_as_dict(COLORCODE_FILE, delimiter=",")
 superhaplo = read_txt(SUPERHAPLO_FILE)
 phylo_superhaplo = read_txt(PHYLO_SUPERHAPLO_FILE)
 
 print("Read Input Files.")
 
-# write full hg data table as 'hgmotifs.json'
-with open(os.path.join(DATA_DEST, "hgmotifs.json"), 'w') as json_file:
-    json.dump(hg_motif_dict, json_file, indent=4)
-
-print("Created hgmotifs file.")
 
 # create linear tree with helper function to json file with all attributes
 # and write as 'tree.json'
@@ -96,6 +99,18 @@ with open(os.path.join(DATA_DEST, "fullTree.nwk"), 'w') as nwk_file:
     nwk_file.write(newick_tree)
 
 print("Processed Linear Tree.")
+
+
+## hgmotifs
+# check for same haplos as in tree
+if not check_same_haplos(json_tree, hgmotif_dict):
+    warnings.warn(f"Haplogroups of processed Tree input file {XML_FILE} "
+                  f"and processed Motifs file {MOTIF_SIGNATURES} are not identical!")
+# write full hg data table as 'hgmotifs.json'
+with open(os.path.join(DATA_DEST, "hgmotifs.json"), 'w') as json_file:
+    json.dump(hgmotif_dict, json_file, indent=4)
+
+print("Created hgmotifs file.")
 
 
 ### radial stunted tree
