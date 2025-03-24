@@ -19,50 +19,45 @@
 ################################
 
 import json
+import os
 import pandas as pd
 from shutil import copyfile
 
 from utils.file_readers import csv_as_dict, read_txt
 from utils.xml_tree_parser import xml_tree_parsing, tree_to_json, create_bare_tree, create_newick_tree
+from merge_reps_meta import main as merge_reps_meta
+
+from utils.path_defaults import (METADATA_REPRESENTATIVES,
+                                 MOTIF_REPRESENTATIVES,
+                                 DATA_DEST,
+                                 XML_FILE,
+                                 HGMOTIFS_FILE,
+                                 COLORCODE_FILE,
+                                 SUPERHAPLO_FILE,
+                                 PHYLO_SUPERHAPLO_FILE)
 
 
-# raw files needed in inputfiles
-XML_FILE = "inputfiles/mitoTree_v1.0_phm.xml"
-HGMOTIFS_FILE = "inputfiles/mitoTree_v1.0_hgmotifs.csv"
-COLORCODE_FILE = "inputfiles/superhaplo_colorcodes.csv"
-SUPERHAPLO_FILE = "inputfiles/superhaplogroups.txt"
-PHYLO_SUPERHAPLO_FILE = "inputfiles/phylo_superhaplogroups.txt"
-SEQ_TECH = "inputfiles/metadata/61302_sequencing_technology.txt"
-COUNTRY = "inputfiles/metadata/country_61302_final.txt"
-MOTIF_REPRESENTATIVES = "inputfiles/metadata/mitoTree_61302_representatives.txt"
-
-# destination where to write files
-DATA_DEST = "docs/data/"
+### combine representatives and metadata from different sources
+merge_reps_meta()
 
 
 ### profile attributes table
-# reads profile country and tech files and merges them
-# to accession#, country, technology, assembly
+# reads metadata
 # writes result as 'profiles.csv'
-sequencing_tech_df = pd.read_csv(SEQ_TECH)
-country_df = pd.read_csv(COUNTRY, sep=';')
-sequencing_tech_df.columns = ['accession_number', 'technology', 'assembly']
-country_df.columns = ['accession_number', 'country']
+metadata = pd.read_csv(METADATA_REPRESENTATIVES, dtype=str)
+metadata.to_csv(os.path.join(DATA_DEST, "profiles.csv"), index=False)
 
-comb_acc_table = pd.merge(sequencing_tech_df, country_df, how='left', on='accession_number')
-comb_acc_table.fillna('NA', inplace=True)
-
-comb_acc_table.to_csv(f'{DATA_DEST}profiles.csv', index=False)
+print("Created Profiles File.")
 ###
 
 
 ### profiles data
 # reads profiles of haplogroups file
 # writes resulting motif, num_profiles, profiles table as 'mito_representatives.csv'
-mito_representatives_df = pd.read_csv(MOTIF_REPRESENTATIVES, sep='\t')
-mito_representatives_df.columns = ['motif', 'num_profiles', 'profiles']
+mito_representatives_df = pd.read_csv(MOTIF_REPRESENTATIVES)
+# TODO possibly do stuff, rename cols?
+mito_representatives_df.to_csv(os.path.join(DATA_DEST, "mito_representatives.csv"), index=False)
 mito_representatives_df['profiles'] = mito_representatives_df['profiles'].fillna('')
-mito_representatives_df.to_csv(f'{DATA_DEST}mito_representatives.csv', index=False)
 
 # used to embedd accession# into json tree
 profiles_dict = mito_representatives_df.set_index('motif')['profiles'].apply(lambda x: x.split()).to_dict()
@@ -80,21 +75,27 @@ color_dict = csv_as_dict(COLORCODE_FILE, delimiter=",")
 superhaplo = read_txt(SUPERHAPLO_FILE)
 phylo_superhaplo = read_txt(PHYLO_SUPERHAPLO_FILE)
 
+print("Read Input Files.")
+
 # write full hg data table as 'hgmotifs.json'
-with open(f'{DATA_DEST}hgmotifs.json', 'w') as json_file:
+with open(os.path.join(DATA_DEST, "hgmotifs.json"), 'w') as json_file:
     json.dump(hg_motif_dict, json_file, indent=4)
 
+print("Created hgmotifs file.")
+
 # create linear tree with helper function to json file with all attributes
-# and write as 'tree.son'
+# and write as 'tree.json'
 json_tree = tree_to_json(tree, root, color_dict, superhaplo, phylo_superhaplo, profiles=profiles_dict)
-with open(f'{DATA_DEST}tree.json', 'w') as json_file:
+with open(os.path.join(DATA_DEST, "tree.json"), 'w') as json_file:
     json.dump(json_tree, json_file, indent=4)
 
 # creates a newick data file of the full mt-mcra tree
 # and write it as 'fullTree.nwk'
 newick_tree = create_newick_tree(tree, root)
-with open(f'{DATA_DEST}fullTree.nwk', 'w') as nwk_file:
+with open(os.path.join(DATA_DEST, "fullTree.nwk"), 'w') as nwk_file:
     nwk_file.write(newick_tree)
+
+print("Processed Linear Tree.")
 
 
 ### radial stunted tree
@@ -102,15 +103,17 @@ with open(f'{DATA_DEST}fullTree.nwk', 'w') as nwk_file:
 # writes tree as json and nwk files
 bare_tree = create_bare_tree(tree, root, superhaplo, remove_add=True)
 bare_tree_json = tree_to_json(bare_tree, bare_tree.getroot(), color_dict, superhaplo, phylo_superhaplo)
-with open(f'{DATA_DEST}radialTree.json', 'w') as json_file:
+with open(os.path.join(DATA_DEST, "radialTree.json"), 'w') as json_file:
     json.dump(bare_tree_json, json_file, indent=4)
 # newick radial tree
 newick_radial_tree = create_newick_tree(bare_tree, bare_tree.getroot())
-with open(f'{DATA_DEST}pruned_radialTree.nwk', 'w') as nwk_file:
+with open(os.path.join(DATA_DEST, "pruned_radialTree.nwk"), 'w') as nwk_file:
     nwk_file.write(newick_radial_tree)
 
+print("Processed Radial Tree.")
 ###
 
 
 # copy inputfiles unchanged that should be downloadable to the appropriate dir
-copyfile("./inputfiles/mitoTree_v1.0_phm.xml", f"{DATA_DEST}mitoTree_v1.0_phm.xml")
+copyfile(XML_FILE, os.path.join(DATA_DEST, "mitoTree_phm.xml"))
+print("Copied xml file to docs directory.")

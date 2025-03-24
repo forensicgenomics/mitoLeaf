@@ -12,10 +12,27 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
 // This file contains helper functions that are used in multiple scripts
 
 
-// truncates text based on available space
-function truncateText(text, maxWidth) {
-    const maxChars = Math.floor(maxWidth / 5); // TODO think this way is a bit dumb
-    return text.length > maxChars ? text.slice(0, maxChars - 1) + '..' : text;
+// truncate labels based on pixel width
+// input d3 element, name string and pixel width
+// iteratively removes chars until it fits, adds '...' if truncated
+function truncateText(textElement, textString, maxWidth) {
+  d3.select(textElement).text(textString);
+  let textLength = textElement.getComputedTextLength();
+
+  // return unchanged if it fits
+  if (textLength <= maxWidth) {
+    return textString;
+  }
+
+  // otherwise iteratively remove a char until it fits
+  let truncated = textString;
+  while (truncated.length > 0 && textLength > maxWidth) {
+    truncated = truncated.slice(0, -1);
+    d3.select(textElement).text(truncated + '…');
+    textLength = textElement.getComputedTextLength();
+  }
+
+  return d3.select(textElement).text();
 }
 
 

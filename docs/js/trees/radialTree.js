@@ -130,7 +130,10 @@ function createRadialTree(dataUrl) {
                     }
                 }
             })
-            .text(d => truncateText(d.data.name, radius / maxDepth))
+            .text(function(d) {
+              const name = d.data.name;
+              return truncateText(this, name, 1.7 * radius / maxDepth);
+            })
             // fixed label font size; maybe not great
             .style("font", "15px sans-serif")
             // make root label font bolder

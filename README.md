@@ -22,6 +22,18 @@ The web-app is in the directory 'docs/'.
 'utils/' and other python files are the current tree creating pipeline.
 Exact pipeline from end to end is still coming.
 
+
+### Updating Version Workflow
+
+The following describes the current way to update tree data:
+
+    1. Replace any data files in `inputfiles` that have changed.
+       Take care to name them the same. Reference `utils/path_defaults.py` if not clear.  
+    2. Execute `tree_dat_process.py` from the root directory.
+
+Currently, there is no streamlined way implemented to add new sources beyond the three existing ones. This may come in a future iteration.
+    
+
 ### Contributing
 
 Contributions are welcome! Please fork this repository and submit a pull request with any improvements, bug fixes, or new features.
