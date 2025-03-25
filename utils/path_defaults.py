@@ -33,7 +33,7 @@ EMPOP_META = os.path.join(INPUT_DIR, "empop_metadata.csv")
 
 K_META = os.path.join(INPUT_DIR, "1000G_metadata.csv")
 
-NCBI_REPS = os.path.join(INPUT_DIR, "ncbi_representatives.csv")
+NCBI_REPS = os.path.join(INPUT_DIR, "ncbi_representatives.txt")
 NCBI_META = os.path.join(INPUT_DIR, "ncbi_metadata.csv")
 
 

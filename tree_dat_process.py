@@ -44,7 +44,6 @@ from utils.path_defaults import (METADATA_REPRESENTATIVES,
 
 
 ### combine representatives and metadata from different sources
-# TODO check all for congruency
 merge_reps_meta()
 
 
