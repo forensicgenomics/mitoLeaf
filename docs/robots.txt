@@ -1,3 +1,4 @@
 User-agent: *
 User-agent: AdsBot-Google
 Disallow: /contact.html
+Sitemap: /sitemap.xml
