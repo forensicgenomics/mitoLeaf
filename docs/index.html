@@ -47,8 +47,9 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
                 The mitoTree Viewer is an interactive tool for visualizing and exploring mtDNA lineages and their evolutionary relationships to explore genetic diversity and maternal ancestry.
                 <br>
                 <br>
-                mitoTree v1.0, built on 11.07.2024.
+                <p id="version-markdown-content" class="card-text">
             </p>
+
             <!-- Explore mitoTree Card -->
             <div class="card mb-3 subtle-card shadow-sm">
                 <div class="card-body text-center">
@@ -104,7 +105,7 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
     <div class="card mt-4">
         <div class="card-body">
             <h5 class="card-title">News & Updates</h5>
-            <p id="markdown-content" class="card-text">
+            <p id="news-markdown-content" class="card-text">
             </p>
         </div>
     </div>
@@ -116,7 +117,16 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
     fetch('textfiles/news.md')
         .then(response => response.text())
         .then(text => {
-            document.getElementById('markdown-content').innerHTML = marked.parse(text);
+            document.getElementById('news-markdown-content').innerHTML = marked.parse(text);
+        })
+    .catch(error => console.error('Error loading markdown:', error));
+</script>
+<!-- Loads 'version' onto the page -->
+<script>
+    fetch('textfiles/version.md')
+        .then(response => response.text())
+        .then(text => {
+            document.getElementById('version-markdown-content').innerHTML = marked.parse(text);
         })
     .catch(error => console.error('Error loading markdown:', error));
 </script>

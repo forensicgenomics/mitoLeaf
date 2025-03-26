@@ -6,7 +6,7 @@
     "children": [
         {
             "name": "L0",
-            "HG": "A263 1048T 3516A 5442C 6185C 9042T 9347G 10589A 12007A 12720G",
+            "HG": "263A 1048T 3516A 5442C 6185C 9042T 9347G 10589A 12007A 12720G",
             "colorcode": "#f44336",
             "is_superhaplo": true,
             "is_phylo_superhaplo": true,
@@ -14,7 +14,7 @@
         },
         {
             "name": "L1'2'3'4'5'6'7",
-            "HG": "T146 182T C4312 C10664 T10915 G11914 A13276 A16230",
+            "HG": "146T 182T 4312C 10664C 10915T 11914G 13276A 16230A",
             "colorcode": "#f44336",
             "children": [
                 {
@@ -27,7 +27,7 @@
                 },
                 {
                     "name": "L2'3'4'5'6'7",
-                    "HG": "G2758 T2885 A7146 C8468",
+                    "HG": "152T 2758G 2885T 7146A 8468C",
                     "colorcode": "#f44336",
                     "children": [
                         {
@@ -55,12 +55,12 @@
                         },
                         {
                             "name": "L2'3'4'6",
-                            "HG": "T152 T195 G247 T825 C8655 G10688 T10810 A13105 C13506 15301A G16129 C16187 T16189",
+                            "HG": "195T 247G 825T 8655C 10688G 10810T 13105A 13506C 15301A 16129G 16187C 16189T",
                             "colorcode": "#f44336",
                             "children": [
                                 {
                                     "name": "L2",
-                                    "HG": "146C 150T 152C 2416C 8206A 9221G 10115C 13590A T16311 16390A",
+                                    "HG": "146C 150T 152C 2416C 8206A 9221G 10115C 13590A 16311T 16390A",
                                     "colorcode": "#f44336",
                                     "is_superhaplo": true,
                                     "is_phylo_superhaplo": true,
@@ -68,7 +68,7 @@
                                 },
                                 {
                                     "name": "L3'4'6",
-                                    "HG": "A4104 G7521",
+                                    "HG": "4104A 7521G",
                                     "colorcode": "#f44336",
                                     "children": [
                                         {
@@ -81,7 +81,7 @@
                                         },
                                         {
                                             "name": "L3'4",
-                                            "HG": "C182 C3594 C7256 C13650 C16278",
+                                            "HG": "182C 3594C 7256C 13650C 16278C",
                                             "colorcode": "#f44336",
                                             "children": [
                                                 {
@@ -94,7 +94,7 @@
                                                 },
                                                 {
                                                     "name": "L3",
-                                                    "HG": "G769 G1018 T16311",
+                                                    "HG": "769G 1018G 16311T",
                                                     "colorcode": "#d3d3d3",
                                                     "is_superhaplo": true,
                                                     "is_phylo_superhaplo": true,
@@ -309,7 +309,7 @@
                                                         },
                                                         {
                                                             "name": "N",
-                                                            "HG": "A8701 T9540 A10398 T10873 G15301",
+                                                            "HG": "8701A 9540T 10398A 10873T 15301G",
                                                             "colorcode": "#ffeb3b",
                                                             "is_superhaplo": true,
                                                             "is_phylo_superhaplo": true,
@@ -355,7 +355,7 @@
                                                                     "children": [
                                                                         {
                                                                             "name": "Y",
-                                                                            "HG": "8392A 10398G 14178C 14693G 16126C C16223 16231C",
+                                                                            "HG": "8392A 10398G 14178C 14693G 16126C 16223C 16231C",
                                                                             "colorcode": "#ffeb3b",
                                                                             "is_superhaplo": true,
                                                                             "children": []
@@ -388,7 +388,7 @@
                                                                                         },
                                                                                         {
                                                                                             "name": "A2",
-                                                                                            "HG": "146C T152 153G 8027A 12007A 16111T 16192Y",
+                                                                                            "HG": "146C 152T 153G 8027A 12007A 16111T 16192Y",
                                                                                             "colorcode": "#ffeb3b",
                                                                                             "is_superhaplo": true,
                                                                                             "children": []
@@ -451,21 +451,21 @@
                                                                 },
                                                                 {
                                                                     "name": "R",
-                                                                    "HG": "C12705 C16223",
+                                                                    "HG": "12705C 16223C",
                                                                     "colorcode": "#66bb6a",
                                                                     "is_superhaplo": true,
                                                                     "is_phylo_superhaplo": true,
                                                                     "children": [
                                                                         {
                                                                             "name": "R0",
-                                                                            "HG": "A73 G11719",
+                                                                            "HG": "73A 11719G",
                                                                             "colorcode": "#66bb6a",
                                                                             "is_superhaplo": true,
                                                                             "is_phylo_superhaplo": true,
                                                                             "children": [
                                                                                 {
                                                                                     "name": "HV",
-                                                                                    "HG": "C14766",
+                                                                                    "HG": "14766C",
                                                                                     "colorcode": "#66bb6a",
                                                                                     "is_superhaplo": true,
                                                                                     "children": [
@@ -478,7 +478,7 @@
                                                                                         },
                                                                                         {
                                                                                             "name": "H",
-                                                                                            "HG": "A2706 C7028",
+                                                                                            "HG": "2706A 7028C",
                                                                                             "colorcode": "#66bb6a",
                                                                                             "is_superhaplo": true,
                                                                                             "is_phylo_superhaplo": true,
@@ -492,7 +492,7 @@
                                                                                                 },
                                                                                                 {
                                                                                                     "name": "H2",
-                                                                                                    "HG": "A1438",
+                                                                                                    "HG": "1438A",
                                                                                                     "colorcode": "#66bb6a",
                                                                                                     "is_superhaplo": true,
                                                                                                     "children": []
@@ -567,7 +567,7 @@
                                                                             "children": [
                                                                                 {
                                                                                     "name": "R2",
-                                                                                    "HG": "152C A4769 7657C 8473C 9932A 10685A 12654G 14305A 16071T",
+                                                                                    "HG": "152C 4769A 7657C 8473C 9932A 10685A 12654G 14305A 16071T",
                                                                                     "colorcode": "#66bb6a",
                                                                                     "is_superhaplo": true,
                                                                                     "children": []

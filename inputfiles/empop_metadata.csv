@@ -1,0 +1,86 @@
+sample_id,accession,seq_tech,asm_method,geo_origin
+CMR_21_00000048,EMP00844,Illumina HiSeq,NA,Cameroon
+CMR_21_00000051,EMP00844,Illumina HiSeq,NA,Cameroon
+CMR_21_00000058,EMP00844,Illumina HiSeq,NA,Cameroon
+CMR_21_00000080,EMP00844,Illumina HiSeq,NA,Cameroon
+CMR_21_00000085,EMP00844,Illumina HiSeq,NA,Cameroon
+SLV_22_00000109,EMP00865,Illumina MiSeq,BWA,El Salvador
+SLV_22_00000110,EMP00865,Illumina MiSeq,BWA,El Salvador
+SLV_22_00000111,EMP00865,Illumina MiSeq,BWA,El Salvador
+SLV_22_00000191,EMP00865,Illumina MiSeq,BWA,El Salvador
+USA_18_00000015,EMP00658,Illumina MiSeq,"BWA, GATK, mitoSAVE",United States of America
+USA_18_00000016,EMP00658,Illumina MiSeq,"BWA, GATK, mitoSAVE",United States of America
+USA_18_00000016,EMP00658,Illumina MiSeq,"BWA, GATK, mitoSAVE",United States of America
+USA_18_00000031,EMP00658,Illumina MiSeq,"BWA, GATK, mitoSAVE",United States of America
+USA_18_00000044,EMP00658,Illumina MiSeq,"BWA, GATK, mitoSAVE",United States of America
+USA_18_00000055,EMP00658,Illumina MiSeq,"BWA, GATK, mitoSAVE",United States of America
+USA_18_00000244,EMP00659,Illumina MiSeq,"BWA, GATK, mitoSAVE",United States of America
+USA_21_00000046,EMP00845,Illumina MiSeq FGx,NA,United States of America
+USA_21_00000054,EMP00845,Illumina MiSeq FGx,NA,United States of America
+USA_21_00000132,EMP00846,NA,NA,United States of America
+USA_21_00000171,EMP00847,NA,NA,United States of America
+USA_21_00000189,EMP00847,NA,NA,United States of America
+USA_21_00000190,EMP00847,NA,NA,United States of America
+USA_22_00000032,EMP00866,Illumina MiSeq FGx,CLC Genomics Workbench,United States of America
+USA_22_00000040,EMP00866,Illumina MiSeq FGx,CLC Genomics Workbench,United States of America
+USA_22_00000066,EMP00866,Illumina MiSeq FGx,CLC Genomics Workbench,United States of America
+USA_22_00000090,EMP00866,Illumina MiSeq FGx,CLC Genomics Workbench,United States of America
+USA_22_00000127,EMP00868,Illumina MiSeq FGx,CLC Genomics Workbench,United States of America
+USA_22_00000189,EMP00869,Illumina MiSeq FGx,CLC Genomics Workbench,United States of America
+CHN_18_00000029,EMP00726,Illumina MiSeq FGx,MiSeq Reporter v2.5.1.3 and NextGENe v2.4.2.2,China
+CHN_18_00000029,EMP00726,Illumina MiSeq FGx,MiSeq Reporter v2.5.1.3 and NextGENe v2.4.2.2,China
+CHN_19_00000101,EMP00812,Ion S5 XL,IGV 2.5.2 + Variant Caller 5.10 + Converge,China
+CHN_19_00000258,EMP00684,Ion PGM,Ion Torrent Variant Caller,China
+CHN_19_00000336,EMP00684,Ion PGM,Ion Torrent Variant Caller,China
+CHN_20_01200191,EMP00834,Ion S5 XL,IGV 2.5.2 + Variant Caller 5.10 + Converge,China
+CHN_20_01200225,EMP00834,Ion S5 XL,IGV 2.5.2 + Variant Caller 5.10 + Converge,China
+CHN_20_01200319,EMP00839,Ion S5 XL,IGV 2.5.2 + Variant Caller 5.10 + Converge,China
+CHN_21_00000072,EMP00843,Ion S5 XL,Converge,China
+CHN_21_00000073,EMP00843,Ion S5 XL,Converge,China
+SWE_22_00000475,EMP00870,Illumina HiSeq,CLC Genomics Workbench,Sweden
+HRV_18_00000299,EMP00743,Illumina MiSeq FGx,BaseSpace Sequence Hub: mtDNA Variant Processor v.1.0.0,Croatia
+HRV_18_00000301,EMP00743,Illumina MiSeq FGx,BaseSpace Sequence Hub: mtDNA Variant Processor v.1.0.0,Croatia
+HRV_18_00000387,EMP00743,Illumina MiSeq FGx,BaseSpace Sequence Hub: mtDNA Variant Processor v.1.0.0,Croatia
+HRV_18_00000402,EMP00743,Illumina MiSeq FGx,BaseSpace Sequence Hub: mtDNA Variant Processor v.1.0.0,Croatia
+HRV_18_00000466,EMP00743,Illumina MiSeq FGx,BaseSpace Sequence Hub: mtDNA Variant Processor v.1.0.0,Croatia
+HRV_18_00000495,EMP00743,Illumina MiSeq FGx,BaseSpace Sequence Hub: mtDNA Variant Processor v.1.0.0,Croatia
+PRT1300260,EMP00619,AB 3130,Geneious,Portugal
+PRT1300260,EMP00619,AB 3130,Geneious,Portugal
+PRT1300261,EMP00619,AB 3130,Geneious,Portugal
+PRT1300261,EMP00619,AB 3130,Geneious,Portugal
+PRT1300262,EMP00619,AB 3130,Geneious,Portugal
+PRT1300262,EMP00619,AB 3130,Geneious,Portugal
+PRT1300263,EMP00619,AB 3130,Geneious,Portugal
+PRT1300263,EMP00619,AB 3130,Geneious,Portugal
+PRT1300264,EMP00619,AB 3130,Geneious,Portugal
+PRT1300264,EMP00619,AB 3130,Geneious,Portugal
+PRT1300265,EMP00619,AB 3130,Geneious,Portugal
+PRT1300265,EMP00619,AB 3130,Geneious,Portugal
+PRT1300266,EMP00619,AB 3130,Geneious,Portugal
+PRT1300266,EMP00619,AB 3130,Geneious,Portugal
+PRT1300273,EMP00619,AB 3130,Geneious,Portugal
+PRT1300273,EMP00619,AB 3130,Geneious,Portugal
+ESP_22_00000017,EMP00860,Illumina HiSeq,BWA,Spain
+ESP_22_00000018,EMP00860,Illumina HiSeq,BWA,Spain
+ESP_22_00000054,EMP00860,Illumina HiSeq,BWA,Spain
+ESP_22_00000167,EMP00860,Illumina HiSeq,BWA,Spain
+ESP_22_00000444,EMP00860,Illumina HiSeq,BWA,Spain
+ESP_22_00000743,EMP00860,Illumina HiSeq,BWA,Spain
+SGP_19_00000016,EMP00759,Ion 520 chip,Ion Torrent Variant Caller 5.2.2.41,Singapore
+SGP_19_00000019,EMP00759,Ion 520 chip,Ion Torrent Variant Caller 5.2.2.41,Singapore
+SGP_19_00000022,EMP00759,Ion 520 chip,Ion Torrent Variant Caller 5.2.2.41,Singapore
+SGP_19_00000026,EMP00759,Ion 520 chip,Ion Torrent Variant Caller 5.2.2.41,Singapore
+SGP_19_00000026,EMP00759,Ion 520 chip,Ion Torrent Variant Caller 5.2.2.41,Singapore
+SGP_19_00000033,EMP00759,Ion 520 chip,Ion Torrent Variant Caller 5.2.2.41,Singapore
+SGP_19_00000033,EMP00759,Ion 520 chip,Ion Torrent Variant Caller 5.2.2.41,Singapore
+SGP_19_00000045,EMP00759,Ion 520 chip,Ion Torrent Variant Caller 5.2.2.41,Singapore
+SGP_19_00000045,EMP00759,Ion 520 chip,Ion Torrent Variant Caller 5.2.2.41,Singapore
+SGP_19_00000046,EMP00759,Ion 520 chip,Ion Torrent Variant Caller 5.2.2.41,Singapore
+SGP_19_00000046,EMP00759,Ion 520 chip,Ion Torrent Variant Caller 5.2.2.41,Singapore
+SGP_19_00000046,EMP00759,Ion 520 chip,Ion Torrent Variant Caller 5.2.2.41,Singapore
+SGP_19_00000051,EMP00759,Ion 520 chip,Ion Torrent Variant Caller 5.2.2.41,Singapore
+SGP_19_00000051,EMP00759,Ion 520 chip,Ion Torrent Variant Caller 5.2.2.41,Singapore
+SGP_19_00000054,EMP00759,Ion 520 chip,Ion Torrent Variant Caller 5.2.2.41,Singapore
+SGP_19_00000093,EMP00759,Ion 520 chip,Ion Torrent Variant Caller 5.2.2.41,Singapore
+SGP_20_00000252,EMP00823,Ion S5 XL,Converge,Singapore
+SGP_20_00000273,EMP00823,Ion S5 XL,Converge,Singapore
