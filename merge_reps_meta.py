@@ -6,7 +6,6 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-
 ###############################
 #
 # This script merges the representatives as well as the metadata from the different sources
@@ -15,23 +14,23 @@
 ################################
 
 
-from os import makedirs
-
+import os
+import warnings
 import csv
 import numpy as np
 import pandas as pd
 
 from utils.path_defaults import (ALL_REPS,
-                           EMPOP_META,
-                           EMPOP_REPS,
-                           K_META,
-                           NCBI_META,
-                           OUTPUT_DIR,
-                           FORMATTED_EMPOP,
-                           FORMATTED_1K,
-                           FORMATTED_NCBI,
-                           MOTIF_REPRESENTATIVES,
-                           METADATA_REPRESENTATIVES)
+                                 EMPOP_META,
+                                 EMPOP_REPS,
+                                 K_META,
+                                 NCBI_META,
+                                 OUTPUT_DIR,
+                                 FORMATTED_EMPOP,
+                                 FORMATTED_1K,
+                                 FORMATTED_NCBI,
+                                 MOTIF_REPRESENTATIVES,
+                                 METADATA_REPRESENTATIVES, NCBI_REPS)
 
 
 # TODO if the empop reps is no longer misformatted, this fun is no longer needed
@@ -167,7 +166,7 @@ def merge_representatives(df1, df2, df3, out_csv):
             val = row.get(col, np.nan)
             if pd.notna(val):
                 all_profiles.update(val.split())
-        return " ".join(all_profiles)
+        return " ".join(sorted(all_profiles))
 
     merged["profiles"] = merged.apply(combine_profiles, axis=1)
 
@@ -177,11 +176,70 @@ def merge_representatives(df1, df2, df3, out_csv):
     print(f"Merged CSV written to: {out_csv}")
 
 
+def check_same_profiles(reps, meta):
+    """
+    Reads the given reps and meta files to check that the accessions listed
+    are the same in both files, and prints warnings if they are not.
+
+    - reps: Path to either:
+      1) A TXT file (no header) with one accession per line, OR
+      2) A CSV file with columns [motif, num_profiles, profiles],
+         where 'profiles' is a space-separated string of accessions.
+    - meta: Path to a CSV file which must contain a column named 'accession'.
+    """
+
+
+    reps_ext = os.path.splitext(reps)[1].lower()
+    reps_accessions = set()
+
+    if reps_ext == ".txt":
+        with open(reps, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    reps_accessions.add(line)
+
+    elif reps_ext == ".csv":
+        df_reps = pd.read_csv(reps)
+        if "profiles" not in df_reps.columns:
+            raise ValueError(f"'profiles' column not found in {reps} CSV file.")
+        for row in df_reps["profiles"].dropna():
+            acc_list = row.split()
+            reps_accessions.update(acc_list)
+    else:
+        raise ValueError(f"Unrecognized file extension '{reps_ext}' for reps file {reps}. Expected .txt or .csv")
+
+    # metadata
+    meta_df = pd.read_csv(meta)
+    if "accession" not in meta_df.columns:
+        raise ValueError(f"'accession' column not found in meta CSV file: {meta}")
+
+    meta_accessions = set(meta_df["accession"].dropna().astype(str))
+
+    missing_in_meta = reps_accessions - meta_accessions
+    missing_in_reps = meta_accessions - reps_accessions
+
+    if missing_in_meta:
+        warnings.warn(f"WARNING: These {len(missing_in_meta)} accessions are in {reps} but not in {meta}:\n{missing_in_reps}",
+                      stacklevel=2)
+    if missing_in_reps:
+        warnings.warn(f"WARNING: These {len(missing_in_reps)} accessions are in {meta} but not in {reps}:\n{missing_in_reps}",
+                      stacklevel=2)
+
+
 def main():
 
-    makedirs(OUTPUT_DIR, exist_ok=True)
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
     # TODO this will not be needed, when empops reps no longer has commas in the last col
     remove_commas_in_last_col(EMPOP_REPS, EMPOP_REPS)
+
+    # ensure empop and genebank reps and metadata have the same profiles
+    # NOTE: No reps file available for 1k genomes, so no need to check
+    # NOTE: If a source is added, it should also be added here
+    # or even better:
+    # if adding sources is a regular thing, make a better pipeline to just import from a list of sources
+    check_same_profiles(EMPOP_REPS, EMPOP_META)
+    check_same_profiles(NCBI_REPS, NCBI_META)
 
     # read all representations
     # this is the output of the tree building process

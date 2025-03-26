@@ -30,6 +30,8 @@ The following describes the current way to update tree data:
     1. Replace any data files in `inputfiles` that have changed.
        Take care to name them the same. Reference `utils/path_defaults.py` if not clear.  
     2. Execute `tree_dat_process.py` from the root directory.
+    3. Update Date or Version number of Tree in `textfiles/version`.
+    4. Add/Replace any relevant information regarding the new update in `textfiles/news.md`.
 
 Currently, there is no streamlined way implemented to add new sources beyond the three existing ones. This may come in a future iteration.
     

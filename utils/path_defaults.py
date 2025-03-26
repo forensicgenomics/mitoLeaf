@@ -18,7 +18,7 @@ INPUT_DIR = "inputfiles"
 
 ##### INPUTS ####
 XML_FILE = os.path.join(INPUT_DIR, "mitoTree_phm.xml")
-HGMOTIFS_FILE = os.path.join(INPUT_DIR, "mitoTree_hgmotifs.csv")
+MOTIF_SIGNATURES = os.path.join(INPUT_DIR, "mitoTree_phm.emp")
 
 COLORCODE_FILE = os.path.join(INPUT_DIR, "superhaplo_colorcodes.csv")
 SUPERHAPLO_FILE = os.path.join(INPUT_DIR, "superhaplogroups.txt")
@@ -33,7 +33,7 @@ EMPOP_META = os.path.join(INPUT_DIR, "empop_metadata.csv")
 
 K_META = os.path.join(INPUT_DIR, "1000G_metadata.csv")
 
-NCBI_REPS = os.path.join(INPUT_DIR, "ncbi_representatives.csv")
+NCBI_REPS = os.path.join(INPUT_DIR, "ncbi_representatives.txt")
 NCBI_META = os.path.join(INPUT_DIR, "ncbi_metadata.csv")
 
 
