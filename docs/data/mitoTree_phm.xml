@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 rCRS based Version
-mitoTree Version 1
-Created 27.01.2025
+mitoTree Version 1.3
+Created 04.03.2025
 Nr of active Nodes: 6409
 -->
 <!--
-NH 27.01.2025:
+18.02.2025:
+changed 309T to 309- in L5a2a to comply with phylognetic alignment.
+removed 310C in L5a2a2a. 
+-->
+<!--
+27.01.2025:
 reverted 152 in L2'3'4'5'6 to be consistent as in phylotree17
 -->
 <!--
@@ -537,12 +542,12 @@ haplogroup L5b2: replaced G7972G by @7972
               <Node Id="L5a1d" HG="9899C 16186T"/>
             </Node>
             <Node Id="L5a2" HG="527T 8856A">
-              <Node Id="L5a2a" HG="309T 2361A 15826G">
+              <Node Id="L5a2a" HG="2361A 15826G">
                 <Node Id="L5a2a1" HG="678C 1211A 3199A 5321T 8812G 9884T 12084T 16293G">
                   <Node Id="L5a2a1a" HG="499A 573.1C 9893T 10583G"/>
                 </Node>
                 <Node Id="L5a2a2" HG="16186T 16187C 16262C">
-                  <Node Id="L5a2a2a" HG="309C 464G 5321T 5460A 5746A 9966A 11182G 16187C 16274A 16399G"/>
+                  <Node Id="L5a2a2a" HG="464G 5321T 5460A 5746A 9966A 11182G 16187C 16274A 16399G"/>
                 </Node>
               </Node>
             </Node>
