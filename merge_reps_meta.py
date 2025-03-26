@@ -176,7 +176,7 @@ def merge_representatives(df1, df2, df3, out_csv):
     print(f"Merged CSV written to: {out_csv}")
 
 
-def check_same_profiles(reps, meta):
+def check_same_profiles(reps, meta, column_reps = "profiles", column_meta = "accession"):
     """
     Reads the given reps and meta files to check that the accessions listed
     are the same in both files, and prints warnings if they are not.
@@ -187,8 +187,6 @@ def check_same_profiles(reps, meta):
          where 'profiles' is a space-separated string of accessions.
     - meta: Path to a CSV file which must contain a column named 'accession'.
     """
-
-
     reps_ext = os.path.splitext(reps)[1].lower()
     reps_accessions = set()
 
@@ -201,9 +199,9 @@ def check_same_profiles(reps, meta):
 
     elif reps_ext == ".csv":
         df_reps = pd.read_csv(reps)
-        if "profiles" not in df_reps.columns:
-            raise ValueError(f"'profiles' column not found in {reps} CSV file.")
-        for row in df_reps["profiles"].dropna():
+        if column_reps not in df_reps.columns:
+            raise ValueError(f"'{column_reps}' column not found in {reps} CSV file.")
+        for row in df_reps[column_reps].dropna():
             acc_list = row.split()
             reps_accessions.update(acc_list)
     else:
@@ -211,16 +209,16 @@ def check_same_profiles(reps, meta):
 
     # metadata
     meta_df = pd.read_csv(meta)
-    if "accession" not in meta_df.columns:
-        raise ValueError(f"'accession' column not found in meta CSV file: {meta}")
+    if column_meta not in meta_df.columns:
+        raise ValueError(f"'{column_meta}' column not found in meta CSV file: {meta}")
 
-    meta_accessions = set(meta_df["accession"].dropna().astype(str))
+    meta_accessions = set(meta_df[column_meta].dropna().astype(str))
 
     missing_in_meta = reps_accessions - meta_accessions
     missing_in_reps = meta_accessions - reps_accessions
 
     if missing_in_meta:
-        warnings.warn(f"WARNING: These {len(missing_in_meta)} accessions are in {reps} but not in {meta}:\n{missing_in_reps}",
+        warnings.warn(f"WARNING: These {len(missing_in_meta)} accessions are in {reps} but not in {meta}:\n{missing_in_meta}",
                       stacklevel=2)
     if missing_in_reps:
         warnings.warn(f"WARNING: These {len(missing_in_reps)} accessions are in {meta} but not in {reps}:\n{missing_in_reps}",
@@ -238,7 +236,7 @@ def main():
     # NOTE: If a source is added, it should also be added here
     # or even better:
     # if adding sources is a regular thing, make a better pipeline to just import from a list of sources
-    check_same_profiles(EMPOP_REPS, EMPOP_META)
+    check_same_profiles(EMPOP_REPS, EMPOP_META, column_meta="sample_id")
     check_same_profiles(NCBI_REPS, NCBI_META)
 
     # read all representations
