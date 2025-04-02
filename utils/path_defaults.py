@@ -17,8 +17,8 @@ INPUT_DIR = "inputfiles"
 
 
 ##### INPUTS ####
-XML_FILE = os.path.join(INPUT_DIR, "mitoTree_phm.xml")
-MOTIF_SIGNATURES = os.path.join(INPUT_DIR, "mitoTree_phm.emp")
+XML_FILE = os.path.join(INPUT_DIR, "mitoLEAF_phm.xml")
+MOTIF_SIGNATURES = os.path.join(INPUT_DIR, "mitoLEAF_phm.emp")
 
 COLORCODE_FILE = os.path.join(INPUT_DIR, "superhaplo_colorcodes.csv")
 SUPERHAPLO_FILE = os.path.join(INPUT_DIR, "superhaplogroups.txt")

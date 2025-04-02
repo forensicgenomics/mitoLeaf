@@ -129,5 +129,5 @@ print("Processed Radial Tree.")
 
 
 # copy inputfiles unchanged that should be downloadable to the appropriate dir
-copyfile(XML_FILE, os.path.join(DATA_DEST, "mitoTree_phm.xml"))
+copyfile(XML_FILE, os.path.join(DATA_DEST, XML_FILE))
 print("Copied xml file to docs directory.")
