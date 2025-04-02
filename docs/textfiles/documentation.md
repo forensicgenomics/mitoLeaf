@@ -10,7 +10,7 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 # Documentation & Usage
 
-This section provides detailed information and guidance on using mitoTree.
+This section provides detailed information and guidance on using mitoLEAF.
 
 <br>
 
@@ -32,7 +32,7 @@ The [nucleotide base] can be one of the following symbols:
 - **Recurrent mutations:** Noted with the base prefixed to the position (i.e. 'T152'). Highlighted in cursive in the HG-Signature on the Haplogroup Info page and not listed in the Full HG-Signature as it describes the state of the rCRS.
 <br>
 
-**Colors** in mitoTree adhere to the following color-code:
+**Colors** in the mitoLEAF Viewer adhere to the following color-code:
 
 <span style="border: 2px solid red; padding: 2px 4px; border-radius: 4px; background-color: #ffe5e5;">red</span> for L lineages
 <span style="border: 2px solid blue; padding: 2px 4px; border-radius: 4px; background-color: #e5f0ff;">blue</span> for M lineages
@@ -44,7 +44,7 @@ The [nucleotide base] can be one of the following symbols:
 
 ## Radial Tree
 
-The home page displays a general overview of the mitoTree structure in radial form.  
+The home page displays a general overview of the mitoLEAF-Tree structure in radial form.  
 Only Nodes classified as 'Superhaplogroups' are displayed.  
 Nodes where labels are missing are required to reach others but are not part of this classification, thus the labels are omitted.  
 Parent nodes not required to depict the structure accurately are omitted completely, and their Superhaplogroup classified descendant bumped up to lower depths. Node depth of this tree is therefore not necessarily accurate.
@@ -54,9 +54,9 @@ Parent nodes not required to depict the structure accurately are omitted complet
 
 <br>
 
-## Explore mitoTree
+## Explore mitoLEAF
 
-Here, the full extent of mitoTree can be explored interactively.  
+Here, the full extent of mitoLEAF-Tree can be explored interactively.  
 Haplogroups with descendants are collapsible, meaning their descendants can be shown or hidden.  
 Initially, the tree is expanded to reveal all designated ‘Phylo-Superhaplogroups’, which is analog to Phylotree.
 

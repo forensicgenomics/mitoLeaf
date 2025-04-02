@@ -8,9 +8,9 @@ License, v. 2.0. If a copy of the MPL was not distributed with this
 file, You can obtain one at https://mozilla.org/MPL/2.0/.
 -->
 
-# About the mitoTree project
+# About the mitoLEAF project
 
-The idea of mitoTree is to create an up-to-date and interactive phylogenetic tree of human mitochondrial DNA
+The idea of mitoLEAF (formerly mitoTree) is to create an up-to-date and interactive phylogenetic tree of human mitochondrial DNA
 based on quality-controlled full mitochondrial DNA sequences. Gathering already generated data and utilizing
 them in a modern, handy implementation is the next step in data modernization and harmonization. This update
 of the human phylogeny allows for improved haplogrouping and prevents the unregulated development of
@@ -34,7 +34,7 @@ This project is open-source, and we welcome contributions from the community.
 <br>
 
 #### Liability for contents
-mitoTree is a non-commercial, strictly scientific project of the [Institute of Legal Medicine (GMI)](http://gerichtsmedizin.at/), Innsbruck Medical University with international scientific partners. The content of the web pages has been created with great care. However, no warranty can be taken for the correctness, completeness, and topicality of the contents. The service provider is not obliged to supervise information that is allocated by third parties or to search for circumstances that refer to illegal agitation. The commitments to the removal or the inhibition of use of information according to general law remain unaffected. Contents will be instantly removed when pertinent infringement becomes known.
+mitoLEAF and its associated applications is a non-commercial, strictly scientific project of the [Institute of Legal Medicine (GMI)](http://gerichtsmedizin.at/), Innsbruck Medical University with international scientific partners. The content of the web pages has been created with great care. However, no warranty can be taken for the correctness, completeness, and topicality of the contents. The service provider is not obliged to supervise information that is allocated by third parties or to search for circumstances that refer to illegal agitation. The commitments to the removal or the inhibition of use of information according to general law remain unaffected. Contents will be instantly removed when pertinent infringement becomes known.
 
 #### Copyright
 We are always striving to respect copyrights of other parties and refer to license-free work or work that had been produced by ourselves or in scientific collaboration with third parties. The contents and works of these pages are subject to Austrian copyright. The reproduction, duplication, editing, dissemination, and all types of utilization beyond the copyright require written approval of the respective author or producer. Downloads and copies of these pages are only for private and not for commercial use.
