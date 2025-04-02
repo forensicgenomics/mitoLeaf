@@ -1,7 +1,7 @@
 <!--
-This file is part of the mitoTree project.
+This file is part of the mitoLEAF (formerly mitoTree) project and authored by Noah Hurmer.
 
-Copyright 2024, Noah Hurmer & mitoTree.
+Copyright 2024, Noah Hurmer & mitoLEAF.
 
 This Source Code Form is subject to the terms of the Mozilla Public
 License, v. 2.0. If a copy of the MPL was not distributed with this
