@@ -1,6 +1,6 @@
-# This file is part of the mitoTree project and authored by Noah Hurmer.
+# This file is part of the mitoLEAF (formerly mitoTree) project and authored by Noah Hurmer.
 #
-# Copyright 2024, Noah Hurmer & mitoTree.
+# Copyright 2024, Noah Hurmer & mitoLEAF.
 #
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -17,8 +17,8 @@ INPUT_DIR = "inputfiles"
 
 
 ##### INPUTS ####
-XML_FILE = os.path.join(INPUT_DIR, "mitoTree_phm.xml")
-MOTIF_SIGNATURES = os.path.join(INPUT_DIR, "mitoTree_phm.emp")
+XML_FILE = os.path.join(INPUT_DIR, "mitoLEAF_phm.xml")
+MOTIF_SIGNATURES = os.path.join(INPUT_DIR, "mitoLEAF_phm.emp")
 
 COLORCODE_FILE = os.path.join(INPUT_DIR, "superhaplo_colorcodes.csv")
 SUPERHAPLO_FILE = os.path.join(INPUT_DIR, "superhaplogroups.txt")

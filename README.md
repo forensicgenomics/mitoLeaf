@@ -1,12 +1,12 @@
-# mitoTree Visualization
+# mitoLEAF Visualization
 
-**mitoTree** is a web-based tool designed to visualize and explore human mitochondrial DNA phylogenetic trees. It provides a way to browse haplogroups, view hierarchical tree structures, and examine detailed node information for individual mitochondrial mutations.
+**mitoLEAF** (Mitochondrial DNA Lineage, Evolution, Annotation Framework) is a web-based tool designed to visualize and explore human mitochondrial DNA phylogenetic trees. It provides a way to browse haplogroups, view hierarchical tree structures, and examine detailed node information for individual mitochondrial mutations.
 It gathers data from Genbank, builds a phylogenetic tree and plots it data using d3.js.
 
 ## WebApp
 
 ### Features
-- **Explore mitoTree**: Interactive phylogenetic tree visualization, including radial and collapsible views.
+- **Explore mitoLeaf**: Interactive phylogenetic tree visualization, including radial and collapsible views.
 - **Haplogroup Search**: Search for Haplogroups by ID or by HG signature.
 - **Node Details**: Detailed view of HG information, including HG signatures, ancestors, descendants and profiles.
 - **Downloads**: Different tree data files as well as visualizations available to download.
