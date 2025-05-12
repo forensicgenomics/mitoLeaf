@@ -2,8 +2,15 @@
 <!--
 rCRS based Version
 mitoTree Version 1.3
-Created 04.03.2025
+Created 12.05.2025
 Nr of active Nodes: 6409
+-->
+<!--
+12.05.2025:
+removal of pathogenic variants
+11778G in J1d2b, T3, X2p1
+14484T in Q3b
+14674T in M27b1
 -->
 <!--
 18.02.2025:
@@ -2642,7 +2649,7 @@ haplogroup L5b2: replaced G7972G by @7972
                     <Node Id="M27a3" HG="4212G 8857A 13830C 16264T"/>
                   </Node>
                   <Node Id="M27b" HG="152C 656C 1719A 2315G 3204T 3591A 3693A 4342G 5892C 10166C 10493C 14137T 14370G 16209C 16299G 16390A">
-                    <Node Id="M27b1" HG="64T 199C 236C 1598A 4775G 5788C 14674T 16145A 16223C"/>
+                    <Node Id="M27b1" HG="64T 199C 236C 1598A 4775G 5788C 16145A 16223C"/>
                     <Node Id="M27b2" HG="2416C 3768G 16086C">
                       <Node Id="M27b2a" HG="1053G">
                         <Node Id="M27b2a1" HG="15172A 16104T"/>
@@ -2758,7 +2765,7 @@ haplogroup L5b2: replaced G7972G by @7972
                           </Node>
                         </Node>
                       </Node>
-                      <Node Id="Q3b" HG="5460A 8454G 9254G 10750G 12684A 14484T 16249C 16362C"/>
+                      <Node Id="Q3b" HG="5460A 8454G 9254G 10750G 12684A 16249C 16362C"/>
                     </Node>
                   </Node>
                 </Node>
@@ -4531,7 +4538,7 @@ haplogroup L5b2: replaced G7972G by @7972
                       </Node>
                       <Node Id="X2k" HG="13212T"/>
                       <Node Id="X2p" HG="7109T">
-                        <Node Id="X2p1" HG="513A 4093G 8645G 9708C 11778G 16291T"/>
+                        <Node Id="X2p1" HG="513A 4093G 8645G 9708C 16291T"/>
                       </Node>
                       <Node Id="X2q" HG="152C 5435T 11524G 16201T"/>
                     </Node>
@@ -6613,7 +6620,7 @@ haplogroup L5b2: replaced G7972G by @7972
                               </Node>
                               <Node Id="J1d2" HG="10166C 16186T">
                                 <Node Id="J1d2a" HG="13188T"/>
-                                <Node Id="J1d2b" HG="689C 9123A 11778G 14040A 14280G 16311C 16362C"/>
+                                <Node Id="J1d2b" HG="689C 9123A 14040A 14280G 16311C 16362C"/>
                               </Node>
                               <Node Id="J1d3" HG="5262A">
                                 <Node Id="J1d3a" HG="7521A">
@@ -7072,7 +7079,7 @@ haplogroup L5b2: replaced G7972G by @7972
                           <Node Id="T2l" HG="11383C"/>
                           <Node Id="T2n" HG="152C 10750G"/>
                         </Node>
-                        <Node Id="T3" HG="195C 1406C 1829G 4225G 11467G 11778G 13956G 13980A 15509G 16325C"/>
+                        <Node Id="T3" HG="195C 1406C 1829G 4225G 11467G 13956G 13980A 15509G 16325C"/>
                       </Node>
                     </Node>
                   </Node>
