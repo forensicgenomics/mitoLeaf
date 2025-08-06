@@ -14,6 +14,11 @@ It gathers data from Genbank, builds a phylogenetic tree and plots it data using
 ### Usage
 Documentation on how to use the website in [Usage](docs/textfiles/documentation.md).
 
+### Citation
+Huber N, Hurmer N, Dür A, Parson W. [mitoLEAF: mitochondrial DNA Lineage, Evolution, Annotation Framework](https://pmc.ncbi.nlm.nih.gov/articles/PMC12153335/).
+
+NAR Genom Bioinform. 2025 Jun 11;7(2). doi: 10.1093/nargab/lqaf079. PMID: 40503051; PMCID: PMC12153335.
+
 ## Development
 
 ### Project Structure
