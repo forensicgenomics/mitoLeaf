@@ -1,3 +1,3 @@
-accession,field,value,date,user,comment
-KF161950.1,geo_origin,Denmark,2025/03/26,Nicole Huber,"Based on Title of pubmed article: doi: 10.1038/ejhg.2013.282 and linked origin paper: doi: 10.1007/s00125-012-2756-1"
-FJ743691.1,geo_origin,USA,2025/04/22,Nicole Huber,"Erroneous Entry on ncbi: 'USA Heteroplasmy 16209T/C'"
+accession,type,field,value,date,user,comment
+KF161950.1,add,geo_origin,Denmark,2025/03/26,Nicole Huber,"Based on Title of pubmed article: doi: 10.1038/ejhg.2013.282 and linked origin paper: doi: 10.1007/s00125-012-2756-1"
+FJ743691.1,change,geo_origin,USA,2025/04/22,Nicole Huber,"Erroneous Entry on ncbi: 'USA Heteroplasmy 16209T/C'"
