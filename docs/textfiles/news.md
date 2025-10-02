@@ -1,10 +1,10 @@
 mitoTree is now mitoLEAF (Mitochondrial DNA Lineage, Evolution, Annotation Framework)!
 
-This is our live beta Version of the mitoLEAF (formerly mitoTree) Viewer tool. Please leave feedback!
+This is our live Version of the mitoLEAF Viewer tool.
 
-Version 0.6 includes removal of previously missed pathogenic variants in some HG Signatures.
+2025-10-02 - created and testing new data pipeline and update ncbi profiles and metadata.
 
-Including Tree v1.3 (12.05.2025) containing 6409 haplogroup motifs and following added features:
+Including Tree v1.4 (12.05.2025) containing 6409 haplogroup motifs and following added features:
 
 Tree News:
 - changed 309T to 309- in L5a2a to comply with phylogenetic alignment.
