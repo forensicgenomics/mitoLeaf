@@ -269,7 +269,7 @@ def write_split_df(df: pd.DataFrame, target_path_prefix: str | None = None, *,
     reps_out.to_csv(reps_path, index=False)
     meta_out.to_csv(meta_path, index=False)
 
-    return {"representatives": reps_path, "metadata": meta_path}
+    return reps_path, meta_path
 
 
 def main():
@@ -288,7 +288,7 @@ def main():
     # combine the reps
     print("Merging Profiles and Meta from all sources ...")
     merged_motif_meta = merge_sources(motif_meta)
-    print(f"Number of merged profiles: {merged_motif_meta}.")
+    print(f"Number of merged profiles: {len(merged_motif_meta)}.")
 
     # write to formatted files
     print(f"Writing target files to {OUTPUT_DIR} ...")
@@ -301,7 +301,7 @@ def main():
                               reps_path=MOTIF_REPRESENTATIVES,
                               meta_path=METADATA_REPRESENTATIVES
                              )
-    print(f"wrote combined to:\n  reps: {r_p}\n  meta: {m_p}")
+    print(f"Wrote combined to:\n  reps: {r_p}\n  meta: {m_p}")
 
     print("Processing source inputfiles complete!")
 
