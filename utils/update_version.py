@@ -32,7 +32,7 @@ def _convert_dotted_date_to_mdY_in_line(line: str) -> str:
         return f"{y}-{mth:02d}-{d:02d}"
     new_line, n = re.subn(r"(\d{1,2})\.(\d{1,2})\.(\d{4})", repl, line, count=1)
     if n == 0:
-        print("warning: could not parse date on 'created …' line; leaving as-is", file=sys.stderr)
+        warnings.warn("Could not parse date on 'created …' line; leaving as-is")
     return new_line
 
 
@@ -77,8 +77,8 @@ def update_version_md(
     if os.path.exists(last_run_path):
         with open(last_run_path, "r", encoding="utf-8") as f:
             last_run_date = f.read().strip()
-            last_run_line = f"last ncbi profiles fetch on: {last_run_date}"
-        with open(out_path, "a", encoding="utf-8", newline="\n") as out:
+            last_run_line = f"latest ncbi profiles fetch: {last_run_date}"
+        with open(out_path, "a+", encoding="utf-8", newline="\n") as out:
             out.write(last_run_line + "\n")
     else:
         warnings.warn("'{last_run_path}' is empty; skipping last-run line.")
