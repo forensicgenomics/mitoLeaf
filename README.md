@@ -14,6 +14,11 @@ It gathers data from Genbank, builds a phylogenetic tree and plots it data using
 ### Usage
 Documentation on how to use the website in [Usage](docs/textfiles/documentation.md).
 
+### Citation
+Huber N, Hurmer N, Dür A, Parson W. [mitoLEAF: mitochondrial DNA Lineage, Evolution, Annotation Framework](https://pmc.ncbi.nlm.nih.gov/articles/PMC12153335/).
+
+NAR Genom Bioinform. 2025 Jun 11;7(2). doi: 10.1093/nargab/lqaf079. PMID: 40503051; PMCID: PMC12153335.
+
 ## Development
 
 ### Project Structure
@@ -28,7 +33,9 @@ Exact pipeline from end to end is still coming.
 The following describes the current way to update tree data:
 
     1. Replace any data files in `inputfiles` that have changed.
-       Take care to name them the same. Reference `utils/path_defaults.py` if not clear.  
+       Take care to name them the same. Reference `utils/path_defaults.py` if not clear.
+       Mostly, update or add any `*source*_representatives.csv` and `*source*_metadata.csv` files when updating profiles.
+       Tree files and last run date files should also be updated.
     2. Execute `tree_dat_process.py` from the root directory.
     3. Update Date or Version number of Tree in `textfiles/version`.
     4. Add/Replace any relevant information regarding the new update in `textfiles/news.md`.

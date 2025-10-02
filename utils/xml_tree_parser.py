@@ -133,8 +133,8 @@ def tree_to_json(tree, root, color_dict=None, superhaplo_id=None, phylo_superhap
         if is_phylo_superhaplo:
             node_dict["is_phylo_superhaplo"] = True
 
-        if profiles and profiles[node_id]:
-            node_dict["profiles"] = sorted(profiles[node_id])
+        if profiles:
+            node_dict["profiles"] = sorted(profiles[node_id]) if node_id in profiles else None
 
         node_dict["children"] = [parse_node(child, node_color) for child in node]
 
