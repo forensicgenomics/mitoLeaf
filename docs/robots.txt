@@ -1,4 +1,7 @@
 User-agent: *
+Disallow: /contact.html
+
 User-agent: AdsBot-Google
 Disallow: /contact.html
-Sitemap: /sitemap.xml
+
+Sitemap: https://forensicgenomics.github.io/mitoLeaf/sitemap.xml
