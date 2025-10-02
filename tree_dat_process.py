@@ -28,7 +28,8 @@ from shutil import copyfile
 from utils.file_readers import csv_as_dict, read_txt
 from utils.hgmotif_creation import parse_haplo_motifs, check_same_haplos
 from utils.xml_tree_parser import xml_tree_parsing, tree_to_json, create_bare_tree, create_newick_tree
-from merge_reps_meta import main as merge_reps_meta
+from utils.merge_reps_meta import main as merge_reps_meta
+from utils.update_version import update_version_md
 
 from utils.path_defaults import (METADATA_REPRESENTATIVES,
                                  MOTIF_REPRESENTATIVES,
@@ -68,7 +69,6 @@ mito_representatives_df['profiles'] = mito_representatives_df['profiles'].fillna
 profiles_dict = mito_representatives_df.set_index('motif')['profiles'].apply(lambda x: x.split()).to_dict()
 ####
 
-print("Data pipeline complete.\n")
 print("\nStarting Tree building.")
 
 ### create trees
@@ -134,3 +134,8 @@ copyfile(XML_FILE, os.path.join(DATA_DEST, os.path.basename(XML_FILE)))
 print("Copied xml file to docs directory.")
 
 print("Tree building completed.\n")
+
+print("Updating Version File.")
+update_version_md()
+
+print("\nData pipeline complete.")

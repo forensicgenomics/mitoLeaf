@@ -15,7 +15,6 @@ import os
 # raw files needed in inputfiles
 INPUT_DIR = "inputfiles"
 
-
 ##### INPUTS ####
 XML_FILE = os.path.join(INPUT_DIR, "mitoLEAF_phm.xml")
 MOTIF_SIGNATURES = os.path.join(INPUT_DIR, "mitoLEAF_phm.emp")
@@ -46,3 +45,7 @@ METADATA_REPRESENTATIVES = os.path.join(OUTPUT_DIR, "mito_metadata.csv")
 # destination where to write files
 # this should be the data dir within the dir used to build the webpage
 DATA_DEST = "docs/data"
+
+# for version file
+LAST_RUN_DATE  = os.path.join(INPUT_DIR, "last_run_date.txt")
+VERSION_OUT_FILE    = os.path.join("docs", "textfiles", "version.md")
