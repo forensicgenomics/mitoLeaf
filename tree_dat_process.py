@@ -133,4 +133,4 @@ print("Processed Radial Tree.")
 copyfile(XML_FILE, os.path.join(DATA_DEST, os.path.basename(XML_FILE)))
 print("Copied xml file to docs directory.")
 
-print("Data")
+print("Tree building completed.\n")
