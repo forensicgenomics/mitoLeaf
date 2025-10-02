@@ -16,270 +16,294 @@
 
 import os
 import warnings
-import csv
-import numpy as np
+import re
 import pandas as pd
+from pathlib import Path
 
-from utils.path_defaults import (ALL_REPS,
-                                 EMPOP_META,
-                                 EMPOP_REPS,
-                                 K_META,
-                                 NCBI_META,
-                                 OUTPUT_DIR,
-                                 FORMATTED_EMPOP,
-                                 FORMATTED_1K,
-                                 FORMATTED_NCBI,
+from utils.path_defaults import (OUTPUT_DIR,
                                  MOTIF_REPRESENTATIVES,
-                                 METADATA_REPRESENTATIVES, NCBI_REPS)
+                                 METADATA_REPRESENTATIVES,
+                                 INPUT_DIR)
+
+### defaults ###
+# path matching for sources
+_rep_rx  = re.compile(r"(.+)_representatives\.csv$", re.IGNORECASE)
+_meta_rx = re.compile(r"(.+)_metadata\.csv$", re.IGNORECASE)
+# format matching for input files
+# allowed meta columns
+_META_ALLOWED = {
+    "accession","pub_title","first_aut","pubmed_id","pub_date",
+    "geo_origin","asm_method","seq_tech"
+}
+# two valid reps schemas
+_REPS_SCHEMA = {
+    "motif","profiles"
+}
 
 
-# TODO if the empop reps is no longer misformatted, this fun is no longer needed
-def remove_commas_in_last_col(input_path, output_path):
+def load_sources(directory):
     """
-    Reads a CSV file whose first row is:
-       motif,num_profiles,profiles
-    but whose subsequent lines may look like:
-       L0a2a1,3,CMR_21_00000085,CMR_21_00000051,CMR_21_00000048
-       L1b,1,USA_21_00000054
-       etc.
-    We skip the header row and merge everything after num_profiles
-    into a single space-separated 'profiles' column.
+    return (reps, meta, sources)
+       reps/meta: dict[str, pd.DataFrame] for sources that have both files
+       sources: list[str] of source names that had a complete pair
     """
-    with open(input_path, 'r', newline='', encoding='utf-8') as f:
-        all_rows = list(csv.reader(f))
+    reps_files, meta_files = {}, {}
+    dirpath = Path(directory)
 
-    header = all_rows[0]
-    data_rows = all_rows[1:]
+    # files that match
+    for f in dirpath.glob("*.csv"):
+        m = _rep_rx.match(f.name)
+        if m:
+            reps_files[m.group(1)] = f
+            continue
+        m = _meta_rx.match(f.name)
+        if m:
+            meta_files[m.group(1)] = f
 
-    cleaned_data = []
-    for row in data_rows:
-        motif = row[0]  # e.g. "L0a2a1"
-        num_profiles = row[1]  # e.g. "3"
-        # merge everything after column 1 (index 1) into a single space-separated string:
-        # row[2:] is ["CMR_21_00000085", "CMR_21_00000051", "CMR_21_00000048"], etc.
-        combined_profiles = ' '.join(row[2:])
-        cleaned_data.append([motif, num_profiles, combined_profiles])
+    # check completeness
+    rep_only  = sorted(set(reps_files) - set(meta_files))
+    meta_only = sorted(set(meta_files) - set(reps_files))
+    for s in rep_only:
+        warnings.warn(f"ignoring source '{s}': missing _metadata.csv")
+    for s in meta_only:
+        warnings.warn(f"ignoring source '{s}': missing _representatives.csv")
 
-    df_clean = pd.DataFrame(cleaned_data, columns=['motif', 'num_profiles', 'profiles'])
-    df_clean.to_csv(output_path, index=False)
+    complete_sources = sorted(set(reps_files) & set(meta_files))
+
+    # read only complete pairs
+    reps, meta = {}, {}
+    for s in complete_sources:
+        reps[s] = pd.read_csv(reps_files[s])
+        meta[s] = pd.read_csv(meta_files[s])
+
+    return reps, meta, complete_sources
 
 
-def filter_profiles(profiles_str, valid_accessions):
+def validate_and_filter(reps, meta, sources):
     """
-    Filter a space-delimited string of accession IDs, returning only those in 'valid_accessions'.
-    Returns an empty string if the input is missing or no valid IDs remain.
+    returns (reps_ok, meta_ok, valid_sources)
+    - excludes sources if reps missing required cols or meta missing 'accession'
+    - warns about unexpected meta columns and missing optional 'num_profiles'
     """
-    if pd.isna(profiles_str) or not profiles_str.strip():
-        return ""
-    candidates = profiles_str.strip().split()
-    filtered = [acc for acc in candidates if acc in valid_accessions]
-    return " ".join(filtered)
+    reps_ok, meta_ok, valid = {}, {}, []
+
+    for s in sources:
+        r_df = reps.get(s)
+        m_df = meta.get(s)
+
+        # reps: need 'motif' and 'profiles'
+        r_cols = list(r_df.columns)
+        if not _REPS_SCHEMA.issubset(r_cols):
+            warnings.warn(
+                f"source '{s}': representatives missing required columns "
+                f"{sorted(_REPS_SCHEMA - set(r_cols))} — excluding source"
+            )
+            continue
+
+        # meta: need 'accession'
+        m_cols = set(m_df.columns)
+        if "accession" not in m_cols:
+            warnings.warn(f"source '{s}': meta missing required column 'accession' — excluding source")
+            continue
+
+        # warn on unexpected meta columns and remove them
+        unexpected = sorted(m_cols - _META_ALLOWED)
+        m_df = m_df.drop(unexpected, axis=1)
+        if unexpected:
+            warnings.warn(
+                f"source '{s}': meta has unexpected columns {unexpected}, dropping."
+                f"(recognized columns: {sorted(_META_ALLOWED)})"
+            )
+
+        # keep source
+        reps_ok[s] = r_df
+        meta_ok[s] = m_df
+        valid.append(s)
+
+    return reps_ok, meta_ok, valid
 
 
+def load_and_validate(directory):
+    reps, meta, sources = load_sources(directory)  # from previous step
+    return validate_and_filter(reps, meta, sources)
 
-def process_and_save_reps(meta_file, reps_df, output_file, id_col="accession"):
+
+def _split_profiles(x):
+    # accept NaN/None/empty -> []
+    if pd.isna(x) or x == "":
+        return []
+    return str(x).split()
+
+
+def merge_motif_into_meta(reps, meta, sources, drop_empty_sources=True):
     """
-    Processes and filters 'reps_df' based on a metadata file, then saves the result.
-
-    Parameters
-    ----------
-    meta_file : str
-        Path to the CSV metadata file.
-    reps_df : pd.DataFrame
-        DataFrame containing 'motif' and 'profiles' columns.
-    output_file : str
-        Path where the filtered DataFrame should be written as a CSV.
-    id_col : str, optional
-        Column in the metadata that corresponds to the IDs found in 'profiles'.
-        Default is 'accession'. If 'sample_id', then we map them to 'accession' first.
-
-    Returns
-    -------
-    (pd.DataFrame, pd.DataFrame)
-        A tuple of (filtered_reps_df, meta_df).
+    for each source:
+      - create 'motif' column in meta by looking up accession membership in reps['profiles']
+      - drop meta rows with no matching accession in reps
+      - if an accession appears under multiple motifs in reps, warn and drop those rows from meta
+    returns (merged, kept_sources)
     """
-    meta_df = pd.read_csv(meta_file)
+    merged = {}
 
-    # create mapping from 'id_col' to 'accession'
-    # for example, if id_col='sample_id', we map sample_id -> accession
-    # if id_col='accession', then it essentially maps accession -> accession.
-    id_map = dict(zip(meta_df[id_col], meta_df["accession"]))
+    for s in sources:
+        r_df = reps[s]
+        m_df = meta[s].copy()
 
-    # accessions found in the metadata
-    valid_accessions = set(meta_df["accession"])
-    reps_subset = reps_df[["motif", "profiles"]].copy()
+        # accession -> motif map
+        acc_to_motif = {}
+        conflicts = set()
+        for _, row in r_df.iterrows():
+            motif = row["motif"]
+            for acc in _split_profiles(row["profiles"]):
+                # if already mapped, check consistency
+                if acc in acc_to_motif and acc_to_motif[acc] != motif:
+                    conflicts.add(acc)
+                else:
+                    acc_to_motif.setdefault(acc, motif)
 
-    # replace each ID in 'profiles' with the corresponding 'accession'
-    if id_col != "accession":
-        reps_subset["profiles"] = reps_subset["profiles"].apply(
-            lambda x: map_and_replace_ids(x, id_map)
-        )
-
-    # filter out any IDs in 'profiles' that are not in 'valid_accessions'
-    reps_subset["profiles"] = reps_subset["profiles"].apply(
-        lambda x: filter_profiles(x, valid_accessions)
-    )
-
-    reps_subset.to_csv(output_file, index=False)
-
-    return reps_subset, meta_df
+        if conflicts:
+            warnings.warn(
+                f"source '{s}': {len(conflicts)} accessions belong to multiple motifs "
+                f"(e.g., {sorted(list(conflicts))[:5]}...) — dropping these profiles."
+            )
+        conflict_mask = m_df["accession"].isin(conflicts)
 
 
-def map_and_replace_ids(profiles_str, id_map):
+        # add motif col to meta df
+        m_df["motif"] = m_df["accession"].map(acc_to_motif)
+
+        # missing motifs
+        no_match_mask = m_df["motif"].isna()
+        n_no_match = int(no_match_mask.sum())
+        if n_no_match:
+            warnings.warn(
+                f"source '{s}': {n_no_match} meta accessions not found in representatives "
+                f"(e.g., {sorted(m_df.loc[no_match_mask, 'accession'].astype(str).tolist())[:5]}...) — dropping"
+            )
+
+        keep_mask = ~(no_match_mask | conflict_mask)
+        m_df = m_df.loc[keep_mask].reset_index(drop=True)
+
+        merged[s] = m_df
+
+    return merged
+
+
+def merge_sources(motif_meta: dict):
     """
-    For a space-delimited string of IDs, look up each ID in 'id_map' and replace it
-    with the mapped value (e.g. sample_id -> accession). If the ID is not found
-    in 'id_map', keep or discard it based on your needs.
+    motif_meta: dict[source -> df] (df includes 'accession' and 'motif')
+    returns a single df with a 'source' column, duplicates dropped on `dedup_on`
+    warns if duplicate accessions have conflicting motif values
     """
-    if pd.isna(profiles_str) or not profiles_str.strip():
-        return ""
-    ids = profiles_str.strip().split()
+    parts = []
+    for s, df in motif_meta.items():
+        tmp = df.copy()
+        tmp["source"] = s
+        parts.append(tmp)
 
-    # replace each ID using the dictionary; keep if not found or remove it
-    mapped = [
-        id_map[i] if i in id_map else i
-        for i in ids
-    ]
-    return " ".join(mapped)
+    if not parts:
+        return pd.DataFrame()
+
+    all_meta = pd.concat(parts, ignore_index=True)
+
+    # duplicate accessions
+    dedup_on = "accession"
+    if "motif" in all_meta.columns:
+        conflicts = (all_meta.groupby(dedup_on)["motif"]
+                             .nunique(dropna=False)
+                             .reset_index())
+        conflicts = conflicts[conflicts["motif"] > 1][dedup_on].astype(str).tolist()
+        if conflicts:
+            smpl = sorted(conflicts)[:5]
+            warnings.warn(
+                f"{len(conflicts)} {dedup_on} values have conflicting motif across sources "
+                f"(e.g., {smpl}...) — keeping first occurrence"
+            )
+
+    # drop duplicates, keep first occurrence
+    before = len(all_meta)
+    all_meta = all_meta.drop_duplicates(subset=[dedup_on], keep="first").reset_index(drop=True)
+    dropped = before - len(all_meta)
+    if dropped:
+        warnings.warn(f"dropped {dropped} duplicate rows on '{dedup_on}' (kept first)")
+
+    return all_meta
 
 
-def merge_representatives(df1, df2, df3, out_csv):
+def write_split_df(df: pd.DataFrame, target_path_prefix: str | None = None, *,
+                   reps_path: str | None = None, meta_path: str | None = None):
     """
-    Reads three CSVs with columns [motif, profiles].
-    Merges them on 'motif', unions the profiles for each motif (removing duplicates),
-    and writes a final CSV with columns [motif, profiles].
+    Split a single merged df into representatives + metadata CSVs.
+
+    If reps_path/meta_path are provided, they are used directly.
+    Otherwise, target_path_prefix is required and files are written to:
+      {prefix}_representatives.csv and {prefix}_metadata.csv
+
+    Returns dict with written file paths.
     """
-    df1 = df1.rename(columns={"profiles": "profiles1"})
-    df2 = df2.rename(columns={"profiles": "profiles2"})
-    df3 = df3.rename(columns={"profiles": "profiles3"})
-
-    # merge all on 'motif'
-    merged = (
-        df1.merge(df2, on="motif", how="outer")
-           .merge(df3, on="motif", how="outer")
-    )
-
-    # combine profiles into one space-separated string, no duplicates
-    def combine_profiles(row):
-        all_profiles = set()
-        for col in ["profiles1", "profiles2", "profiles3"]:
-            val = row.get(col, np.nan)
-            if pd.notna(val):
-                all_profiles.update(val.split())
-        return " ".join(sorted(all_profiles))
-
-    merged["profiles"] = merged.apply(combine_profiles, axis=1)
-
-    final_df = merged[["motif", "profiles"]]
-
-    final_df.to_csv(out_csv, index=False)
-    print(f"Merged CSV written to: {out_csv}")
-
-
-def check_same_profiles(reps, meta, column_reps = "profiles", column_meta = "accession"):
-    """
-    Reads the given reps and meta files to check that the accessions listed
-    are the same in both files, and prints warnings if they are not.
-
-    - reps: Path to either:
-      1) A TXT file (no header) with one accession per line, OR
-      2) A CSV file with columns [motif, num_profiles, profiles],
-         where 'profiles' is a space-separated string of accessions.
-    - meta: Path to a CSV file which must contain a column named 'accession'.
-    """
-    reps_ext = os.path.splitext(reps)[1].lower()
-    reps_accessions = set()
-
-    if reps_ext == ".txt":
-        with open(reps, "r", encoding="utf-8") as f:
-            for line in f:
-                line = line.strip()
-                if line:
-                    reps_accessions.add(line)
-
-    elif reps_ext == ".csv":
-        df_reps = pd.read_csv(reps)
-        if column_reps not in df_reps.columns:
-            raise ValueError(f"'{column_reps}' column not found in {reps} CSV file.")
-        for row in df_reps[column_reps].dropna():
-            acc_list = row.split()
-            reps_accessions.update(acc_list)
+    if reps_path or meta_path:
+        if not (reps_path and meta_path):
+            raise ValueError("provide both reps_path and meta_path, or neither")
     else:
-        raise ValueError(f"Unrecognized file extension '{reps_ext}' for reps file {reps}. Expected .txt or .csv")
+        if not target_path_prefix:
+            raise ValueError("either provide target_path_prefix or both reps_path and meta_path")
+        reps_path = f"{target_path_prefix}_representatives.csv"
+        meta_path = f"{target_path_prefix}_metadata.csv"
 
-    # metadata
-    meta_df = pd.read_csv(meta)
-    if column_meta not in meta_df.columns:
-        raise ValueError(f"'{column_meta}' column not found in meta CSV file: {meta}")
+    # for the rep file, group accessions by motif
+    g = (df.assign(accession=df["accession"].astype(str))
+           .groupby("motif", sort=False)["accession"]
+           .apply(list)
+           .reset_index(name="profiles_list"))
 
-    meta_accessions = set(meta_df[column_meta].dropna().astype(str))
+    reps_out = pd.DataFrame({
+        "motif": g["motif"],
+        "num_profiles": g["profiles_list"].map(len),
+        "profiles": g["profiles_list"].map(lambda lst: " ".join(lst)),
+    })
 
-    missing_in_meta = reps_accessions - meta_accessions
-    missing_in_reps = meta_accessions - reps_accessions
+    # for metafile,remove motif col
+    meta_cols = [c for c in df.columns if c in _META_ALLOWED]
+    meta_out = df[meta_cols].copy()
 
-    if missing_in_meta:
-        warnings.warn(f"WARNING: These {len(missing_in_meta)} accessions are in {reps} but not in {meta}:\n{missing_in_meta}",
-                      stacklevel=2)
-    if missing_in_reps:
-        warnings.warn(f"WARNING: These {len(missing_in_reps)} accessions are in {meta} but not in {reps}:\n{missing_in_reps}",
-                      stacklevel=2)
+    reps_out.to_csv(reps_path, index=False)
+    meta_out.to_csv(meta_path, index=False)
+
+    return {"representatives": reps_path, "metadata": meta_path}
 
 
 def main():
 
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    # TODO this will not be needed, when empops reps no longer has commas in the last col
-    remove_commas_in_last_col(EMPOP_REPS, EMPOP_REPS)
 
-    # ensure empop and genebank reps and metadata have the same profiles
-    # NOTE: No reps file available for 1k genomes, so no need to check
-    # NOTE: If a source is added, it should also be added here
-    # or even better:
-    # if adding sources is a regular thing, make a better pipeline to just import from a list of sources
-    check_same_profiles(EMPOP_REPS, EMPOP_META, column_meta="sample_id")
-    check_same_profiles(NCBI_REPS, NCBI_META)
+    # check for sources in inputfiles
+    reps, meta, sources = load_and_validate(INPUT_DIR)
+    print(f"Loaded Representatives and Metadata from the following {len(sources)} sources: {sources}.")
 
-    # read all representations
-    # this is the output of the tree building process
-    reps_df_all = pd.read_csv(ALL_REPS)
+    # check same profiles in both files and merge info
+    print("Performing Accession match check ...")
+    motif_meta = merge_motif_into_meta(reps,meta, sources)
+    print("Completed Accession match check.")
 
-    ############################################################
+    # combine the reps
+    print("Merging Profiles and Meta from all sources ...")
+    merged_motif_meta = merge_sources(motif_meta)
+    print(f"Number of merged profiles: {merged_motif_meta}.")
 
-    # filter all profiles present in the metadata files for each source
-    # function allows for different than accession column using 'id_col'
-    # TODO rewrite the next line, when empop format changes
-    print("Processing EMPOP.")
-    reps_empop, meta_df_empop = process_and_save_reps(EMPOP_META, reps_df_all, FORMATTED_EMPOP, id_col="sample_id")
-    print("Processing 1k Genomes.")
-    reps_1k, meta_df_1k = process_and_save_reps(K_META, reps_df_all, FORMATTED_1K)
-    print("Processing NCBI.")
-    reps_ncbi, meta_df_ncbi = process_and_save_reps(NCBI_META, reps_df_all, FORMATTED_NCBI)
+    # write to formatted files
+    print(f"Writing target files to {OUTPUT_DIR} ...")
+    # indiv
+    for s in sources:
+        r_p, m_p = write_split_df(motif_meta[s], target_path_prefix=os.path.join(OUTPUT_DIR, s))
+        print(f"Wrote {r_p} and {m_p} for source {s}.")
+    # combined
+    r_p, m_p = write_split_df(merged_motif_meta,
+                              reps_path=MOTIF_REPRESENTATIVES,
+                              meta_path=METADATA_REPRESENTATIVES
+                             )
+    print(f"wrote combined to:\n  reps: {r_p}\n  meta: {m_p}")
 
-    #############################################################
-
-    # combine reps
-
-    merge_representatives(reps_ncbi, reps_empop, reps_1k,
-        out_csv=MOTIF_REPRESENTATIVES
-    )
-
-    #############################################################
-
-    # combine metadata
-
-    meta_df_empop.drop("sample_id", axis=1, inplace=True)
-
-    meta_df_empop["source"] = "EMPOP"
-    meta_df_1k["source"] = "1K_GENOMES"
-    meta_df_ncbi["source"] = "NCBI"
-
-    combined_meta = pd.concat([meta_df_ncbi, meta_df_empop, meta_df_1k], axis=0, ignore_index=True)
-    combined_meta.to_csv(METADATA_REPRESENTATIVES, index=False)
-
-
-    #############################################################
-
-    print("Merging complete!\n")
+    print("Processing source inputfiles complete!")
 
 
 if __name__ == "__main__":

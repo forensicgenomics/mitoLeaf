@@ -26,15 +26,12 @@ PHYLO_SUPERHAPLO_FILE = os.path.join(INPUT_DIR, "phylo_superhaplogroups.txt")
 
 
 # reps and meta inputs
-ALL_REPS = os.path.join(INPUT_DIR, "mito_representatives.csv")
+# ALL_REPS = os.path.join(INPUT_DIR, "mito_representatives.csv")
 
-EMPOP_REPS = os.path.join(INPUT_DIR, "empop_representatives.csv")
-EMPOP_META = os.path.join(INPUT_DIR, "empop_metadata.csv")
-
-K_META = os.path.join(INPUT_DIR, "1000G_metadata.csv")
-
-NCBI_REPS = os.path.join(INPUT_DIR, "ncbi_representatives.txt")
-NCBI_META = os.path.join(INPUT_DIR, "ncbi_metadata.csv")
+######
+# Name the res and meta input files like .+_representatives.csv and .+_metadata.csv
+# All of those named pairs found in 'inputfiles' will be picked up!
+######
 
 
 #### OUTPUTS ####
@@ -43,12 +40,8 @@ NCBI_META = os.path.join(INPUT_DIR, "ncbi_metadata.csv")
 OUTPUT_DIR = os.path.join(INPUT_DIR, "formatted_files")
 
 # outputs
-FORMATTED_EMPOP = os.path.join(OUTPUT_DIR, "empop_representatives_formated.csv")
-FORMATTED_1K = os.path.join(OUTPUT_DIR, "k_genomes_representatives_formated.csv")
-FORMATTED_NCBI = os.path.join(OUTPUT_DIR, "ncbi_genomes_representatives_formated.csv")
-
-MOTIF_REPRESENTATIVES = os.path.join(OUTPUT_DIR, "representatives_combined.csv")
-METADATA_REPRESENTATIVES = os.path.join(OUTPUT_DIR, "metadata_combined.csv")
+MOTIF_REPRESENTATIVES = os.path.join(OUTPUT_DIR, "mito_representatives.csv")
+METADATA_REPRESENTATIVES = os.path.join(OUTPUT_DIR, "mito_metadata.csv")
 
 # destination where to write files
 # this should be the data dir within the dir used to build the webpage
