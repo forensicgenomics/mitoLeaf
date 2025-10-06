@@ -33,7 +33,7 @@ _meta_rx = re.compile(r"(.+)_metadata\.csv$", re.IGNORECASE)
 # allowed meta columns
 _META_ALLOWED = {
     "accession","pub_title","first_aut","pubmed_id","pub_date",
-    "geo_origin","asm_method","seq_tech"
+    "geo_origin","asm_method","seq_tech", "source"
 }
 # two valid reps schemas
 _REPS_SCHEMA = {
