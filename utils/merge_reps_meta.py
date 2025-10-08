@@ -17,14 +17,18 @@
 import os
 import warnings
 import re
+import shutil
+
 import pandas as pd
 from pathlib import Path
-
+from utils.diff_check import main as diff_check
 from utils.path_defaults import (OUTPUT_DIR,
                                  MOTIF_REPRESENTATIVES,
                                  METADATA_REPRESENTATIVES,
                                  INPUT_DIR,
-                                 PIPELINE_LOG_FILE)
+                                 PIPELINE_LOG_FILE,
+                                 DIFF_CHECK_DIR,
+                                 OLD_DAT)
 
 ### defaults ###
 # path matching for sources
@@ -36,7 +40,7 @@ _META_ALLOWED = {
     "accession","pub_title","first_aut","pubmed_id","pub_date",
     "geo_origin","asm_method","seq_tech", "source"
 }
-# two valid reps schemas
+# cols needed in reps files
 _REPS_SCHEMA = {
     "motif","profiles"
 }
@@ -342,6 +346,19 @@ def main():
     # clear logfile
     open(PIPELINE_LOG_FILE, 'w').close()
 
+    # to catch diffs
+    # clear old diffs
+    if os.path.exists(DIFF_CHECK_DIR):
+        shutil.rmtree(DIFF_CHECK_DIR)  # remove folder and everything inside
+    os.makedirs(DIFF_CHECK_DIR, exist_ok=True)
+    # save current as old
+    os.makedirs(OLD_DAT, exist_ok=True)
+    try:
+        shutil.copy(MOTIF_REPRESENTATIVES, os.path.join(OLD_DAT, "reps.csv"))
+        shutil.copy(METADATA_REPRESENTATIVES, os.path.join(OLD_DAT, "meta.csv"))
+    except FileNotFoundError as f:
+        print(f"No old formatted files found: {f}")
+
     # check for sources in inputfiles
     reps, meta, sources = load_and_validate(INPUT_DIR)
     print(f"Loaded Representatives and Metadata from the following {len(sources)} sources: {sources}.")
@@ -369,7 +386,17 @@ def main():
                              )
     print(f"Wrote combined to:\n  reps: {r_p}\n  meta: {m_p}")
 
-    print("Processing source inputfiles complete!")
+    # compare to old to create diffs
+    try:
+        diff_check()
+        print(f"\nCreated differences Files to old data in: {OLD_DAT}")
+        shutil.rmtree(OLD_DAT)
+    except FileNotFoundError as f:
+        print(f"\nFiles missing for diff check to old : {f}")
+
+    print("\nProcessing source inputfiles complete!\n"
+          f"Check out the logfile {PIPELINE_LOG_FILE}for warnings and "
+          f"the differences dir {DIFF_CHECK_DIR} for changes relative to the previous inputfiles.")
 
 
 if __name__ == "__main__":
