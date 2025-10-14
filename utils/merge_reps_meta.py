@@ -144,8 +144,18 @@ def validate_and_filter(reps, meta, sources):
                                       items=missing, unit="columns")
             continue
 
-        # meta: need 'accession'
         m_cols = set(m_df.columns)
+        ################################
+        # empop fix for using sample_id insetad of accession
+        # just renameing the cols here
+        if s == "EMPOP" and "sample_id" in m_cols:
+                if "accession" in m_cols:
+                    m_df.rename(columns={"accession": "__EMP__accession"}, inplace=True)
+                m_df.rename(columns = {"sample_id": "accession"}, inplace=True)
+                m_cols = set(m_df.columns)
+                print(m_cols)
+        ###################################
+        # meta: need 'accession'
         if "accession" not in m_cols:
             warn_preview_and_log_full(
                 source=s,
@@ -362,7 +372,7 @@ def main():
     # check for sources in inputfiles
     reps, meta, sources = load_and_validate(INPUT_DIR)
     print(f"Loaded Representatives and Metadata from the following {len(sources)} sources: {sources}.")
-
+    print(meta["EMPOP"])
     # check same profiles in both files and merge info
     print("Performing Accession match check ...")
     motif_meta = merge_motif_into_meta(reps, meta, sources, log_file=PIPELINE_LOG_FILE)
