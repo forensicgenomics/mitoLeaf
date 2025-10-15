@@ -17,13 +17,18 @@
 import os
 import warnings
 import re
+import shutil
+
 import pandas as pd
 from pathlib import Path
-
+from utils.diff_check import main as diff_check
 from utils.path_defaults import (OUTPUT_DIR,
                                  MOTIF_REPRESENTATIVES,
                                  METADATA_REPRESENTATIVES,
-                                 INPUT_DIR)
+                                 INPUT_DIR,
+                                 PIPELINE_LOG_FILE,
+                                 DIFF_CHECK_DIR,
+                                 OLD_DAT)
 
 ### defaults ###
 # path matching for sources
@@ -33,12 +38,47 @@ _meta_rx = re.compile(r"(.+)_metadata\.csv$", re.IGNORECASE)
 # allowed meta columns
 _META_ALLOWED = {
     "accession","pub_title","first_aut","pubmed_id","pub_date",
-    "geo_origin","asm_method","seq_tech"
+    "geo_origin","asm_method","seq_tech", "source"
 }
-# two valid reps schemas
+# cols needed in reps files
 _REPS_SCHEMA = {
     "motif","profiles"
 }
+
+
+def _norm_acc(x):
+    # keep version suffixes like .1 but strip trailing +
+    return str(x).strip().rstrip('+')
+
+
+def _split_profiles(x):
+    if pd.isna(x) or x == "":
+        return []
+    return [_norm_acc(tok) for tok in str(x).split()]
+
+
+def warn_preview_and_log_full(*, source: str | None, issue: str, items, unit: str = "items", preview_n: int = 5, log_path: str | None = None):
+    """
+    Console: warnings.warn with up to preview_n examples.
+    Logfile: writes the full list (one per line) to WARN_LOG_PATH or provided log_path.
+    """
+    items = list(items)
+    if not items:
+        return
+    items_sorted = list(map(str, sorted(items)))
+    preview = ", ".join(items_sorted[:preview_n])
+    prefix = f"source '{source}': " if source is not None else ""
+
+    # console preview
+    warnings.warn(f"{prefix}{len(items)} {issue} (e.g., {preview}...)")
+
+    # full list to logfile
+    path = log_path or PIPELINE_LOG_FILE
+    if path:
+        with open(path, "a", encoding="utf-8") as f:
+            f.write(f"{prefix}{issue} — total {len(items)} {unit}:\n")
+            for it in items_sorted:
+                f.write(f"{it}\n")
 
 
 def load_sources(directory):
@@ -63,10 +103,14 @@ def load_sources(directory):
     # check completeness
     rep_only  = sorted(set(reps_files) - set(meta_files))
     meta_only = sorted(set(meta_files) - set(reps_files))
-    for s in rep_only:
-        warnings.warn(f"ignoring source '{s}': missing _metadata.csv")
-    for s in meta_only:
-        warnings.warn(f"ignoring source '{s}': missing _representatives.csv")
+    if rep_only:
+        warn_preview_and_log_full(source=None,
+                                  issue="sources missing _metadata.csv",
+                                  items=rep_only, unit="sources")
+    if meta_only:
+        warn_preview_and_log_full(source=None,
+                                  issue="sources missing _representatives.csv",
+                                  items=meta_only, unit="sources")
 
     complete_sources = sorted(set(reps_files) & set(meta_files))
 
@@ -94,26 +138,39 @@ def validate_and_filter(reps, meta, sources):
         # reps: need 'motif' and 'profiles'
         r_cols = list(r_df.columns)
         if not _REPS_SCHEMA.issubset(r_cols):
-            warnings.warn(
-                f"source '{s}': representatives missing required columns "
-                f"{sorted(_REPS_SCHEMA - set(r_cols))} — excluding source"
-            )
+            missing = sorted(_REPS_SCHEMA - set(r_cols))
+            warn_preview_and_log_full(source=s,
+                                      issue="representatives missing required columns",
+                                      items=missing, unit="columns")
             continue
 
-        # meta: need 'accession'
         m_cols = set(m_df.columns)
+        ################################
+        # empop fix for using sample_id insetad of accession
+        # just renameing the cols here
+        if s == "EMPOP" and "sample_id" in m_cols:
+                if "accession" in m_cols:
+                    m_df.rename(columns={"accession": "__EMP__accession"}, inplace=True)
+                m_df.rename(columns = {"sample_id": "accession"}, inplace=True)
+                m_cols = set(m_df.columns)
+        ###################################
+        # meta: need 'accession'
         if "accession" not in m_cols:
-            warnings.warn(f"source '{s}': meta missing required column 'accession' — excluding source")
+            warn_preview_and_log_full(
+                source=s,
+                issue="meta missing required column — excluding source",
+                items=["accession"],
+                unit="column",
+            )
             continue
 
         # warn on unexpected meta columns and remove them
         unexpected = sorted(m_cols - _META_ALLOWED)
-        m_df = m_df.drop(unexpected, axis=1)
         if unexpected:
-            warnings.warn(
-                f"source '{s}': meta has unexpected columns {unexpected}, dropping."
-                f"(recognized columns: {sorted(_META_ALLOWED)})"
-            )
+            warn_preview_and_log_full(source=s,
+                                      issue="meta has unexpected columns (dropping)",
+                                      items=unexpected, unit="columns")
+        m_df = m_df.drop(unexpected, axis=1)
 
         # keep source
         reps_ok[s] = r_df
@@ -128,14 +185,7 @@ def load_and_validate(directory):
     return validate_and_filter(reps, meta, sources)
 
 
-def _split_profiles(x):
-    # accept NaN/None/empty -> []
-    if pd.isna(x) or x == "":
-        return []
-    return str(x).split()
-
-
-def merge_motif_into_meta(reps, meta, sources, drop_empty_sources=True):
+def merge_motif_into_meta(reps, meta, sources, log_file=None):
     """
     for each source:
       - create 'motif' column in meta by looking up accession membership in reps['profiles']
@@ -148,6 +198,9 @@ def merge_motif_into_meta(reps, meta, sources, drop_empty_sources=True):
     for s in sources:
         r_df = reps[s]
         m_df = meta[s].copy()
+
+        # remove possible trailing +
+        m_df["accession"] = m_df["accession"].astype(str).map(_norm_acc)
 
         # accession -> motif map
         acc_to_motif = {}
@@ -162,12 +215,26 @@ def merge_motif_into_meta(reps, meta, sources, drop_empty_sources=True):
                     acc_to_motif.setdefault(acc, motif)
 
         if conflicts:
-            warnings.warn(
-                f"source '{s}': {len(conflicts)} accessions belong to multiple motifs "
-                f"(e.g., {sorted(list(conflicts))[:5]}...) — dropping these profiles."
+            warn_preview_and_log_full(
+                source=s,
+                issue="accessions belong to multiple motifs — dropping these profiles",
+                items=conflicts,
+                unit="accessions",
             )
+
         conflict_mask = m_df["accession"].isin(conflicts)
 
+        # check rep accession not found in meta
+        reps_acc = {a for lst in r_df["profiles"].map(_split_profiles) for a in lst}
+        meta_acc = set(m_df["accession"].astype(str))
+        reps_missing_in_meta = sorted(reps_acc - meta_acc)
+        if reps_missing_in_meta:
+            warn_preview_and_log_full(
+                source=s,
+                issue="accessions referenced in representatives but not found in meta — ignored",
+                items=reps_missing_in_meta,
+                unit="accessions",
+            )
 
         # add motif col to meta df
         m_df["motif"] = m_df["accession"].map(acc_to_motif)
@@ -176,9 +243,12 @@ def merge_motif_into_meta(reps, meta, sources, drop_empty_sources=True):
         no_match_mask = m_df["motif"].isna()
         n_no_match = int(no_match_mask.sum())
         if n_no_match:
-            warnings.warn(
-                f"source '{s}': {n_no_match} meta accessions not found in representatives "
-                f"(e.g., {sorted(m_df.loc[no_match_mask, 'accession'].astype(str).tolist())[:5]}...) — dropping"
+            nomatch = m_df.loc[no_match_mask, "accession"].astype(str).tolist()
+            warn_preview_and_log_full(
+                source=s,
+                issue="meta accessions not found in representatives — dropping",
+                items=nomatch,
+                unit="accessions",
             )
 
         keep_mask = ~(no_match_mask | conflict_mask)
@@ -214,18 +284,25 @@ def merge_sources(motif_meta: dict):
                              .reset_index())
         conflicts = conflicts[conflicts["motif"] > 1][dedup_on].astype(str).tolist()
         if conflicts:
-            smpl = sorted(conflicts)[:5]
-            warnings.warn(
-                f"{len(conflicts)} {dedup_on} values have conflicting motif across sources "
-                f"(e.g., {smpl}...) — keeping first occurrence"
+            warn_preview_and_log_full(
+                source=None,
+                issue=f"{dedup_on} values have conflicting motif across sources — keeping first occurrence",
+                items=conflicts,
+                unit="accessions",
             )
 
     # drop duplicates, keep first occurrence
-    before = len(all_meta)
+    dup_mask = all_meta.duplicated(subset=[dedup_on], keep="first")
+    dropped_vals = all_meta.loc[dup_mask, dedup_on].astype(str).tolist()
+    if dropped_vals:
+        warn_preview_and_log_full(
+            source=None,
+            issue=f"duplicate rows on '{dedup_on}' (kept first) — dropped",
+            items=dropped_vals,
+            unit="accessions",
+        )
+
     all_meta = all_meta.drop_duplicates(subset=[dedup_on], keep="first").reset_index(drop=True)
-    dropped = before - len(all_meta)
-    if dropped:
-        warnings.warn(f"dropped {dropped} duplicate rows on '{dedup_on}' (kept first)")
 
     return all_meta
 
@@ -275,6 +352,21 @@ def write_split_df(df: pd.DataFrame, target_path_prefix: str | None = None, *,
 def main():
 
     os.makedirs(OUTPUT_DIR, exist_ok=True)
+    # clear logfile
+    open(PIPELINE_LOG_FILE, 'w').close()
+
+    # to catch diffs
+    # clear old diffs
+    if os.path.exists(DIFF_CHECK_DIR):
+        shutil.rmtree(DIFF_CHECK_DIR)  # remove folder and everything inside
+    os.makedirs(DIFF_CHECK_DIR, exist_ok=True)
+    # save current as old
+    os.makedirs(OLD_DAT, exist_ok=True)
+    try:
+        shutil.copy(MOTIF_REPRESENTATIVES, os.path.join(OLD_DAT, "reps.csv"))
+        shutil.copy(METADATA_REPRESENTATIVES, os.path.join(OLD_DAT, "meta.csv"))
+    except FileNotFoundError as f:
+        print(f"No old formatted files found: {f}")
 
     # check for sources in inputfiles
     reps, meta, sources = load_and_validate(INPUT_DIR)
@@ -282,7 +374,7 @@ def main():
 
     # check same profiles in both files and merge info
     print("Performing Accession match check ...")
-    motif_meta = merge_motif_into_meta(reps,meta, sources)
+    motif_meta = merge_motif_into_meta(reps, meta, sources, log_file=PIPELINE_LOG_FILE)
     print("Completed Accession match check.")
 
     # combine the reps
@@ -303,7 +395,17 @@ def main():
                              )
     print(f"Wrote combined to:\n  reps: {r_p}\n  meta: {m_p}")
 
-    print("Processing source inputfiles complete!")
+    # compare to old to create diffs
+    try:
+        diff_check()
+        print(f"\nCreated differences Files to old data in: {OLD_DAT}")
+        shutil.rmtree(OLD_DAT)
+    except FileNotFoundError as f:
+        print(f"\nFiles missing for diff check to old : {f}")
+
+    print("\nProcessing source inputfiles complete!\n"
+          f"Check out the logfile {PIPELINE_LOG_FILE}for warnings and "
+          f"the differences dir {DIFF_CHECK_DIR} for changes relative to the previous inputfiles.")
 
 
 if __name__ == "__main__":

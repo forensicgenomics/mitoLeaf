@@ -79,7 +79,7 @@ def update_version_md(
             last_run_date = f.read().strip()
             last_run_line = f"latest ncbi profiles fetch: {last_run_date}"
         with open(out_path, "a+", encoding="utf-8", newline="\n") as out:
-            out.write(last_run_line + "\n")
+            out.write("\n" + last_run_line + "\n")
     else:
         warnings.warn("'{last_run_path}' is empty; skipping last-run line.")
 

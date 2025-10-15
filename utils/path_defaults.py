@@ -25,8 +25,6 @@ PHYLO_SUPERHAPLO_FILE = os.path.join(INPUT_DIR, "phylo_superhaplogroups.txt")
 
 
 # reps and meta inputs
-# ALL_REPS = os.path.join(INPUT_DIR, "mito_representatives.csv")
-
 ######
 # Name the res and meta input files like .+_representatives.csv and .+_metadata.csv
 # All of those named pairs found in 'inputfiles' will be picked up!
@@ -37,6 +35,10 @@ PHYLO_SUPERHAPLO_FILE = os.path.join(INPUT_DIR, "phylo_superhaplogroups.txt")
 
 # output dir
 OUTPUT_DIR = os.path.join(INPUT_DIR, "formatted_files")
+# data pipeline log file
+PIPELINE_LOG_FILE = os.path.join(OUTPUT_DIR, "pipeline.log")
+DIFF_CHECK_DIR = os.path.join(OUTPUT_DIR, "diff_check")
+OLD_DAT = os.path.join(DIFF_CHECK_DIR, "diff_check")
 
 # outputs
 MOTIF_REPRESENTATIVES = os.path.join(OUTPUT_DIR, "mito_representatives.csv")

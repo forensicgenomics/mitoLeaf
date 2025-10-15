@@ -79,7 +79,8 @@ document.addEventListener('DOMContentLoaded', function () {
                             </thead>
                             <tbody id="profile-list"></tbody>
                         </table>
-                        <button id="show-more-profiles" class="btn btn-secondary d-none btn-sm">Show All</button>
+                    <button id="show-more-profiles" class="btn btn-secondary d-none btn-sm">show more</button>
+                    <button id="download-profiles" class="btn btn-outline-secondary d-none btn-sm me-2">download csv</button>
                     </div>
                 </div>
                 <div class="card mb-3">
@@ -100,7 +101,8 @@ document.addEventListener('DOMContentLoaded', function () {
                             </thead>
                             <tbody id="children-list"></tbody>
                         </table>
-                        <button id="show-more-descendants" class="btn btn-secondary d-none btn-sm">Show All</button>
+                        <button id="download-descendants" class="btn btn-outline-secondary btn-sm me-2 d-none">download csv</button>
+                        <button id="show-more-descendants" class="btn btn-secondary btn-sm d-none">show more</button>
                     </div>
                 </div>
                 <div class="card mb-3">
@@ -113,10 +115,19 @@ document.addEventListener('DOMContentLoaded', function () {
         // lineage tree
         displayAncestors(getAncestors(node));
         // accession profiles table
-        console.log(profilesData.length);
-        displayTable(node, profilesData, 'profiles-section', 'profile-list', 'show-more-profiles', 'profiles', 3, generateProfileRow);
+        displayTable(
+          node, profilesData,
+          'profiles-section', 'profile-list',
+          'show-more-profiles', 'download-profiles',
+          'profiles', 3, generateProfileRow
+        );
         // children table
-        displayTable(node, node.children || [], 'descendants-section', 'children-list', 'show-more-descendants', 'descendants', 3, generateHGRow);
+        displayTable(
+          node, node.children || [],
+          'descendants-section', 'children-list',
+          'show-more-descendants', 'download-descendants',
+          'descendants', 3, generateHGRow
+        );
 
         // subtree button handler to redirect to linear tree page
         if (viewSubtreeButton) {
@@ -150,67 +161,116 @@ document.addEventListener('DOMContentLoaded', function () {
         return ancestors;
     }
 
-    // generic table with a limit and a "Show All" button
-    // the input "type" determines which table to display
-    // supply the current node as well as the data to display in the table
-    // supply the given list and button refs and row generating function
-    // generates the table by calling the row gen function up to the supplied limit
-    // builds the html element within the "sectionId"
-    function displayTable(node, data, sectionId, listId, buttonId, type, limit, generateRowFn) {
-        const section = document.getElementById(sectionId);
-        const list = document.getElementById(listId);
-        const showMoreButton = document.getElementById(buttonId);
+// generic table with a limit and a "Show All" button
+// the input "type" determines which table to display
+// supply the current node as well as the data to display in the table
+// supply the given list and button refs and row generating function
+// generates the table by calling the row gen function up to the supplied limit
+// builds the html element within the "sectionId"
+// allows downloads and show more button
+function displayTable(node, data, sectionId, listId, showMoreBtnId, downloadBtnId, type, limit, generateRowFn) {
+    const section = document.getElementById(sectionId);
+    const list = document.getElementById(listId);
+    const showMoreBtn = document.getElementById(showMoreBtnId);
+    const downloadBtn = document.getElementById(downloadBtnId);
 
-        list.innerHTML = '';
+    list.innerHTML = '';
 
-        // filter input data based on type
-        let filteredData = [];
-        if (type === 'profiles' && node.data.profiles) {
-            filteredData = data.filter(profile => {
-                const matches = node.data.profiles.filter(nodeProfileAcc => {
-                    // compare without trailing '+' but store value with + in data
-                    // so that the table row shows the +
-                    if (nodeProfileAcc.replace(/\+$/, '') === profile.accession) {
-                        profile.accession = nodeProfileAcc;
-                        return true;
-                    }
-                    return false;
-                });
-
-                return matches.length > 0; // true if there's a match
-            });
-        } else if (type === 'descendants') {
-            filteredData = data;
-        }
-
-        if (filteredData.length > 0) {
-            section.classList.remove('d-none');
-
-            // generate rows up to limit number
-            const initialData = filteredData.slice(0, limit);
-            initialData.forEach(item => {
-                list.appendChild(generateRowFn(item));
-            });
-
-            // button handler to extend limit
-            if (filteredData.length > limit) {
-                showMoreButton.classList.remove('d-none');
-                showMoreButton.style.marginTop = '0px';
-                showMoreButton.addEventListener('click', function () {
-                    list.innerHTML = '';
-                    filteredData.forEach(item => {
-                        list.appendChild(generateRowFn(item));
-                    });
-                    showMoreButton.classList.add('d-none');
-                });
+    // filter input data based on type
+    let filteredData = [];
+    if (type === 'profiles' && node.data.profiles) {
+        filteredData = data.filter(profile => {
+          const matches = node.data.profiles.filter(nodeProfileAcc => {
+            if (nodeProfileAcc.replace(/\+$/, '') === profile.accession) {
+              profile.accession = nodeProfileAcc;
+              return true;
             }
-        } else {
-            section.classList.add('d-none');
-        }
+            return false;
+          });
+          return matches.length > 0;
+        });
+    } else if (type === 'descendants') {
+        filteredData = data;
     }
 
-    // generates a table row for a given profile
-    // returns html element
+    if (filteredData.length === 0) {
+        section.classList.add('d-none');
+        if (showMoreBtn) showMoreBtn.classList.add('d-none');
+        if (downloadBtn) downloadBtn.classList.add('d-none');
+        return;
+    }
+    section.classList.remove('d-none');
+
+    let shown = 0;
+    const step = 10;
+    // show n more instead of all
+    function renderMore(n) {
+        const next = Math.min(shown + n, filteredData.length);
+        for (let i = shown; i < next; i++) {
+          list.appendChild(generateRowFn(filteredData[i]));
+        }
+        shown = next;
+
+        // toggle show more visibility
+        if (shown >= filteredData.length) {
+          showMoreBtn?.classList.add('d-none');
+        } else {
+          showMoreBtn?.classList.remove('d-none');
+        }
+
+        downloadBtn?.classList.remove('d-none');
+    }
+
+    renderMore(limit);
+
+    if (showMoreBtn) {
+    showMoreBtn.onclick = () => renderMore(step);
+    }
+
+    if (downloadBtn) {
+    downloadBtn.onclick = () => {
+      const table = section.querySelector('table');
+      if (!table) return;
+
+      const headers = Array.from(table.querySelectorAll('thead th'))
+        .map(th => th.textContent.trim());
+
+      const rows = filteredData.map(item => {
+        const tr = generateRowFn(item);
+        return Array.from(tr.querySelectorAll('td')).map(td => td.textContent.trim());
+      });
+
+      const csv = toCSV([headers, ...rows]);
+      const fname = `${type}-${(node.data?.name || 'list')}-${new Date().toISOString().slice(0,10)}.csv`
+        .replace(/\s+/g, '_');
+
+      downloadTextFile(csv, fname, 'text/csv;charset=utf-8');
+    };
+}
+
+  // creates a csv from the table to download
+  function toCSV(rows) {
+    const esc = v => `"${String(v).replace(/"/g, '""')}"`;
+    return rows.map(r => r.map(esc).join(',')).join('\n');
+  }
+
+  function downloadTextFile(text, filename, mime) {
+    const blob = new Blob([text], { type: mime || 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    URL.revokeObjectURL(url);
+    a.remove();
+  }
+}
+
+
+// generates a table row for a given profile
+// returns html element
 function generateProfileRow(profile) {
   const row = document.createElement('tr');
 
