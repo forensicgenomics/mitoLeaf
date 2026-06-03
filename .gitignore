@@ -5,4 +5,6 @@
 *.Rproj
 .idea
 .gitattributes
-legacy_input
+legacy_input__pycache__/
+**/__pycache__/
+*.pyc
