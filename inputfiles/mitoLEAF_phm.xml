@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 rCRS based Version
-mitoTree Version 1.4
-Created 12.05.2025
+mitoLeaf Version 1.5
+Created 28.07.2026
 Nr of active Nodes: 6409
+-->
+<!--
+28.07.2026:
+removal of 16262C in haplogroups L5a1b1, L5a2a2
+16262C is rCRS and was a bug.
 -->
 <!--
 12.05.2025:
@@ -534,7 +539,7 @@ haplogroup L5b2: replaced G7972G by @7972
                 <Node Id="L5a1a2" HG="5783A 8697A 14470C 16189T"/>
               </Node>
               <Node Id="L5a1b" HG="14668T 14819C">
-                <Node Id="L5a1b1" HG="204C 537T 3438A 16187C 16262C">
+                <Node Id="L5a1b1" HG="204C 537T 3438A 16187C">
                   <Node Id="L5a1b1a" HG="13224C 16187C"/>
                 </Node>
               </Node>
@@ -553,7 +558,7 @@ haplogroup L5b2: replaced G7972G by @7972
                 <Node Id="L5a2a1" HG="678C 1211A 3199A 5321T 8812G 9884T 12084T 16293G">
                   <Node Id="L5a2a1a" HG="499A 573.1C 9893T 10583G"/>
                 </Node>
-                <Node Id="L5a2a2" HG="16186T 16187C 16262C">
+                <Node Id="L5a2a2" HG="16186T 16187C">
                   <Node Id="L5a2a2a" HG="464G 5321T 5460A 5746A 9966A 11182G 16187C 16274A 16399G"/>
                 </Node>
               </Node>
