@@ -56,7 +56,7 @@ def update_version_md(
                 in_comment = False
                 break
             if in_comment:
-                if s.lower().startswith("mitotree version"):
+                if s.lower().startswith("mitotree version") or s.lower().startswith("mitoleaf version"):
                     mito_version = s
                 elif s.lower().startswith("created "):
                     created_line = s
@@ -65,7 +65,7 @@ def update_version_md(
                 continue
 
     if not mito_version or not created_line:
-        warnings.warn("could not find both 'mitoTree Version …' and 'Created …' lines in the xml header comment")
+        warnings.warn("could not find both 'mito(Tree/Leaf) Version …' and 'Created …' lines in the xml header comment")
 
     # convert dd.mm.yyyy -> mm-dd-yyyy
     created_line = _convert_dotted_date_to_mdY_in_line(created_line)
