@@ -5923,7 +5923,7 @@
                                                                     "children": [
                                                                         {
                                                                             "name": "L5a1b1a",
-                                                                            "HG": "13224C 16187C",
+                                                                            "HG": "13224C",
                                                                             "colorcode": "#f44336",
                                                                             "profiles": [
                                                                                 "EU092943.1"
@@ -6046,7 +6046,7 @@
                                                                     "children": [
                                                                         {
                                                                             "name": "L5a2a2a",
-                                                                            "HG": "464G 5321T 5460A 5746A 9966A 11182G 16187C 16274A 16399G",
+                                                                            "HG": "464G 5321T 5460A 5746A 9966A 11182G 16274A 16399G",
                                                                             "colorcode": "#f44336",
                                                                             "profiles": [
                                                                                 "KC622109.1",
@@ -6133,7 +6133,7 @@
                                                         },
                                                         {
                                                             "name": "L5b1c",
-                                                            "HG": "182C 16233G 16311T",
+                                                            "HG": "182C 16233G",
                                                             "colorcode": "#f44336",
                                                             "profiles": null,
                                                             "children": [
@@ -8956,7 +8956,7 @@
                                                                                                     "children": [
                                                                                                         {
                                                                                                             "name": "L2b1a2a1",
-                                                                                                            "HG": "152T 204T 3253C 12895A",
+                                                                                                            "HG": "204T 3253C 12895A",
                                                                                                             "colorcode": "#f44336",
                                                                                                             "profiles": [
                                                                                                                 "JQ044890.1",
@@ -93911,7 +93911,7 @@
                                                                                     "children": [
                                                                                         {
                                                                                             "name": "R6a",
-                                                                                            "HG": "228A 11075C 14058T 16311T",
+                                                                                            "HG": "228A 11075C 14058T",
                                                                                             "colorcode": "#66bb6a",
                                                                                             "profiles": [
                                                                                                 "OM489681.1",
@@ -93929,7 +93929,7 @@
                                                                                                     "children": [
                                                                                                         {
                                                                                                             "name": "R6a1a",
-                                                                                                            "HG": "373G 961C 7316A 16311Y",
+                                                                                                            "HG": "373G 961C 7316A",
                                                                                                             "colorcode": "#66bb6a",
                                                                                                             "profiles": [
                                                                                                                 "FJ004816.1",
@@ -93944,7 +93944,7 @@
                                                                                                 },
                                                                                                 {
                                                                                                     "name": "R6a2",
-                                                                                                    "HG": "12133T 15067C 16266C 16311T",
+                                                                                                    "HG": "12133T 15067C 16266C",
                                                                                                     "colorcode": "#66bb6a",
                                                                                                     "profiles": [
                                                                                                         "GQ337567.1",
@@ -93953,7 +93953,7 @@
                                                                                                     "children": [
                                                                                                         {
                                                                                                             "name": "R6a2a",
-                                                                                                            "HG": "5894G 15100T 16213A 16266Y 16311Y",
+                                                                                                            "HG": "5894G 15100T 16213A 16266Y",
                                                                                                             "colorcode": "#66bb6a",
                                                                                                             "profiles": [
                                                                                                                 "AY714019.1",
@@ -102041,7 +102041,7 @@
                                                                                                                                 },
                                                                                                                                 {
                                                                                                                                     "name": "B4a1a8",
-                                                                                                                                    "HG": "185A 385G 12738T 15748C",
+                                                                                                                                    "HG": "185A 385G 15748C",
                                                                                                                                     "colorcode": "#66bb6a",
                                                                                                                                     "profiles": [
                                                                                                                                         "HM596699.1",
@@ -122084,7 +122084,7 @@
                                                                                                                                                                     "children": [
                                                                                                                                                                         {
                                                                                                                                                                             "name": "K1a4c1a1",
-                                                                                                                                                                            "HG": "152T 1250T 10410C 11782T 16169T",
+                                                                                                                                                                            "HG": "1250T 10410C 11782T 16169T",
                                                                                                                                                                             "colorcode": "#66bb6a",
                                                                                                                                                                             "profiles": [
                                                                                                                                                                                 "KM101937.1",
