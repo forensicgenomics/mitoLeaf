@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 rCRS based Version
-mitoLeaf Version 1.5
-Created 28.07.2026
+mitoLeaf Version 1.6
+Created 29.07.2026
 Nr of active Nodes: 6409
+-->
+<!--
+29.07.2026:
+removal of redundant repeats in child nodes (variant already present in parent state)
+152T in K1a4c1a1, L2b1a2a1
+16187C in L5a1b1a, L5a2a2a
+16311T in L5b1c
+
+removal of 12738T in B4a1a8 conversion error due to collapsing of B4a1a*1 and B4a1a*2 into B4a1a*
+
+R6: restored clade-wide inheritance of 16311Y
+removed 16311T in R6a, R6a2 and the redundant 16311Y in R6a1a, R6a2a
+according to fine-tuned paper: "for haplogroup R6 and subhaplogroups, the motifs
+were extended by 16311Y covering the familiar transition T16311C to cope with
+haplogroup P6 on the CR"
 -->
 <!--
 28.07.2026:
@@ -540,7 +555,7 @@ haplogroup L5b2: replaced G7972G by @7972
               </Node>
               <Node Id="L5a1b" HG="14668T 14819C">
                 <Node Id="L5a1b1" HG="204C 537T 3438A 16187C">
-                  <Node Id="L5a1b1a" HG="13224C 16187C"/>
+                  <Node Id="L5a1b1a" HG="13224C"/>
                 </Node>
               </Node>
               <Node Id="L5a1c" HG="513A 4137T">
@@ -559,7 +574,7 @@ haplogroup L5b2: replaced G7972G by @7972
                   <Node Id="L5a2a1a" HG="499A 573.1C 9893T 10583G"/>
                 </Node>
                 <Node Id="L5a2a2" HG="16186T 16187C">
-                  <Node Id="L5a2a2a" HG="464G 5321T 5460A 5746A 9966A 11182G 16187C 16274A 16399G"/>
+                  <Node Id="L5a2a2a" HG="464G 5321T 5460A 5746A 9966A 11182G 16274A 16399G"/>
                 </Node>
               </Node>
             </Node>
@@ -569,7 +584,7 @@ haplogroup L5b2: replaced G7972G by @7972
               <Node Id="L5b1a" HG="8152A 11065G 12215C">
                 <Node Id="L5b1a1" HG="11260C 16311C"/>
               </Node>
-              <Node Id="L5b1c" HG="182C 16233G 16311T">
+              <Node Id="L5b1c" HG="182C 16233G">
                 <Node Id="L5b1c1" HG="10609C 12381G 15241G 15604T 16368C"/>
                 <Node Id="L5b1c2" HG="15148A 15927A">
                   <Node Id="L5b1c2a" HG="5147A 11840T">
@@ -787,7 +802,7 @@ haplogroup L5b2: replaced G7972G by @7972
                     <Node Id="L2b1a" HG="146T 16355T">
                       <Node Id="L2b1a2" HG="7569G">
                         <Node Id="L2b1a2a" HG="152T 9168T 12557T 16368C">
-                          <Node Id="L2b1a2a1" HG="152T 204T 3253C 12895A"/>
+                          <Node Id="L2b1a2a1" HG="204T 3253C 12895A"/>
                         </Node>
                       </Node>
                       <Node Id="L2b1a3" HG="8856A">
@@ -7107,12 +7122,12 @@ haplogroup L5b2: replaced G7972G by @7972
                   </Node>
                   <Node Id="R6" HG="195Y 12285C 16266Y 16311Y 16362C">
                     <Node Id="R6+16129" HG="16129A">
-                      <Node Id="R6a" HG="228A 11075C 14058T 16311T">
+                      <Node Id="R6a" HG="228A 11075C 14058T">
                         <Node Id="R6a1" HG="6305A 8584A 8650T 16318G 16320T">
-                          <Node Id="R6a1a" HG="373G 961C 7316A 16311Y"/>
+                          <Node Id="R6a1a" HG="373G 961C 7316A"/>
                         </Node>
-                        <Node Id="R6a2" HG="12133T 15067C 16266C 16311T">
-                          <Node Id="R6a2a" HG="5894G 15100T 16213A 16266Y 16311Y"/>
+                        <Node Id="R6a2" HG="12133T 15067C 16266C">
+                          <Node Id="R6a2a" HG="5894G 15100T 16213A 16266Y"/>
                         </Node>
                       </Node>
                       <Node Id="R6c" HG="7202G 9449T 14470C 16172C"/>
@@ -7565,7 +7580,7 @@ haplogroup L5b2: replaced G7972G by @7972
                                   <Node Id="B4a1a6a" HG="3483A 8701R"/>
                                 </Node>
                                 <Node Id="B4a1a7" HG="6492T 13350G"/>
-                                <Node Id="B4a1a8" HG="185A 385G 12738T 15748C"/>
+                                <Node Id="B4a1a8" HG="185A 385G 15748C"/>
                               </Node>
                               <Node Id="B4a1+16311" HG="16311C">
                                 <Node Id="B4a1b" HG="9932A 10915C 13143C 16288C">
@@ -9086,7 +9101,7 @@ haplogroup L5b2: replaced G7972G by @7972
                                     <Node Id="K1a4c" HG="152C 12612G 13827G">
                                       <Node Id="K1a4c1" HG="5264T 13710G 16246T">
                                         <Node Id="K1a4c1a" HG="152T 13098G 13710A">
-                                          <Node Id="K1a4c1a1" HG="152T 1250T 10410C 11782T 16169T"/>
+                                          <Node Id="K1a4c1a1" HG="1250T 10410C 11782T 16169T"/>
                                         </Node>
                                       </Node>
                                     </Node>
